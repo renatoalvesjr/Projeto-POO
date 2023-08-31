@@ -8,6 +8,9 @@ public class Dieta {
     double gord;
     String createDate;
     String modifyDate;
+
+    public Dieta() {
+    }
     
     public Dieta(int id, String nome, double carb, double prot, double gord) {
         this.id = id;

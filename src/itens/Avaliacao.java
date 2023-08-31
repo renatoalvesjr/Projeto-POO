@@ -18,6 +18,10 @@ public class Avaliacao {
     String createDate;
     String modifyDate;
 
+    public Avaliacao() {
+    }
+
+    
     public Avaliacao(int id, Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril, int rotina) {
         this.id = id;
         this.pessoa = pessoa;

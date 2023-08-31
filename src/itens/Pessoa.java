@@ -12,6 +12,8 @@ public class Pessoa {
     String createDate;
     String modifyDate;
 
+    public Pessoa() {
+    }
     public Pessoa(int id, String nome, char sexo, String nascimento, String login, String senha, String userType) {
         this.id = id;
         this.nome = nome;

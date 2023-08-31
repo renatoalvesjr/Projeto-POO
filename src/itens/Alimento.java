@@ -12,6 +12,10 @@ public class Alimento {
     String createDate;
     String modifyDate;
 
+    public Alimento() {
+    }
+
+    
     public Alimento(int id, String nome, double carb, double prot, double gord, double cal, double porcao, String userType) {
         this.id = id;
         this.nome = nome;
