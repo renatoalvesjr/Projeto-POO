@@ -1,7 +1,5 @@
 package itens;
 
-import java.time.LocalDateTime;
-
 public class Alimento {
     int id;
     String nome;
@@ -11,8 +9,8 @@ public class Alimento {
     double cal;
     double porcao;
     String userType;
-    LocalDateTime createDate;
-    LocalDateTime modifyDate;
+    String createDate;
+    String modifyDate;
 
     public Alimento(int id, String nome, double carb, double prot, double gord, double cal, double porcao, String userType) {
         this.id = id;
@@ -23,11 +21,11 @@ public class Alimento {
         this.cal = cal;
         this.porcao = porcao;
         this.userType = userType;
-        this.createDate = LocalDateTime.now();
-        this.modifyDate = null;
+        this.createDate = Datas.dataAgora();
+        this.modifyDate = "";
     }
     void calcCaloria(){
         this.cal = (4*this.carb)+(4*this.prot)+(4*this.gord);
-        this.modifyDate = LocalDateTime.now();
+        this.modifyDate += Datas.dataAgora();
     }
 }

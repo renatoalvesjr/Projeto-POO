@@ -1,7 +1,5 @@
 package itens;
 
-import java.time.LocalDateTime;
-
 public class Avaliacao {
     int id;
     Pessoa pessoa;
@@ -17,8 +15,8 @@ public class Avaliacao {
     double bf;
     double massGorda;
     double massMagra;
-    LocalDateTime createDate;
-    LocalDateTime modifyDate;
+    String createDate;
+    String modifyDate;
 
     public Avaliacao(int id, Pessoa pessoa, double peso, double altura, int idade, double pescoco, double cintura, double quadril, int rotina) {
         this.id = id;
@@ -30,13 +28,13 @@ public class Avaliacao {
         this.cintura = cintura;
         this.quadril = quadril;
         this.rotina = rotina;
-        this.createDate = LocalDateTime.now();
-        this.modifyDate = null;
+        this.createDate = Datas.dataAgora();
+        this.modifyDate = "";
     }
     
     void calcIMC(){
         this.imc = this.peso/Math.pow(this.altura,2);
-        this.modifyDate = LocalDateTime.now();
+        this.modifyDate += Datas.dataAgora();
     }
     void calcTMB(){
         if(this.pessoa.sexo == 'M'){
@@ -44,7 +42,7 @@ public class Avaliacao {
         }else{
             this.tmb = this.rotina*(655+((9.6*this.peso)+(1.8*this.altura)-(4.7*this.idade)));
         }
-        this.modifyDate = LocalDateTime.now();
+        this.modifyDate += Datas.dataAgora();
     }
     void calcBF(){
         if(this.pessoa.sexo == 'M'){
@@ -54,7 +52,7 @@ public class Avaliacao {
         }
         this.massMagra = this.peso*(1-(this.bf/100));
         this.massGorda = this.peso*(this.bf/100);
-        this.modifyDate = LocalDateTime.now();
+        this.modifyDate += Datas.dataAgora();
     }
     
 }
