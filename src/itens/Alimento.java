@@ -19,7 +19,7 @@ public class Alimento {
     double prot;
     double gord;
     double cal;
-    int porcao;
+    double porcao;
     String userType;
     LocalDateTime createDate;
     LocalDateTime modifyDate;
