@@ -10,14 +10,21 @@ import java.time.LocalDateTime;
  *
  * @author grang
  */
-public class Pessoa {
+
+//Informações importantes: id, nome, carboidratos, proteínas, gorduras, calorias, porcao, tipoUsuario, dataCriacao, dataModificacao.
+public class Alimento {
     int id;
     String nome;
-    char sexo;
-    String nascimento;
-    String login;
-    String senha;
+    double carb;
+    double prot;
+    double gord;
+    double cal;
+    int porcao;
     String userType;
     LocalDateTime createDate;
     LocalDateTime modifyDate;
+    
+    void calcCaloria(){
+        this.cal = (4*this.carb)+(4*this.prot)+(4*this.gord);
+    }
 }

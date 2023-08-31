@@ -10,14 +10,16 @@ import java.time.LocalDateTime;
  *
  * @author grang
  */
-public class Pessoa {
+
+//Informações importantes: id, nome, carboidrato,  proteína, gordura, 
+//dataCriacao, dataModificacao.
+
+public class Dieta {
     int id;
     String nome;
-    char sexo;
-    String nascimento;
-    String login;
-    String senha;
-    String userType;
+    double carb;
+    double prot;
+    double gord;
     LocalDateTime createDate;
     LocalDateTime modifyDate;
 }
