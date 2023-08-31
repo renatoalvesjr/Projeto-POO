@@ -1,2 +1,2 @@
 # Projeto-POO
-Java 17 LTE
+JDK 17 LTE
