@@ -1,17 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itens;
 
 import java.time.LocalDateTime;
 
-/**
- *
- * @author grang
- */
-
-//Informações importantes: id, nome, carboidratos, proteínas, gorduras, calorias, porcao, tipoUsuario, dataCriacao, dataModificacao.
 public class Alimento {
     int id;
     String nome;

@@ -1,18 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package itens;
 
 import java.time.LocalDateTime;
-
-/**
- *
- * @author grang
- */
-
-//Informações importantes: id, pessoa, peso, altura, idade, pescoco, cintura, quadril, IMC, TMB, BF, massa gorda kg, 
-//massa magra kg, dataCriacao, dataModificacao.
 
 public class Avaliacao {
     int id;
