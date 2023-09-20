@@ -1,16 +1,16 @@
 package itens;
 
 public class Alimento {
-    int id;
-    String nome;
-    double carb;
-    double prot;
-    double gord;
-    double cal;
-    double porcao;
-    String userType;
-    String createDate;
-    String modifyDate;
+    private int id;
+    private String nome;
+    private double carb;
+    private double prot;
+    private double gord;
+    private double cal;
+    private double porcao;
+    private String userType;
+    private String createDate;
+    private String modifyDate;
 
     public Alimento() {
     }
@@ -29,7 +29,7 @@ public class Alimento {
         this.modifyDate = "";
     }
     void calcCaloria(){
-        this.cal = (4*this.carb)+(4*this.prot)+(4*this.gord);
+        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
         this.modifyDate += Datas.dataAgora();
     }
 }
