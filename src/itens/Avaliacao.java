@@ -1,22 +1,22 @@
 package itens;
 
 public class Avaliacao {
-    int id;
-    Pessoa pessoa;
-    double peso;
-    double altura;
-    int idade;
-    double pescoco;
-    double cintura;
-    double quadril;
-    int rotina;
-    double imc;
-    double tmb;
-    double bf;
-    double massGorda;
-    double massMagra;
-    String createDate;
-    String modifyDate;
+    private int id;
+    private Pessoa pessoa;
+    private double peso;
+    private double altura;
+    private int idade;
+    private double pescoco;
+    private double cintura;
+    private double quadril;
+    private int rotina;
+    private double imc;
+    private double tmb;
+    private double bf;
+    private double massGorda;
+    private double massMagra;
+    private String createDate;
+    private String modifyDate;
 
     public Avaliacao() {
     }
@@ -31,25 +31,24 @@ public class Avaliacao {
         this.pescoco = pescoco;
         this.cintura = cintura;
         this.quadril = quadril;
-        this.rotina = rotina;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
     
-    void calcIMC(){
+    public void calcIMC(){
         this.imc = this.peso/Math.pow(this.altura,2);
         this.modifyDate += Datas.dataAgora();
     }
-    void calcTMB(){
-        if(this.pessoa.sexo == 'M'){
+    public void calcTMB(){
+        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
             this.tmb = this.rotina*(66+((13.7*this.peso)+(5*this.altura)-(6.8*this.idade)));
         }else{
             this.tmb = this.rotina*(655+((9.6*this.peso)+(1.8*this.altura)-(4.7*this.idade)));
         }
         this.modifyDate += Datas.dataAgora();
     }
-    void calcBF(){
-        if(this.pessoa.sexo == 'M'){
+    public void calcBF(){
+        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
             this.bf = (163.205*Math.log10(this.cintura+this.quadril-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
         }else{
             this.bf = (86.010*Math.log10(this.cintura+this.quadril-this.pescoco))-(70.041*Math.log10(this.altura))+36.76;
