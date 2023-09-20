@@ -31,7 +31,6 @@ public class Avaliacao {
         this.pescoco = pescoco;
         this.cintura = cintura;
         this.quadril = quadril;
-        this.rotina = rotina;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -41,7 +40,7 @@ public class Avaliacao {
         this.modifyDate += Datas.dataAgora();
     }
     public void calcTMB(){
-        if(this.pessoa.sexo == 'M'){
+        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
             this.tmb = this.rotina*(66+((13.7*this.peso)+(5*this.altura)-(6.8*this.idade)));
         }else{
             this.tmb = this.rotina*(655+((9.6*this.peso)+(1.8*this.altura)-(4.7*this.idade)));
@@ -49,7 +48,7 @@ public class Avaliacao {
         this.modifyDate += Datas.dataAgora();
     }
     public void calcBF(){
-        if(this.pessoa.sexo == 'M'){
+        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
             this.bf = (163.205*Math.log10(this.cintura+this.quadril-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
         }else{
             this.bf = (86.010*Math.log10(this.cintura+this.quadril-this.pescoco))-(70.041*Math.log10(this.altura))+36.76;
