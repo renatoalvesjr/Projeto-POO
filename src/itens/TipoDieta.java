@@ -8,26 +8,20 @@ package itens;
  *
  * @author grang
  */
-public class TipoDieta extends Dieta{
-    int id;
-    String nome;
-    String createDate;
-    String modifyDate;
+public class TipoDieta{
+    private int id;
+    private String nome;
+    private double carb;
+    private double prot;
+    private double gord;
+    private String createDate;
+    private String modifyDate;
 
-    public TipoDieta(int id, String nome) {
+    public TipoDieta(int id) {
         this.id = id;
         
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
-        if(id==0){
-            this.nome = nome;
-        }else if(id==1){
-            this.nome = nome;
-        }else if(id==2){
-            this.nome = nome;
-        }else if(id==3){
-            this.nome = nome;
-        }else{
         
-        }
+    }
 }
