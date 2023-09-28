@@ -83,22 +83,41 @@ public class Alimento {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
     public String getModifyDate() {
         return modifyDate;
     }
-
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = modifyDate;
-    }
-    
-    
 
     void calcCaloria(){
         this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
         this.modifyDate += Datas.dataAgora();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Alimento other = (Alimento) obj;
+        return this.id == other.id;
+    }
+
+    @Override
+    public String toString() {
+        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcao + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+    }
+    
+    
 }
