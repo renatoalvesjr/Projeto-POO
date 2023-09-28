@@ -139,4 +139,14 @@ public class AlimentoDAO {
         }
         return false;
     }
+    
+    boolean alimentoVazio(){
+        for (int i = 0; i < alimentos.length; i++) {
+            if(alimentos[i] != null){
+                return false;
+            }
+            
+        }
+        return true;
+    }
 }
