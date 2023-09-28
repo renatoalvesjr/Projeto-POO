@@ -85,7 +85,7 @@ public class TipoDieta{
 
     @Override
     public String toString() {
-        return "TipoDieta{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "TipoDieta{" + "idd=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
     
     
