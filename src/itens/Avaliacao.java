@@ -20,7 +20,7 @@ public class Avaliacao {
     private static long serial;
     
     public Avaliacao() {
-        this.id = ++serial;
+        this.id = ++Avaliacao.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }

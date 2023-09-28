@@ -14,7 +14,7 @@ public class Pessoa {
     private static long serial;
 
     public Pessoa() {
-        id = ++serial;
+        this.id = ++Pessoa.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
