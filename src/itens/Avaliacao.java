@@ -24,7 +24,7 @@ public class Avaliacao {
         calcIMC();
         calcTMB();
         calcBF();
-        this.rotina = pessoa.getUserType();
+        setRotina(pessoa.getUserType());
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -135,10 +135,6 @@ public class Avaliacao {
 
     public String getCreateDate() {
         return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 
     public String getModifyDate() {
