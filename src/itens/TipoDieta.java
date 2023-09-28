@@ -22,6 +22,14 @@ public class TipoDieta{
         
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
-        
+        if(id==0){
+            this.nome = "Equilibrada";
+        }else if(id==1){
+            this.nome = "Low Carb";
+        }else if(id==2){
+            this.nome = "Cetogênica";
+        }else if(id==3){
+            this.nome = "Atleta";
+        }
     }
 }
