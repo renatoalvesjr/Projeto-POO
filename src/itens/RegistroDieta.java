@@ -13,17 +13,13 @@ public class RegistroDieta {
     private static long serial;
     
     public RegistroDieta() {
-        this.id = ++serial;
+        this.id = ++RegistroDieta.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Pessoa getPessoa() {

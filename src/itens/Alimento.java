@@ -14,7 +14,7 @@ public class Alimento {
     private static long serial;
 
     public Alimento() {
-        this.id = ++serial;
+        this.id = ++Alimento.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }

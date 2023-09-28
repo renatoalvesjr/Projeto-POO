@@ -11,7 +11,7 @@ public class TipoDieta{
     private static long serial;
 
     public TipoDieta() {
-        this.id = ++serial;
+        this.id = ++TipoDieta.serial;
         
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
