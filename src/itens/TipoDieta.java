@@ -61,6 +61,10 @@ public class TipoDieta{
         return modifyDate;
     }
 
+    public void setModifyDate(String modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
