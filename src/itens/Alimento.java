@@ -7,7 +7,7 @@ public class Alimento {
     private double prot;
     private double gord;
     private double cal;
-    private double porcao;
+    private double porcaoGramas;
     private String userType;
     private String createDate;
     private String modifyDate;
@@ -59,16 +59,16 @@ public class Alimento {
         return cal;
     }
 
-    public void setCal(double cal) {
-        this.cal = cal;
+    public void setCal() {
+        this.cal = calcCaloria();
     }
 
     public double getPorcao() {
-        return porcao;
+        return porcaoGramas;
     }
 
     public void setPorcao(double porcao) {
-        this.porcao = porcao;
+        this.porcaoGramas = porcao;
     }
 
     public String getUserType() {
@@ -87,9 +87,13 @@ public class Alimento {
         return modifyDate;
     }
 
-    void calcCaloria(){
-        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
-        this.modifyDate += Datas.dataAgora();
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
+    }
+
+    private double calcCaloria(){
+        setModifyDate();
+        return (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     @Override
@@ -116,7 +120,7 @@ public class Alimento {
 
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcao + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcaoGramas + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
     
     
