@@ -8,7 +8,7 @@ public class Pessoa {
     private String nascimento;
     private String login;
     private String senha;
-    private String userType;
+    private int userType;
     private String createDate;
     private String modifyDate;
     private static long serial;
@@ -63,11 +63,11 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public String getUserType() {
+    public int getUserType() {
         return userType;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 
@@ -78,6 +78,12 @@ public class Pessoa {
     public String getModifyDate() {
         return modifyDate;
     }
+
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
+    }
+    
+    
 
     @Override
     public int hashCode() {
