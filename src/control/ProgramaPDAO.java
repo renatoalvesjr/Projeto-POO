@@ -2,9 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package itens;
+package control;
 
 import java.util.Scanner;
+import model.Pessoa;
+import model.PessoaDAO;
+import model.PostDAO;
 
 /**
  *
@@ -12,6 +15,7 @@ import java.util.Scanner;
  */
 public class ProgramaPDAO {
     PessoaDAO pessoaDAO = new PessoaDAO();
+    PostDAO postPessoasDAO = new PostDAO(pessoaDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {

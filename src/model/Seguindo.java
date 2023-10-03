@@ -1,4 +1,4 @@
-package itens;
+package model;
 
 public class Seguindo {
     private long id;
