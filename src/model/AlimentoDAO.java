@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package itens;
+package model;
 
 /**
  *
@@ -54,7 +54,7 @@ public class AlimentoDAO {
         return -1;
     }
         
-    boolean adicionaAlimento(Alimento a){
+    public boolean adicionaAlimento(Alimento a){
         int proximoAlimentoLivre = proximoAlimentoLivre();
         if(proximoAlimentoLivre != -1){
             alimentos[proximoAlimentoLivre] = a;
@@ -73,7 +73,7 @@ public class AlimentoDAO {
         }
     }
     
-    Alimento BuscaAlimento(long id){
+    public Alimento BuscaAlimento(long id){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 return alimentos[i];
@@ -83,7 +83,7 @@ public class AlimentoDAO {
         return null;
     }
     
-    boolean removeAlimento(long id){
+    public boolean removeAlimento(long id){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 alimentos[i] = null;
@@ -93,7 +93,7 @@ public class AlimentoDAO {
         return false;
     }
     
-    boolean alteraNomeAlimento(long id, String novoNome){
+    public boolean alteraNomeAlimento(long id, String novoNome){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 alimentos[i].setNome(novoNome);
@@ -105,7 +105,7 @@ public class AlimentoDAO {
         return false;
     }
     
-    boolean alteraCarbAlimento(long id, double novoCarb){
+    public boolean alteraCarbAlimento(long id, double novoCarb){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 alimentos[i].setCarb(novoCarb);
@@ -117,7 +117,7 @@ public class AlimentoDAO {
         return false;
     }
     
-    boolean alteraProtAlimento(long id, double novoProt){
+    public boolean alteraProtAlimento(long id, double novoProt){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 alimentos[i].setProt(novoProt);
@@ -129,7 +129,7 @@ public class AlimentoDAO {
         return false;
     }
     
-    boolean alteraGordAlimento(long id, double novoGord){
+    public boolean alteraGordAlimento(long id, double novoGord){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i].getId() == id){
                 alimentos[i].setGord(novoGord);
@@ -140,7 +140,7 @@ public class AlimentoDAO {
         return false;
     }
     
-    boolean alimentoVazio(){
+    public boolean alimentoVazio(){
         for (int i = 0; i < alimentos.length; i++) {
             if(alimentos[i] != null){
                 return false;

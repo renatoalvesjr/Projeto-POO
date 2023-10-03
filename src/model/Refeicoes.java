@@ -1,20 +1,18 @@
-package itens;
+package model;
 
-public class Alimento {
+public class Refeicoes {
     private long id;
-    private String nome;
+    private TipoDieta td;
     private double carb;
     private double prot;
     private double gord;
-    private double cal;
-    private double porcaoGramas;
-    private String userType;
+    private String nomeRefeicao;
     private String createDate;
     private String modifyDate;
     private static long serial;
-
-    public Alimento() {
-        this.id = ++Alimento.serial;
+    
+    public Refeicoes(){
+        this.id = ++Refeicoes.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -23,12 +21,12 @@ public class Alimento {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public TipoDieta getTd() {
+        return td;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTd(TipoDieta td) {
+        this.td = td;
     }
 
     public double getCarb() {
@@ -55,28 +53,12 @@ public class Alimento {
         this.gord = gord;
     }
 
-    public double getCal() {
-        return cal;
+    public String getNomeRefeicao() {
+        return nomeRefeicao;
     }
 
-    public void setCal() {
-        this.cal = calcCaloria();
-    }
-
-    public double getPorcao() {
-        return porcaoGramas;
-    }
-
-    public void setPorcao(double porcao) {
-        this.porcaoGramas = porcao;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setNomeRefeicao(String nomeRefeicao) {
+        this.nomeRefeicao = nomeRefeicao;
     }
 
     public String getCreateDate() {
@@ -91,15 +73,10 @@ public class Alimento {
         this.modifyDate = Datas.dataAgora();
     }
 
-    private double calcCaloria(){
-        setModifyDate();
-        return (4*this.carb)+(4*this.prot)+(9*this.gord);
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -114,13 +91,13 @@ public class Alimento {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Alimento other = (Alimento) obj;
+        final Refeicoes other = (Refeicoes) obj;
         return this.id == other.id;
     }
 
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcaoGramas + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Refeicoes{" + "id=" + id + ", td=" + td + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", nomeRefeicao=" + nomeRefeicao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
     
     

@@ -1,15 +1,15 @@
-package itens;
+package model;
 
-public class Preferencia {
+public class Post {
     private long id;
     private Pessoa pessoa;
-    private Alimento alimento;
+    private String conteudo;
     private String createDate;
     private String modifyDate;
     private static long serial;
-
-    public Preferencia() {
-        this.id = ++Preferencia.serial;
+    
+    public Post() {
+        this.id = ++Post.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -26,12 +26,12 @@ public class Preferencia {
         this.pessoa = pessoa;
     }
 
-    public Alimento getAlimento() {
-        return alimento;
+    public String getConteudo() {
+        return conteudo;
     }
 
-    public void setAlimento(Alimento alimento) {
-        this.alimento = alimento;
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
     }
 
     public String getCreateDate() {
@@ -42,14 +42,14 @@ public class Preferencia {
         return modifyDate;
     }
 
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 7;
+        hash = 41 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -64,15 +64,14 @@ public class Preferencia {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Preferencia other = (Preferencia) obj;
+        final Post other = (Post) obj;
         return this.id == other.id;
     }
 
     @Override
     public String toString() {
-        return "Preferencia{" + "id=" + id + ", pessoa=" + pessoa + ", alimento=" + alimento + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Post{" + "id=" + id + ", pessoa=" + pessoa + ", conteudo=" + conteudo + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
-    
     
     
 }

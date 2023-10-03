@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package itens;
+package model;
 
 /**
  *
@@ -17,7 +17,7 @@ public class PessoaDAO {
         p1.setNascimento("21/09/2001");
         p1.setSexo("M");
         p1.setLogin("hebert");
-        p1.setSenha("147852");
+        p1.setSenha("hebert");
         this.adiciona(p1);
 
         Pessoa p2 = new Pessoa();
@@ -25,11 +25,11 @@ public class PessoaDAO {
         p2.setNascimento("21/08/2002");
         p2.setSexo("M");
         p2.setLogin("renato");
-        p2.setSenha("124578");
+        p2.setSenha("renato");
         adiciona(p2);
     }
 
-    boolean adiciona(Pessoa p) {
+    public boolean adiciona(Pessoa p) {
         int proximaPosicaoLivre = this.proximaPosicaoLivre();
         if (proximaPosicaoLivre != -1) {
             pessoas[proximaPosicaoLivre] = p;
@@ -74,7 +74,7 @@ public class PessoaDAO {
 
     }
 
-    Pessoa buscaPorNome(String nome) {
+    public Pessoa buscaPorNome(String nome) {
         for (Pessoa p : pessoas) {
             if (p != null && p.getNome().equals(nome)) {
                 return p;
