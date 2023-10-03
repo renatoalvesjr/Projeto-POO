@@ -1,18 +1,20 @@
-package itens;
+package model;
 
-public class Refeicoes {
+public class Alimento {
     private long id;
-    private TipoDieta td;
+    private String nome;
     private double carb;
     private double prot;
     private double gord;
-    private String nomeRefeicao;
+    private double cal;
+    private double porcaoGramas;
+    private String userType;
     private String createDate;
     private String modifyDate;
     private static long serial;
-    
-    public Refeicoes(){
-        this.id = ++Refeicoes.serial;
+
+    public Alimento() {
+        this.id = ++Alimento.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -21,12 +23,12 @@ public class Refeicoes {
         return id;
     }
 
-    public TipoDieta getTd() {
-        return td;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTd(TipoDieta td) {
-        this.td = td;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getCarb() {
@@ -53,12 +55,28 @@ public class Refeicoes {
         this.gord = gord;
     }
 
-    public String getNomeRefeicao() {
-        return nomeRefeicao;
+    public double getCal() {
+        return cal;
     }
 
-    public void setNomeRefeicao(String nomeRefeicao) {
-        this.nomeRefeicao = nomeRefeicao;
+    public void setCal() {
+        this.cal = calcCaloria();
+    }
+
+    public double getPorcao() {
+        return porcaoGramas;
+    }
+
+    public void setPorcao(double porcao) {
+        this.porcaoGramas = porcao;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getCreateDate() {
@@ -69,14 +87,19 @@ public class Refeicoes {
         return modifyDate;
     }
 
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
+    }
+
+    private double calcCaloria(){
+        setModifyDate();
+        return (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -91,13 +114,13 @@ public class Refeicoes {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Refeicoes other = (Refeicoes) obj;
+        final Alimento other = (Alimento) obj;
         return this.id == other.id;
     }
 
     @Override
     public String toString() {
-        return "Refeicoes{" + "id=" + id + ", td=" + td + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", nomeRefeicao=" + nomeRefeicao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcaoGramas + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
     
     

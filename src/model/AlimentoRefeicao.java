@@ -1,4 +1,4 @@
-package itens;
+package model;
 
 public class AlimentoRefeicao {
     private long id;
@@ -87,8 +87,8 @@ public class AlimentoRefeicao {
         return modifyDate;
     }
 
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
     }
 
     @Override

@@ -1,15 +1,15 @@
-package itens;
+package model;
 
-public class Post {
+public class Preferencia {
     private long id;
     private Pessoa pessoa;
-    private String conteudo;
+    private Alimento alimento;
     private String createDate;
     private String modifyDate;
     private static long serial;
-    
-    public Post() {
-        this.id = ++Post.serial;
+
+    public Preferencia() {
+        this.id = ++Preferencia.serial;
         this.createDate = Datas.dataAgora();
         this.modifyDate = "";
     }
@@ -26,12 +26,12 @@ public class Post {
         this.pessoa = pessoa;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public Alimento getAlimento() {
+        return alimento;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setAlimento(Alimento alimento) {
+        this.alimento = alimento;
     }
 
     public String getCreateDate() {
@@ -42,14 +42,14 @@ public class Post {
         return modifyDate;
     }
 
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setModifyDate() {
+        this.modifyDate = Datas.dataAgora();
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 23 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 
@@ -64,14 +64,15 @@ public class Post {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Post other = (Post) obj;
+        final Preferencia other = (Preferencia) obj;
         return this.id == other.id;
     }
 
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + ", pessoa=" + pessoa + ", conteudo=" + conteudo + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Preferencia{" + "id=" + id + ", pessoa=" + pessoa + ", alimento=" + alimento + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
+    
     
     
 }
