@@ -8,101 +8,41 @@ import java.util.Scanner;
 import model.Pessoa;
 import model.PessoaDAO;
 import model.PostDAO;
+import model.SeguindoDAO;
+import view.Menus;
 
 /**
  *
  * @author heber
  */
 public class ProgramaPDAO {
+    Menus menus = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    PostDAO postPessoasDAO = new PostDAO(pessoaDAO);
+    PostDAO postsDAO = new PostDAO(pessoaDAO);
+    SeguindoDAO seguidoresDAO = new SeguindoDAO(pessoaDAO, postsDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {
-
-        int opcaoUsuario;
-        do {
-
-            opcaoUsuario = pegaOpcaoUsuario();
-            switch (opcaoUsuario) {
+        int opc;
+        do{
+            opc = menus.LoginPage();
+            switch(opc){
                 case 1:
-                    Pessoa p = criaPessoa();
-
-                    boolean pessoaFoiInserida = pessoaDAO.adiciona(p);
-                    if (pessoaFoiInserida) {
-                        System.out.println("Pessoa inserida com sucesso!!!");
-                    } else {
-                        System.out.println("Pessoa nao inserida!!");
+                    Pessoa Plogada = menus.Logar(pessoaDAO);
+                    if(Plogada!=null){
+                        System.out.println("Logado com sucesso.");
+                        postsDAO.mostraPostPessoa(pessoaDAO);
+                    }else{
+                        System.out.println("Usuario nao encontrado");
                     }
-                    break;
                     
+                    break;
                 case 2:
-                    pessoaDAO.mostrarTodas();
-                    break;
-                    
-                case 3:
-                    System.out.println("Pessoa procurada:  ");
-                    String procurado = s.nextLine();
-                    System.out.println("Novo nome:");
-                    String novoNome = s.nextLine();
-                    if (pessoaDAO.alterarNome(procurado, novoNome)) {
-                        System.out.println("Pessoa alterada! ");
-                    } else {
-                        System.out.println("Pessoa nao alterada!! ");
-                    }
-                    break;
-                    
-                case 4:
-                    System.out.println("Pessoa procurada:  ");
-                    String nomeExclusao = s.nextLine();
-
-                    if (pessoaDAO.remover(nomeExclusao)) {
-                        System.out.println("Pessoa excluida!!");
-                    } else {
-                        System.out.println("Pessoa nao excluida!!");
-                    }
-                    break;
-                    
-                case 5:
-                    System.out.println("5");
-                    break;
-
-                default:
-                    System.out.println("sair");
+                    pessoaDAO.adiciona(menus.cadastrar());
                     break;
             }
-        } while (opcaoUsuario != 5);
-    }
-
-    private Pessoa criaPessoa() {
-        Pessoa p = new Pessoa();
-        System.out.println("Nome: ");
-        String nome = s.nextLine();
-        p.setNome(nome);
-        System.out.println("Sexo - M(Masculino) F(Feminino):  ");
-        String sexo = s.nextLine();
-        p.setSexo(sexo);
-        System.out.println("Data de Nascimento - dd/mm/aaaa:  ");
-        String nascimento = s.nextLine();
-        p.setNascimento(nascimento);
-        System.out.println("Login de Cadastro: ");
-        String login = s.nextLine();
-        p.setLogin(login);
-        System.out.println("Senha: ");
-        String senha = s.nextLine();
-        p.setSenha(senha);
-        return p;
-    }
-
-    private int pegaOpcaoUsuario() {
-
-        System.out.println("1 - Cadastrar");
-        System.out.println("2 - Mostrar Usuarios");
-        System.out.println("3 - Alterar o nome");
-        System.out.println("4 - Excluir");
-        System.out.println("5 - Sair");
-        System.out.print("Qual sua opcao ? R:  ");
-        return Integer.parseInt(s.nextLine());
+        }while(opc!=0);
+        
     }
 
     public static void main(String[] args) {
