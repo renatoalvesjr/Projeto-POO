@@ -7,7 +7,14 @@ public class SeguindoDAO {
         Seguindo s1 = new Seguindo();
         s1.setPessoa(pessoa.buscaPorNome("renato"));
         s1.setSeguidores(pessoa.buscaPorNome("hebert"));
+        s1.setSeguidores(pessoa.buscaPorNome("root"));
         criarSeguidor(s1);
+        
+        Seguindo s2 = new Seguindo();
+        s2.setPessoa(pessoa.buscaPorNome("renato"));
+        s2.setSeguidores(pessoa.buscaPorNome("hebert"));
+        s2.setSeguidores(pessoa.buscaPorNome("root"));
+        criarSeguidor(s2);
     }
     
     private int proximoSeguidorLivre(){

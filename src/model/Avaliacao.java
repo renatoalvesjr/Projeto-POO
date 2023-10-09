@@ -9,7 +9,7 @@ public class Avaliacao {
     private double pescoco;
     private double cintura;
     private double quadril;
-    private int rotina;
+    private double rotina;
     private double imc;
     private double tmb;
     private double bf;
@@ -21,26 +21,23 @@ public class Avaliacao {
     
     public Avaliacao() {
         this.id = ++Avaliacao.serial;
-        calcIMC();
-        calcTMB();
-        calcBF();
-        setRotina(pessoa.getUserType());
+        
         this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
     
-    private void calcIMC(){
+    public void calcIMC(){
         this.imc = this.peso/Math.pow(this.altura,2);
     }
-    private void calcTMB(){
-        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
+    public void calcTMB(){
+        if(this.pessoa.getSexo().equalsIgnoreCase("M")){
             this.tmb = this.rotina*(66+((13.7*this.peso)+(5*this.altura)-(6.8*this.idade)));
         }else{
             this.tmb = this.rotina*(655+((9.6*this.peso)+(1.8*this.altura)-(4.7*this.idade)));
         }
     }
-    private void calcBF(){
-        if(this.pessoa.getSexo().equalsIgnoreCase("m")){
+    public void calcBF(){
+        if(this.pessoa.getSexo().equalsIgnoreCase("M")){
             this.bf = (163.205*Math.log10(this.cintura+this.quadril-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
         }else{
             this.bf = (86.010*Math.log10(this.cintura+this.quadril-this.pescoco))-(70.041*Math.log10(this.altura))+36.76;
@@ -109,12 +106,32 @@ public class Avaliacao {
         this.quadril = quadril;
     }
 
-    public int getRotina() {
+    public double getRotina() {
         return rotina;
     }
 
     public void setRotina(int rotina) {
-        this.rotina = rotina;
+        switch(rotina){
+            case 1:
+                this.rotina = 1.2;
+                break;
+            case 2:
+                this.rotina = 1.375;
+                break;
+            case 3:
+                this.rotina = 1.55;
+                break;
+            case 4:
+                this.rotina = 1.725;
+                break;
+            case 5:
+                this.rotina = 1.9;
+                break;
+            default:
+                this.rotina = 1.375;
+                break;
+        }
+        
     }
 
     public double getImc() {

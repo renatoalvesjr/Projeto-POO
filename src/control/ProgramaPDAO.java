@@ -28,6 +28,7 @@ public class ProgramaPDAO {
 
     public ProgramaPDAO() {
         int opc;
+
         do {
             opc = menus.LoginPage();
             switch (opc) {
@@ -36,11 +37,13 @@ public class ProgramaPDAO {
                     if (Plogada != null) {
                         System.out.println("Logado com sucesso.");
                         Utils.setPessoaLogada(Plogada);
-                        if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
-                            menus.MenuLogadoSemAvaliacao(Utils.getPessoaLogada());
-                        } else {
-                            System.out.println("ohgiuahguiosagh");
-                        }
+                        do {
+                            if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
+                                menus.realizarAval(avalDAO);
+                            } else {
+                                System.out.println("ohgiuahguiosagh");
+                            }
+                        } while (true);
                     } else {
                         System.out.println("Usuario nao encontrado");
                     }
@@ -56,7 +59,12 @@ public class ProgramaPDAO {
 
     }
 
+    public void criaAval(AvaliacaoDAO avalDAO) {
+
+    }
+
     public static void main(String[] args) {
+
         new ProgramaPDAO();
     }
 }

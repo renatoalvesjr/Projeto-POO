@@ -6,7 +6,7 @@ public class PostDAO {
     public PostDAO(PessoaDAO p1){
         Post post1 = new Post();
         post1.setConteudo("Minha dieta esta indo bem");
-        post1.setPessoa(p1.buscaPorNome("renato"));
+        post1.setPessoa(p1.buscaPorNome("hebert"));
         criarPost(post1);
         
          Post post2 = new Post();
