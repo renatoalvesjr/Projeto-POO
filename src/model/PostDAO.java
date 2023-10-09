@@ -34,9 +34,9 @@ public class PostDAO {
         }
     }
     
-    public void mostraTodosPostPessoa(PessoaDAO p){
+    public void mostraTodosPostPessoa(Pessoa p){
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i] != null) {
+            if(posts[i].getPessoa().getNome().equals(p.getNome())) {
                 System.out.println(posts[i].getConteudo());
             } 
             

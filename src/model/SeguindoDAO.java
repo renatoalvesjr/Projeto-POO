@@ -40,13 +40,14 @@ public class SeguindoDAO {
 
     }
     
-    public void mostraTodosSeguidor(){
+    public Pessoa mostraSeguidoresPessoa(Pessoa p){
         for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i] != null) {
-                System.out.println(seguidores[i]);
+            if(seguidores[i].getPessoa() == p) {
+                return seguidores[i].getPessoa();
             } 
             
         }
+        return null;
     }
     
     public boolean removeSeguidor(long id){

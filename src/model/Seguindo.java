@@ -10,7 +10,7 @@ public class Seguindo {
     
     public Seguindo() {
         this.id = ++Seguindo.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -58,7 +58,7 @@ public class Seguindo {
     }
 
     public void setModifyDate(String modifyDate) {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

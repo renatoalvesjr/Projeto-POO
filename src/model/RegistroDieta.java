@@ -14,7 +14,7 @@ public class RegistroDieta {
     
     public RegistroDieta() {
         this.id = ++RegistroDieta.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -80,7 +80,7 @@ public class RegistroDieta {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

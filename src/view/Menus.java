@@ -3,6 +3,7 @@ package view;
 import java.util.Scanner;
 import model.Pessoa;
 import model.PessoaDAO;
+import model.PostDAO;
 import model.SeguindoDAO;
 
 public class Menus {
@@ -27,6 +28,28 @@ public class Menus {
         String senha = s.nextLine();
         return p.buscaPessoaLogin(login, senha);
         
+    }
+    
+    public void MenuLogadoSemAvaliacao(Pessoa p){
+        StringBuilder menu = new StringBuilder("");
+        
+        menu.append("\n===== Bem vindo "+p.getNome()+" =====");
+        menu.append("\n1 - Realizar avaliacao");
+        menu.append("\n0 - Sair");
+        menu.append("\n->");
+        
+        System.out.println(menu);
+        
+
+    }
+    
+    public void realizarAval(){
+        StringBuilder menu = new StringBuilder("");
+        
+        menu.append("\n===== Bem vindo "+p.getNome()+" =====");
+        menu.append("\n1 - Realizar avaliacao");
+        menu.append("\n0 - Sair");
+        menu.append("\n->");
     }
     
     public Pessoa cadastrar(){

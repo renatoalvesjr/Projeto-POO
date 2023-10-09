@@ -13,7 +13,7 @@ public class TipoDieta{
     public TipoDieta() {
         this.id = ++TipoDieta.serial;
         
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -62,7 +62,7 @@ public class TipoDieta{
     }
 
         public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

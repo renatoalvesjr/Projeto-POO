@@ -15,7 +15,7 @@ public class Alimento {
 
     public Alimento() {
         this.id = ++Alimento.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -88,7 +88,7 @@ public class Alimento {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     private double calcCaloria(){
