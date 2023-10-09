@@ -12,7 +12,29 @@ public class RefeicoesDAO {
     Refeicoes rfs[] = new Refeicoes[10];
     
     public RefeicoesDAO(TipoDietaDAO td){
+        Refeicoes rf1 = new Refeicoes();
+        rf1.setTd(td.BuscaPorNome("equilibrada"));
+        rf1.setNomeRefeicao("Cafe da manha");
+        rf1.setCarb(56);
+        rf1.setGord(42);
+        rf1.setProt(42);
+        criaRfs(rf1);
         
+        Refeicoes rf2 = new Refeicoes();
+        rf2.setTd(td.BuscaPorNome("equilibrada"));
+        rf2.setNomeRefeicao("Almoco");
+        rf2.setCarb(56);
+        rf2.setGord(42);
+        rf2.setProt(42);
+        criaRfs(rf2);
+        
+        Refeicoes rf3 = new Refeicoes();
+        rf3.setTd(td.BuscaPorNome("equilibrada"));
+        rf3.setNomeRefeicao("Jantar");
+        rf3.setCarb(40);
+        rf3.setGord(30);
+        rf3.setProt(30);
+        criaRfs(rf3);
     }
     
     private int proximRfsLivre() {
@@ -24,7 +46,7 @@ public class RefeicoesDAO {
         return -1;
     }
 
-    public boolean criaTDs(Refeicoes a) {
+    public boolean criaRfs(Refeicoes a) {
         int proximRfsLivre = proximRfsLivre();
         if (proximRfsLivre != -1) {
             rfs[proximRfsLivre] = a;
