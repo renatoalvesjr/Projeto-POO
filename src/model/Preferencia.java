@@ -3,14 +3,14 @@ package model;
 public class Preferencia {
     private long id;
     private Pessoa pessoa;
-    private Alimento alimento;
+    private Alimento alimento[] = new Alimento[9];
     private String createDate;
     private String modifyDate;
     private static long serial;
 
     public Preferencia() {
         this.id = ++Preferencia.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -26,12 +26,19 @@ public class Preferencia {
         this.pessoa = pessoa;
     }
 
-    public Alimento getAlimento() {
+    public Alimento[] getAlimento() {
         return alimento;
     }
 
-    public void setAlimento(Alimento alimento) {
-        this.alimento = alimento;
+    public boolean setAlimento(Alimento alimento) {
+        for (int i = 0; i < this.alimento.length; i++) {
+            if(this.alimento[i] == null){
+                this.alimento[i] = alimento;
+                return true;
+            }
+            
+        }
+        return false;
     }
 
     public String getCreateDate() {
@@ -43,7 +50,7 @@ public class Preferencia {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Mensagem {
     
     public Mensagem() {
         this.id = ++Mensagem.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -48,7 +48,7 @@ public class Mensagem {
     }
 
     public void setCreateDate() {
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
     }
 
     public String getModifyDate() {

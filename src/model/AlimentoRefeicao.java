@@ -15,7 +15,7 @@ public class AlimentoRefeicao {
     
     public AlimentoRefeicao(){
         this.id = ++AlimentoRefeicao.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -88,7 +88,7 @@ public class AlimentoRefeicao {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

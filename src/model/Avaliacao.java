@@ -25,7 +25,7 @@ public class Avaliacao {
         calcTMB();
         calcBF();
         setRotina(pessoa.getUserType());
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
     
@@ -142,7 +142,7 @@ public class Avaliacao {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override

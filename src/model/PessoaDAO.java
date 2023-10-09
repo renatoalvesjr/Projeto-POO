@@ -27,6 +27,24 @@ public class PessoaDAO {
         p2.setLogin("renato");
         p2.setSenha("renato");
         adiciona(p2);
+        
+        Pessoa root = new Pessoa();
+        root.setNome("root");
+        root.setNascimento("");
+        root.setSexo("M");
+        root.setLogin("root");
+        root.setSenha("root");
+        root.setUserType(1);
+        adiciona(root);
+    }
+    
+    public Pessoa buscaPessoaLogin(String login, String senha){
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa != null && pessoa.getLogin().equals(login) && pessoa.getSenha().equals(senha)) {
+                return pessoa;
+            }
+        }
+        return null;
     }
 
     public boolean adiciona(Pessoa p) {

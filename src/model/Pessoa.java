@@ -15,7 +15,7 @@ public class Pessoa {
 
     public Pessoa() {
         this.id = ++Pessoa.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -80,7 +80,7 @@ public class Pessoa {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
     
     

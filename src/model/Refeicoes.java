@@ -13,7 +13,7 @@ public class Refeicoes {
     
     public Refeicoes(){
         this.id = ++Refeicoes.serial;
-        this.createDate = Datas.dataAgora();
+        this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
@@ -70,7 +70,7 @@ public class Refeicoes {
     }
 
     public void setModifyDate() {
-        this.modifyDate = Datas.dataAgora();
+        this.modifyDate = Utils.dataAgora();
     }
 
     @Override
