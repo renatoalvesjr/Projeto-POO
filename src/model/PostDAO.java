@@ -9,10 +9,14 @@ public class PostDAO {
         post1.setPessoa(p1.buscaPorNome("hebert"));
         criarPost(post1);
         
-         Post post2 = new Post();
+        Post post2 = new Post();
         post2.setConteudo("Minha dieta nao esta indo tao bem como eu ");
         post2.setPessoa(p1.buscaPorNome("renato"));
         criarPost(post2);
+        
+        Post post3 = new Post();
+        post3.setConteudo("App em desenvolvimento por enquanto");
+        post3.setPessoa(p1.buscaPorNome("root"));
     }
     
     private int proximoPostLivre(){
@@ -34,13 +38,13 @@ public class PostDAO {
         }
     }
     
-    public void mostraTodosPostPessoa(Pessoa p){
+    public String mostraTodosPostPessoa(Pessoa p){
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].getPessoa().getNome().equals(p.getNome())) {
-                System.out.println(posts[i].getConteudo());
+            if(posts[i].getPessoa().equals(p)) {
+                return posts[i].getConteudo();
             } 
-            
         }
+        return null;
     }
     
     public boolean removePost(long id){

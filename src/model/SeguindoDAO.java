@@ -11,9 +11,8 @@ public class SeguindoDAO {
         criarSeguidor(s1);
         
         Seguindo s2 = new Seguindo();
-        s2.setPessoa(pessoa.buscaPorNome("renato"));
-        s2.setSeguidores(pessoa.buscaPorNome("hebert"));
-        s2.setSeguidores(pessoa.buscaPorNome("root"));
+        s2.setPessoa(pessoa.buscaPorNome("hebert"));
+        s2.setSeguidores(pessoa.buscaPorNome("renato"));
         criarSeguidor(s2);
     }
     
@@ -36,12 +35,11 @@ public class SeguindoDAO {
         }
     }
     
-    public Pessoa buscaPorNome(String nome) {
+    public Seguindo buscaPorNome(Pessoa p) {
         for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i].getPessoa().getNome().equals(nome)){
-                return seguidores[i].getPessoa();
+            if(seguidores[i] != null && seguidores[i].getPessoa().getId() == p.getId()){
+                return seguidores[i];
             }
-            
         }
         return null;
 

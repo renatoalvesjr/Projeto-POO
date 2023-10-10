@@ -41,7 +41,7 @@ public class ProgramaPDAO {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
                                 menus.realizarAval(avalDAO);
                             } else {
-                                System.out.println("ohgiuahguiosagh");
+                                menus.feedPosts(postsDAO, seguidoresDAO);
                             }
                         } while (true);
                     } else {
@@ -51,15 +51,12 @@ public class ProgramaPDAO {
                     break;
                 case 2:
                     pessoaDAO.adiciona(menus.cadastrar());
+                    System.out.println("Usuario cadastrado com sucesso");
                     break;
                 default:
                     System.out.println("Opcao invalida");
             }
         } while (opc != 0);
-
-    }
-
-    public void criaAval(AvaliacaoDAO avalDAO) {
 
     }
 

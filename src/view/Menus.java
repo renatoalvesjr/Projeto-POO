@@ -5,7 +5,9 @@ import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Pessoa;
 import model.PessoaDAO;
+import model.Post;
 import model.PostDAO;
+import model.Seguindo;
 import model.SeguindoDAO;
 import model.Utils;
 
@@ -24,6 +26,7 @@ public class Menus {
         
         return Integer.parseInt(s.nextLine());
     }
+    
     public Pessoa Logar(PessoaDAO p){
         System.out.println("Login: ");
         String login = s.nextLine();
@@ -31,6 +34,16 @@ public class Menus {
         String senha = s.nextLine();
         return p.buscaPessoaLogin(login, senha);
         
+    }
+    
+    public Post feedPosts(PostDAO posts, SeguindoDAO seguidores){
+        Seguindo logado = seguidores.buscaPorNome(Utils.getPessoaLogada());
+        Pessoa []p = logado.getSeguidores();
+        for (int i = 0; i < p.length; i++) {
+            posts.mostraTodosPostPessoa(p[i]);
+        }
+        
+        return null;
     }
     
     public void realizarAval(AvaliacaoDAO avalDAO){
@@ -70,6 +83,8 @@ public class Menus {
         aval.calcBF();
         avalDAO.criaAval(aval);
     }
+    
+    
     
     public Pessoa cadastrar(){
         Pessoa p = new Pessoa();
