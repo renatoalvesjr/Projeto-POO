@@ -37,14 +37,15 @@ public class ProgramaPDAO {
                     if (Plogada != null) {
                         System.out.println("Logado com sucesso.");
                         Utils.setPessoaLogada(Plogada);
-
+                        int alt = 0;
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
                                 menus.realizarAval(avalDAO);
                             } else {
-                                menus.feedPosts(postsDAO, seguidoresDAO);
+                                menuPrincipal();
+                                alt = 1;
                             }
-                        } while (true);
+                        } while (alt!=1);
                     } else {
                         System.out.println("Usuario nao encontrado");
                     }
@@ -59,6 +60,15 @@ public class ProgramaPDAO {
             }
         } while (opc != 0);
 
+    }
+    
+    public void menuPrincipal(){
+        int opc = 0;
+        do{
+            System.out.println("\n\n\n==== Feed ====");
+            menus.feedPosts(postsDAO, seguidoresDAO);
+        }while(opc!=0);
+        
     }
 
     public static void main(String[] args) {
