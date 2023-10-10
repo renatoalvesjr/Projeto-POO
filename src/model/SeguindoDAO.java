@@ -5,9 +5,15 @@ public class SeguindoDAO {
     
     public SeguindoDAO(PessoaDAO pessoa, PostDAO posts) {
         Seguindo s1 = new Seguindo();
-        s1.setPessoa(pessoa.buscaPorNome("renato"));
-        s1.setSeguidores(pessoa.buscaPorNome("hebert"));
+        s1.setPessoa(pessoa.buscaPorNome("Renato"));
+        s1.setSeguidores(pessoa.buscaPorNome("Hebert"));
+        s1.setSeguidores(pessoa.buscaPorNome("root"));
         criarSeguidor(s1);
+        
+        Seguindo s2 = new Seguindo();
+        s2.setPessoa(pessoa.buscaPorNome("Hebert"));
+        s2.setSeguidores(pessoa.buscaPorNome("Renato"));
+        criarSeguidor(s2);
     }
     
     private int proximoSeguidorLivre(){
@@ -29,12 +35,11 @@ public class SeguindoDAO {
         }
     }
     
-    public Pessoa buscaPorNome(String nome) {
+    public Seguindo buscaPessoa(Pessoa p) {
         for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i].getPessoa().getNome().equals(nome)){
-                return seguidores[i].getPessoa();
+            if(seguidores[i] != null && seguidores[i].getPessoa().getId() == p.getId()){
+                return seguidores[i];
             }
-            
         }
         return null;
 

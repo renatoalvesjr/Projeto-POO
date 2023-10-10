@@ -15,6 +15,7 @@ public class PessoaDAO {
         Pessoa p1 = new Pessoa();
         p1.setNome("Hebert");
         p1.setNascimento("21/09/2001");
+        p1.setUserType(0);
         p1.setSexo("M");
         p1.setLogin("hebert");
         p1.setSenha("hebert");
@@ -23,10 +24,11 @@ public class PessoaDAO {
         Pessoa p2 = new Pessoa();
         p2.setNome("Renato");
         p2.setNascimento("21/08/2002");
+        p2.setUserType(0);
         p2.setSexo("M");
         p2.setLogin("renato");
         p2.setSenha("renato");
-        adiciona(p2);
+        this.adiciona(p2);
         
         Pessoa root = new Pessoa();
         root.setNome("root");
@@ -35,7 +37,7 @@ public class PessoaDAO {
         root.setLogin("root");
         root.setSenha("root");
         root.setUserType(1);
-        adiciona(root);
+        this.adiciona(root);
     }
     
     public Pessoa buscaPessoaLogin(String login, String senha){
@@ -94,7 +96,7 @@ public class PessoaDAO {
 
     public Pessoa buscaPorNome(String nome) {
         for (Pessoa p : pessoas) {
-            if (p != null && p.getNome().equals(nome)) {
+            if (p != null && p.getNome().equalsIgnoreCase(nome)) {
                 return p;
             }
         }

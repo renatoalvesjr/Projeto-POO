@@ -38,8 +38,6 @@ public class AvaliacaoDAO {
         for (int i = 0; i < avals.length; i++) {
             if(avals[i] != null && avals[i].getPessoa().equals(p)){
                 return avals[i];
-            }else{
-                return null;
             }
         }
         return null;
