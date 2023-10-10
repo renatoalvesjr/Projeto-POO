@@ -41,8 +41,8 @@ public class Seguindo {
     
     public boolean setSeguidores(Pessoa seguidor) {
         for (int i = 0; i < this.seguidores.length; i++) {
-            if(seguidores[i] == null){
-                seguidores[i] = seguidor;
+            if(this.seguidores[i] == null){
+                this.seguidores[i] = seguidor;
                 return true;
             }
         }

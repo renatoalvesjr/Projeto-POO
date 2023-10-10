@@ -120,7 +120,7 @@ public class Alimento {
 
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcaoGramas + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return (id+": "+nome + " ||Carboidratos: " + carb + " || Proteinas: " + prot + " || Gorduras: " + gord + " || Calorias: " + cal + " || Porcao: " + porcaoGramas + "||");
     }
     
     

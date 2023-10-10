@@ -12,7 +12,14 @@ public class PreferenciaDAO {
                 
     }
     
-    
+    public Preferencia buscaPref(Pessoa p){
+        for (int i = 0; i < prefs.length; i++) {
+            if(prefs[i]!=null && prefs[i].getPessoa().equals(p)){
+                return prefs[i];
+            }
+        }
+        return null;
+    }
     
     private int proximaPosicaoLivre() {
         for (int i = 0; i < prefs.length; i++) {

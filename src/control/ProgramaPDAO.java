@@ -5,10 +5,14 @@
 package control;
 
 import java.util.Scanner;
+import model.Alimento;
+import model.AlimentoDAO;
 import model.AvaliacaoDAO;
 import model.Pessoa;
 import model.PessoaDAO;
 import model.PostDAO;
+import model.Preferencia;
+import model.PreferenciaDAO;
 import model.SeguindoDAO;
 import model.Utils;
 import view.Menus;
@@ -22,6 +26,8 @@ public class ProgramaPDAO {
     Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
     PostDAO postsDAO = new PostDAO(pessoaDAO);
+    AlimentoDAO alimentoDAO = new AlimentoDAO();
+    PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
     SeguindoDAO seguidoresDAO = new SeguindoDAO(pessoaDAO, postsDAO);
     Scanner s = new Scanner(System.in);
@@ -39,6 +45,7 @@ public class ProgramaPDAO {
                         Utils.setPessoaLogada(Plogada);
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
+                                System.out.println(Utils.getPessoaLogada().getNome() + ", voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
                                 menu.realizarAval(avalDAO);
                             } else {
                                 menuPrincipal();
@@ -71,7 +78,7 @@ public class ProgramaPDAO {
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
-                    System.out.println("\n1 - Registrar Preferencias Alimentares");
+                    gerenciaPreferencia();
                     break;
                 case 2:
                     System.out.println("\n2 - Registrar Tipo de Dieta");
@@ -100,7 +107,35 @@ public class ProgramaPDAO {
         } while (opc != 0);
 
     }
-
+    
+    public void gerenciaPreferencia(){
+        int opc = 0;
+        do{
+            opc = menu.menuPreferencias(preferenciaDAOO);
+            switch(opc){
+                case 1:
+                    menu.exibePreferenciasUsuario(preferenciaDAOO);
+                    break;
+                case 2:
+                    
+                    menu.exibePreferenciasUsuario(preferenciaDAOO);
+                    break;
+                case 3:
+                    criaPref();
+                    break;
+                case 0:
+                    System.out.println("Voltando");
+                    break;
+            }
+        }while(opc != 0);
+        
+    }
+    void criaPref(){
+        Preferencia pref = new Preferencia();
+        pref.setPessoa(Utils.getPessoaLogada());
+        pref.setAlimento(menu.addNovoAlimento());
+        preferenciaDAOO.criaPref(pref);
+    }
     public static void main(String[] args) {
 
         new ProgramaPDAO();
