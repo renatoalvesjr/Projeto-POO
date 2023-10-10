@@ -36,14 +36,15 @@ public class Menus {
         
     }
     
-    public Post feedPosts(PostDAO posts, SeguindoDAO seguidores){
+    public void feedPosts(PostDAO posts, SeguindoDAO seguidores){
         Seguindo logado = seguidores.buscaPorNome(Utils.getPessoaLogada());
-        Pessoa []p = logado.getSeguidores();
+        Pessoa[] p = logado.getSeguidores();
+
         for (int i = 0; i < p.length; i++) {
-            posts.mostraTodosPostPessoa(p[i]);
+            if(p[i]!=null){
+                System.out.println(posts.mostraTodosPostPessoa(p[i]));
+            }
         }
-        
-        return null;
     }
     
     public void realizarAval(AvaliacaoDAO avalDAO){

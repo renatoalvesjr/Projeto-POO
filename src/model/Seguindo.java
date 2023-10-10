@@ -32,7 +32,7 @@ public class Seguindo {
     
     public boolean seguidoresCheio(){
         for (Pessoa seguidor : seguidores) {
-            if (seguidor != null) {
+            if (seguidor == null) {
                 return false;
             }
         }
@@ -41,7 +41,7 @@ public class Seguindo {
     
     public boolean setSeguidores(Pessoa seguidor) {
         for (int i = 0; i < this.seguidores.length; i++) {
-            if(!seguidoresCheio()){
+            if(seguidores[i] == null){
                 seguidores[i] = seguidor;
                 return true;
             }

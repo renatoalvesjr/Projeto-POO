@@ -17,6 +17,7 @@ public class PostDAO {
         Post post3 = new Post();
         post3.setConteudo("App em desenvolvimento por enquanto");
         post3.setPessoa(p1.buscaPorNome("root"));
+        criarPost(post3);
     }
     
     private int proximoPostLivre(){
@@ -40,7 +41,7 @@ public class PostDAO {
     
     public String mostraTodosPostPessoa(Pessoa p){
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].getPessoa().equals(p)) {
+            if(posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
                 return posts[i].getConteudo();
             } 
         }

@@ -5,14 +5,14 @@ public class SeguindoDAO {
     
     public SeguindoDAO(PessoaDAO pessoa, PostDAO posts) {
         Seguindo s1 = new Seguindo();
-        s1.setPessoa(pessoa.buscaPorNome("renato"));
-        s1.setSeguidores(pessoa.buscaPorNome("hebert"));
+        s1.setPessoa(pessoa.buscaPorNome("Renato"));
+        s1.setSeguidores(pessoa.buscaPorNome("Hebert"));
         s1.setSeguidores(pessoa.buscaPorNome("root"));
         criarSeguidor(s1);
         
         Seguindo s2 = new Seguindo();
-        s2.setPessoa(pessoa.buscaPorNome("hebert"));
-        s2.setSeguidores(pessoa.buscaPorNome("renato"));
+        s2.setPessoa(pessoa.buscaPorNome("Hebert"));
+        s2.setSeguidores(pessoa.buscaPorNome("Renato"));
         criarSeguidor(s2);
     }
     

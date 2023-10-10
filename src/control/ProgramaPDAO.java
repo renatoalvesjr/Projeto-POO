@@ -37,6 +37,7 @@ public class ProgramaPDAO {
                     if (Plogada != null) {
                         System.out.println("Logado com sucesso.");
                         Utils.setPessoaLogada(Plogada);
+
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
                                 menus.realizarAval(avalDAO);
