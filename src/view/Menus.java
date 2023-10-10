@@ -42,12 +42,14 @@ public class Menus {
 
         for (int i = 0; i < p.length; i++) {
             if(p[i]!=null){
-                System.out.println(posts.mostraTodosPostPessoa(p[i]));
+                System.out.println(p[i].getNome()+" postou:");
+                System.out.println(posts.mostraTodosPostPessoa(p[i])+"\n");
             }
         }
     }
     
     public void realizarAval(AvaliacaoDAO avalDAO){
+        System.out.println("Voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
         System.out.println("Insira sua idade: ");
         int idade = Integer.parseInt(s.nextLine());
         System.out.println("Insira sua altura em cm: ");
@@ -67,7 +69,7 @@ public class Menus {
                            3: moderadamente ativo (exercicio moderado 6 a 7 dias por semana)
                            4: muito ativo (exerciedcio intenso todos os dias ou exercicio duas vezes ao dia)
                            5: extra ativo (exercicio muito dificil, treinamento ou trabalho fisico)
-                           ->""");
+                           -> """);
         int rotina = Integer.parseInt(s.nextLine());
         
         Avaliacao aval = new Avaliacao();
