@@ -35,7 +35,7 @@ public class SeguindoDAO {
         }
     }
     
-    public Seguindo buscaPorNome(Pessoa p) {
+    public Seguindo buscaPessoa(Pessoa p) {
         for (int i = 0; i < seguidores.length; i++) {
             if(seguidores[i] != null && seguidores[i].getPessoa().getId() == p.getId()){
                 return seguidores[i];

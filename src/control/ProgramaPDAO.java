@@ -19,7 +19,7 @@ import view.Menus;
  */
 public class ProgramaPDAO {
 
-    Menus menus = new Menus();
+    Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
     PostDAO postsDAO = new PostDAO(pessoaDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
@@ -30,30 +30,32 @@ public class ProgramaPDAO {
         int opc;
 
         do {
-            opc = menus.LoginPage();
+            opc = menu.LoginPage();
             switch (opc) {
                 case 1:
-                    Pessoa Plogada = menus.Logar(pessoaDAO);
+                    Pessoa Plogada = menu.Logar(pessoaDAO);
                     if (Plogada != null) {
                         System.out.println("Logado com sucesso.");
                         Utils.setPessoaLogada(Plogada);
-                        int alt = 0;
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
-                                menus.realizarAval(avalDAO);
+                                menu.realizarAval(avalDAO);
                             } else {
                                 menuPrincipal();
-                                alt = 1;
+                                opc = 2;
                             }
-                        } while (alt!=1);
+                        } while (opc != 2);
                     } else {
                         System.out.println("Usuario nao encontrado");
                     }
 
                     break;
                 case 2:
-                    pessoaDAO.adiciona(menus.cadastrar());
+                    pessoaDAO.adiciona(menu.cadastrar());
                     System.out.println("Usuario cadastrado com sucesso");
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
                     break;
                 default:
                     System.out.println("Opcao invalida");
@@ -61,14 +63,42 @@ public class ProgramaPDAO {
         } while (opc != 0);
 
     }
-    
-    public void menuPrincipal(){
+
+    public void menuPrincipal() {
         int opc = 0;
-        do{
-            System.out.println("\n\n\n==== Feed ====");
-            menus.feedPosts(postsDAO, seguidoresDAO);
-        }while(opc!=0);
-        
+        do {
+            menu.feedPosts(postsDAO, seguidoresDAO);
+            opc = menu.menuPrincipal();
+            switch (opc) {
+                case 1:
+                    System.out.println("\n1 - Registrar Preferencias Alimentares");
+                    break;
+                case 2:
+                    System.out.println("\n2 - Registrar Tipo de Dieta");
+                    break;
+                case 3:
+                    System.out.println("\n3 - Registrar Dieta");
+                    break;
+                case 4:
+                    System.out.println("\n4 - Registrar Refeicao");
+                    break;
+                case 5:
+                    System.out.println("\n5 - Seguir usuario pelo nome");
+                    break;
+                case 6:
+                    System.out.println("\n6 - Mostrar todos os usuarios para seguir");
+                    break;
+                case 7:
+                    System.out.println("\n7 - Alterar avaliacao fisica completa");
+                    break;
+                case 0:
+                    System.out.println("Deslogando...");
+                    break;
+
+            }
+
+        } while (opc != 0);
+
     }
 
     public static void main(String[] args) {

@@ -12,44 +12,81 @@ import model.SeguindoDAO;
 import model.Utils;
 
 public class Menus {
+
     Scanner s = new Scanner(System.in);
-    
-    public int LoginPage(){
+
+    public int LoginPage() {
         StringBuilder menu = new StringBuilder("");
-        
+
         menu.append("\n===== Login =====");
         menu.append("\n1 - Login");
         menu.append("\n2 - Cadastro");
         menu.append("\n0 - Sair");
         menu.append("\n-> ");
         System.out.print(menu);
-        
+
         return Integer.parseInt(s.nextLine());
     }
-    
-    public Pessoa Logar(PessoaDAO p){
+
+    public Pessoa Logar(PessoaDAO p) {
         System.out.println("Login: ");
         String login = s.nextLine();
         System.out.println("Senha: ");
         String senha = s.nextLine();
         return p.buscaPessoaLogin(login, senha);
-        
+
     }
-    
-    public void feedPosts(PostDAO posts, SeguindoDAO seguidores){
-        Seguindo logado = seguidores.buscaPorNome(Utils.getPessoaLogada());
+
+    public void listaSeguidores(SeguindoDAO seguidores) {
+        Seguindo logado = seguidores.buscaPessoa(Utils.getPessoaLogada());
         Pessoa[] p = logado.getSeguidores();
 
         for (int i = 0; i < p.length; i++) {
-            if(p[i]!=null){
-                System.out.println(p[i].getNome()+" postou:");
-                System.out.println(posts.mostraTodosPostPessoa(p[i])+"\n");
+            if (p[i] != null) {
+                System.out.println(p[i].getNome());
             }
+
         }
     }
-    
-    public void realizarAval(AvaliacaoDAO avalDAO){
-        System.out.println("Voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
+
+    public int menuPrincipal() {
+        StringBuilder menu = new StringBuilder("");
+
+        menu.append("\n");
+        System.out.println("\n====== MENU PRINCIPAL ======");
+        menu.append("\n1 - Registrar Preferencias Alimentares");
+        menu.append("\n2 - Registrar Tipo de Dieta");
+        menu.append("\n3 - Registrar Dieta");
+        menu.append("\n4 - Registrar Refeicao");
+        menu.append("\n5 - Seguir usuario pelo nome");
+        menu.append("\n6 - Mostrar todos os usuarios para seguir");
+        menu.append("\n7 - Alterar avaliacao fisica completa");
+        menu.append("\n0 - Deslogar");
+        menu.append("\n-> ");
+        System.out.print(menu);
+
+        return Integer.parseInt(s.nextLine());
+    }
+
+    public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
+        Seguindo logado = seguidores.buscaPessoa(Utils.getPessoaLogada());
+        if (logado != null) {
+            Pessoa[] p = logado.getSeguidores();
+            System.out.println("\n\n\n====== TIMELINE ======");
+            for (int i = 0; i < p.length; i++) {
+                if (p[i] != null) {
+                    System.out.println(p[i].getNome() + " postou:");
+                    System.out.println(posts.mostraTodosPostPessoa(p[i]) + "\n");
+                }
+            }
+        }else{
+            System.out.println("\n\n\n====== SEM POSTS DE SEGUIDORES ======");
+        }
+
+    }
+
+    public void realizarAval(AvaliacaoDAO avalDAO) {
+        System.out.println(Utils.getPessoaLogada().getNome() + ", voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
         System.out.println("Insira sua idade: ");
         int idade = Integer.parseInt(s.nextLine());
         System.out.println("Insira sua altura em cm: ");
@@ -71,7 +108,7 @@ public class Menus {
                            5: extra ativo (exercicio muito dificil, treinamento ou trabalho fisico)
                            -> """);
         int rotina = Integer.parseInt(s.nextLine());
-        
+
         Avaliacao aval = new Avaliacao();
         aval.setPessoa(Utils.getPessoaLogada());
         aval.setAltura(altura);
@@ -85,11 +122,10 @@ public class Menus {
         aval.calcTMB();
         aval.calcBF();
         avalDAO.criaAval(aval);
+        aval = null;
     }
-    
-    
-    
-    public Pessoa cadastrar(){
+
+    public Pessoa cadastrar() {
         Pessoa p = new Pessoa();
         System.out.println("Nome completo: ");
         p.setNome(s.nextLine());
@@ -101,6 +137,6 @@ public class Menus {
         p.setLogin(s.nextLine());
         System.out.println("Insira sua senha: ");
         p.setSenha(s.nextLine());
-       return p;
+        return p;
     }
 }
