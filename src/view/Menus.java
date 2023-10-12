@@ -65,8 +65,7 @@ public class Menus {
         menu.append("\n3 - Registrar Dieta");
         menu.append("\n4 - Registrar Refeicao");
         menu.append("\n5 - Seguir usuario pelo nome");
-        menu.append("\n6 - Mostrar todos os usuarios para seguir");
-        menu.append("\n7 - Alterar avaliacao fisica completa");
+        menu.append("\n6 - Alterar avaliacao fisica completa");
         menu.append("\n0 - Deslogar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -75,7 +74,7 @@ public class Menus {
     }
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
-        Seguindo logado = seguidores.buscaPessoa(Utils.getPessoaLogada());
+        Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
         if (logado != null) {
             Pessoa[] p = logado.getSeguidores();
             System.out.println("\n\n====== TIMELINE ======");
@@ -88,7 +87,6 @@ public class Menus {
         }else{
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
         }
-
     }
 
     public void realizarAval(AvaliacaoDAO avalDAO) {       
@@ -131,7 +129,7 @@ public class Menus {
     }
     
     public void listaSeguidores(SeguindoDAO seguidores) {
-        Seguindo logado = seguidores.buscaPessoa(Utils.getPessoaLogada());
+        Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
         Pessoa[] p = logado.getSeguidores();
 
         for (int i = 0; i < p.length; i++) {
@@ -150,6 +148,7 @@ public class Menus {
         menu.append("\n1 - Exibir alimentos preferidos");
         menu.append("\n2 - Adicionar alimento registrado");
         menu.append("\n3 - Adicionar novo alimento");
+        menu.append("\n4 - Remover alimento preferencial");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -168,6 +167,22 @@ public class Menus {
         }
     }
     
+    public int menuSeguidores(){
+        StringBuilder menu = new StringBuilder("");
+
+        menu.append("\n\n");
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Busca usuario para seguir");
+        menu.append("\n2 - Adicionar alimento registrado");
+        menu.append("\n3 - Adicionar novo alimento");
+        menu.append("\n4 - Remover alimento preferencial");
+        menu.append("\n0 - Voltar");
+        menu.append("\n-> ");
+        System.out.print(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
+    
     public Alimento addNovoAlimento(){
         System.out.print("Nome do alimento: ");
         String nome = s.nextLine();
@@ -179,14 +194,14 @@ public class Menus {
         double prot = Double.parseDouble(s.nextLine());
         System.out.print("Quantidade de gorduras: ");
         double gord = Double.parseDouble(s.nextLine());
-        Alimento ali1 = new Alimento();
-        ali1.setNome(nome);
-        ali1.setCarb(carb);
-        ali1.setGord(gord);
-        ali1.setProt(prot);
-        ali1.setPorcao(porcao);
-        ali1.setCal();
-        return ali1;
+        Alimento ali = new Alimento();
+        ali.setNome(nome);
+        ali.setCarb(carb);
+        ali.setGord(gord);
+        ali.setProt(prot);
+        ali.setPorcao(porcao);
+        ali.setCal();
+        return ali;
     }
     
 }

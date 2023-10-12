@@ -1,7 +1,7 @@
 package model;
 
 public class PostDAO {
-    Post posts[] = new Post[10];
+    Post posts[] = new Post[20];
     
     public PostDAO(PessoaDAO p1){
         Post post1 = new Post();

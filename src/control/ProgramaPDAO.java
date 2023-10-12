@@ -13,6 +13,7 @@ import model.PessoaDAO;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.Seguindo;
 import model.SeguindoDAO;
 import model.Utils;
 import view.Menus;
@@ -29,7 +30,7 @@ public class ProgramaPDAO {
     AlimentoDAO alimentoDAO = new AlimentoDAO();
     PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
-    SeguindoDAO seguidoresDAO = new SeguindoDAO(pessoaDAO, postsDAO);
+    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postsDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {
@@ -74,7 +75,7 @@ public class ProgramaPDAO {
     public void menuPrincipal() {
         int opc = 0;
         do {
-            menu.feedPosts(postsDAO, seguidoresDAO);
+            menu.feedPosts(postsDAO, seguindoDAO);
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
@@ -91,12 +92,20 @@ public class ProgramaPDAO {
                     break;
                 case 5:
                     System.out.println("\n5 - Seguir usuario pelo nome");
+                    pessoaDAO.mostrarTodas();
+                    System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
+                    String nome = s.nextLine();
+                    if(!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())){
+                        Seguindo addSeguidor = seguindoDAO.buscaSeguidorPessoa(Utils.getPessoaLogada());
+                        addSeguidor.setSeguidores(pessoaDAO.buscaPorNome(nome));
+                    }else{
+                        System.out.println("Não é possível seguir a si mesmo");
+                        
+                    }
+                    
                     break;
                 case 6:
-                    System.out.println("\n6 - Mostrar todos os usuarios para seguir");
-                    break;
-                case 7:
-                    System.out.println("\n7 - Alterar avaliacao fisica completa");
+                    menu.realizarAval(avalDAO);
                     break;
                 case 0:
                     System.out.println("Deslogando...");
@@ -108,6 +117,8 @@ public class ProgramaPDAO {
 
     }
     
+    
+    
     public void gerenciaPreferencia(){
         int opc = 0;
         do{
@@ -117,11 +128,23 @@ public class ProgramaPDAO {
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     break;
                 case 2:
-                    
-                    menu.exibePreferenciasUsuario(preferenciaDAOO);
+                    alimentoDAO.mostraTodosAlimentos();
+                    System.out.print("\nSelecione um dos alimentos acima para adicionar pelo seu numero à esquerda: ");
+                    Preferencia prefAdd = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
+                    long idAdd = Integer.parseInt(s.nextLine());
+                    prefAdd.setAlimento(alimentoDAO.BuscaAlimento(idAdd));
                     break;
                 case 3:
-                    criaPref();
+                    Preferencia prefNew = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
+                    Alimento ali = menu.addNovoAlimento();
+                    prefNew.setAlimento(ali);
+                    break;
+                case 4:
+                    menu.exibePreferenciasUsuario(preferenciaDAOO);
+                    System.out.print("\nSelecione um dos alimentos acima para remover pelo seu numero à esquerda: ");
+                    Preferencia prefDel = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
+                    long idDel = Integer.parseInt(s.nextLine());
+                    prefDel.setAlimento(idDel);
                     break;
                 case 0:
                     System.out.println("Voltando");
@@ -129,12 +152,6 @@ public class ProgramaPDAO {
             }
         }while(opc != 0);
         
-    }
-    void criaPref(){
-        Preferencia pref = new Preferencia();
-        pref.setPessoa(Utils.getPessoaLogada());
-        pref.setAlimento(menu.addNovoAlimento());
-        preferenciaDAOO.criaPref(pref);
     }
     public static void main(String[] args) {
 
