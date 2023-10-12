@@ -3,7 +3,7 @@ package model;
 public class Preferencia {
     private long id;
     private Pessoa pessoa;
-    private Alimento alimento[] = new Alimento[9];
+    private Alimento alimento[] = new Alimento[10];
     private String createDate;
     private String modifyDate;
     private static long serial;
@@ -37,6 +37,16 @@ public class Preferencia {
                 return true;
             }
             
+        }
+        return false;
+    }
+    
+    public boolean setAlimento(long id){
+        for (int i = 0; i < alimento.length; i++) {
+            if(alimento[i].getId() == id){
+                alimento[i] = null;
+                return true;
+            }
         }
         return false;
     }
