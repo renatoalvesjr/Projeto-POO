@@ -62,10 +62,9 @@ public class Menus {
 
         menu.append("\n\n");
         menu.append("\n====== MENU PRINCIPAL ======");
-        menu.append("\n1 - Gerenciar Preferencias Alimentares");
-        menu.append("\n2 - Registrar Tipo de Dieta");
+        menu.append("\n1 - Dietas");
+        menu.append("\n2 - Preferencias");
         menu.append("\n3 - Registrar Dieta");
-        menu.append("\n4 - Registrar Refeicao");
         menu.append("\n5 - Seguir usuario pelo nome");
         menu.append("\n6 - Gerenciar avaliacao fisica");
         menu.append("\n7 - Meus posts");
@@ -268,6 +267,19 @@ public class Menus {
         menu.append("\n====== PREFERENCIAS ======");
         menu.append("\n1 - Criar post");
         menu.append("\n2 - Remover post");
+        menu.append("\n0 - Voltar");
+        System.out.println(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
+    
+    public int menuDietas(){
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Ver minha dieta");
+        menu.append("\n2 - Criar dieta");
+        menu.append("\n3 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
         System.out.println(menu);
         

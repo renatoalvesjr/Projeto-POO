@@ -17,8 +17,10 @@ import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
+import model.TipoDietaDAO;
 import model.Utils;
 import view.Menus;
 
@@ -36,6 +38,8 @@ public class ProgramaPDAO {
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
     SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
     MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
+    TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
+    RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {
@@ -84,19 +88,19 @@ public class ProgramaPDAO {
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
-                    gerenciaPreferencia();
+                    gerenciaDieta();
                     break;
                 case 2:
-                    System.out.println("\n2 - Registrar Tipo de Dieta");
+                    gerenciaPreferencia();
                     break;
                 case 3:
                     System.out.println("\n3 - Registrar Dieta");
+                    
                     break;
                 case 4:
                     System.out.println("\n4 - Registrar Refeicao");
                     break;
                 case 5:
-                    System.out.println("\n5 - Seguir usuario pelo nome");
                     pessoaDAO.mostrarTodas();
                     System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
                     String nome = s.nextLine();
@@ -213,7 +217,7 @@ public class ProgramaPDAO {
         new ProgramaPDAO();
     }
 
-    private void gerenciaPost() {
+    void gerenciaPost() {
         int opc = 0;
         do{
             opc = menu.menuPosts(postDAO);
@@ -232,6 +236,26 @@ public class ProgramaPDAO {
                     if(!postDAO.removePost(id, Utils.getPessoaLogada())){
                         System.out.println("Post nao encontrado");
                     }
+                    break;
+            }
+        }while(opc != 0);
+    }
+    
+    void gerenciaDieta(){
+        int opc = 0;
+        do{
+            opc = menu.menuDietas();
+            switch(opc){
+                case 1:
+                    if(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()) != null){
+                        System.out.println(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()));
+                    } else{
+                        System.out.println("Nenhuma dieta criada.");
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
                     break;
             }
         }while(opc != 0);

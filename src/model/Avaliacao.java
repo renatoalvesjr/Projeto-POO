@@ -134,6 +134,10 @@ public class Avaliacao {
         }
         
     }
+    
+    public double getTMB(){
+        return tmb;
+    }
 
     public double getImc() {
         return imc;
