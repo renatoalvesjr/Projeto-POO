@@ -2,6 +2,8 @@ package view;
 
 import java.util.Scanner;
 import model.Alimento;
+import model.AlimentoRefeicao;
+import model.AlimentoRefeicaoDAO;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Mensagem;
@@ -254,14 +256,14 @@ public class Menus {
         menu.append("\n2 - Ver mensagens enviadas");
         menu.append("\n0 - Voltar");
         System.out.println(menu);
-        
+
         return Integer.parseInt(s.nextLine());
     }
-    
-    public int menuPosts(PostDAO posts){
+
+    public int menuPosts(PostDAO posts) {
         System.out.println("Meus posts: ");
         posts.mostraTodosPostPessoa(Utils.getPessoaLogada());
-        
+
         StringBuilder menu = new StringBuilder();
 
         menu.append("\n====== PREFERENCIAS ======");
@@ -269,20 +271,40 @@ public class Menus {
         menu.append("\n2 - Remover post");
         menu.append("\n0 - Voltar");
         System.out.println(menu);
-        
+
         return Integer.parseInt(s.nextLine());
     }
-    
-    public int menuDietas(){
+
+    public int menuDietas() {
         StringBuilder menu = new StringBuilder();
 
         menu.append("\n====== PREFERENCIAS ======");
         menu.append("\n1 - Ver minha dieta");
-        menu.append("\n2 - Criar dieta");
-        menu.append("\n3 - Gerenciar alimentos na dieta");
+        menu.append("\n2 - Ver minhas refeicoes");
+        menu.append("\n3 - Criar dieta");
+        menu.append("\n4 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
         System.out.println(menu);
-        
+
         return Integer.parseInt(s.nextLine());
+    }
+
+    public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {
+        if (alrf.length != 0) {
+            for (int i = 0; i < alrf.length; i++) {
+                if (alrf != null) {
+                    System.out.println(alrf[i].getRefeicao().getNomeRefeicao());
+                    Alimento[] alimentos = alrf[i].getAlimento();
+                    for (int j = 0; j < alimentos.length; j++) {
+                        if (alimentos[i] != null) {
+                            System.out.println(alimentos[i]);
+                        }
+                    }
+                }
+            }
+        } else {
+            System.out.println("Nenhuma refeicao cadastrada");
+        }
+
     }
 }

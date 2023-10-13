@@ -8,7 +8,7 @@ public class AlimentoRefeicaoDAO {
 
     AlimentoRefeicao[] alimentoRefeicao = new AlimentoRefeicao[20];
 
-    public AlimentoRefeicaoDAO(RefeicoesDAO refeicaoDAO, AlimentoDAO alimentoDAO) {
+    public AlimentoRefeicaoDAO(RefeicoesDAO refeicaoDAO, AlimentoDAO alimentoDAO, PessoaDAO pessoaDAO) {
 
     }
 
@@ -42,14 +42,14 @@ public class AlimentoRefeicaoDAO {
         }
         return false;
     }
-    
-    public boolean removeAlimentoPorId(long idAlimentoRefeicao, long idAlimento){
+
+    public boolean removeAlimentoPorId(long idAlimentoRefeicao, long idAlimento) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if(alimentoRefeicao[i].getId() == idAlimentoRefeicao){
+            if (alimentoRefeicao[i].getId() == idAlimentoRefeicao) {
                 Alimento[] alimentos = new Alimento[20];
                 alimentos = alimentoRefeicao[i].getAlimento();
                 for (int j = 0; j < alimentos.length; j++) {
-                    if(alimentos[i] != null && alimentos[i].getId() == idAlimento){
+                    if (alimentos[i] != null && alimentos[i].getId() == idAlimento) {
                         alimentos[i] = null;
                         return true;
                     }
@@ -58,13 +58,38 @@ public class AlimentoRefeicaoDAO {
         }
         return false;
     }
-    
-    public AlimentoRefeicao buscaPorId(long id){
+
+    public AlimentoRefeicao buscaPorId(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].getId() == id){
+            if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getId() == id) {
                 return alimentoRefeicao[i];
             }
         }
         return null;
+    }
+
+    public AlimentoRefeicao buscaPorPessoa(Pessoa p) {
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().getId() == p.getId()) {
+                return alimentoRefeicao[i];
+            }
+        }
+        return null;
+    }
+
+    public AlimentoRefeicao[] buscaTodosPorPessoa(Pessoa p) {
+        AlimentoRefeicao[] alrfs = new AlimentoRefeicao[10];
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().getId() == p.getId()) {
+                for (int j = 0; j < alrfs.length; j++) {
+                    if (alrfs[i] == null) {
+                        alrfs[i] = alimentoRefeicao[i];
+                    }
+
+                }
+            }
+
+        }
+        return alrfs;
     }
 }

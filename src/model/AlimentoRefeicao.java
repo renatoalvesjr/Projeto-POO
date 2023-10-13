@@ -3,6 +3,7 @@ package model;
 public class AlimentoRefeicao {
 
     private long id;
+    private Pessoa pessoa;
     private Refeicoes refeicao;
     private Alimento[] alimento = new Alimento[20];
     private int porcao;
@@ -18,6 +19,14 @@ public class AlimentoRefeicao {
         this.id = ++AlimentoRefeicao.serial;
         this.createDate = Utils.dataAgora();
         this.modifyDate = "";
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
     
     private void calcPorcao(){

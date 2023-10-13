@@ -7,6 +7,8 @@ package control;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoDAO;
+import model.AlimentoRefeicao;
+import model.AlimentoRefeicaoDAO;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Mensagem;
@@ -17,6 +19,7 @@ import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.RefeicoesDAO;
 import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
@@ -39,6 +42,8 @@ public class ProgramaPDAO {
     SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
     MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
+    RefeicoesDAO refeicoesDAO = new RefeicoesDAO(tipodietaDAO);
+    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
     RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
 
@@ -95,7 +100,6 @@ public class ProgramaPDAO {
                     break;
                 case 3:
                     System.out.println("\n3 - Registrar Dieta");
-                    
                     break;
                 case 4:
                     System.out.println("\n4 - Registrar Refeicao");
@@ -198,7 +202,7 @@ public class ProgramaPDAO {
                         m.setpDestino(pessoaDAO.buscaPorNome(nome));
                         m.setConteudo(conteudo);
                         mensagemDAO.criaMensagem(m);
-                    } else{
+                    } else {
                         System.out.println("Nao e possivel enviar mensagem para voce mesmo.");
                     }
 
@@ -219,9 +223,9 @@ public class ProgramaPDAO {
 
     void gerenciaPost() {
         int opc = 0;
-        do{
+        do {
             opc = menu.menuPosts(postDAO);
-            switch(opc){
+            switch (opc) {
                 case 1:
                     System.out.println("Post: ");
                     String conteudo = s.nextLine();
@@ -233,31 +237,32 @@ public class ProgramaPDAO {
                 case 2:
                     System.out.println("Insira o id de um post para ser removido: ");
                     long id = Integer.parseInt(s.nextLine());
-                    if(!postDAO.removePost(id, Utils.getPessoaLogada())){
+                    if (!postDAO.removePost(id, Utils.getPessoaLogada())) {
                         System.out.println("Post nao encontrado");
                     }
                     break;
             }
-        }while(opc != 0);
+        } while (opc != 0);
     }
-    
-    void gerenciaDieta(){
+
+    void gerenciaDieta() {
         int opc = 0;
-        do{
+        do {
             opc = menu.menuDietas();
-            switch(opc){
+            switch (opc) {
                 case 1:
-                    if(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()) != null){
+                    if (registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()) != null) {
                         System.out.println(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()));
-                    } else{
+                    } else {
                         System.out.println("Nenhuma dieta criada.");
                     }
                     break;
                 case 2:
+                    menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
                 case 3:
                     break;
             }
-        }while(opc != 0);
+        } while (opc != 0);
     }
 }
