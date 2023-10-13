@@ -13,6 +13,7 @@ import model.Mensagem;
 import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
+import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
@@ -29,11 +30,11 @@ public class ProgramaPDAO {
 
     Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    PostDAO postsDAO = new PostDAO(pessoaDAO);
+    PostDAO postDAO = new PostDAO(pessoaDAO);
     AlimentoDAO alimentoDAO = new AlimentoDAO();
     PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
-    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postsDAO);
+    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
     MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
     Scanner s = new Scanner(System.in);
 
@@ -79,7 +80,7 @@ public class ProgramaPDAO {
     void menuPrincipal() {
         int opc = 0;
         do {
-            menu.feedPosts(postsDAO, seguindoDAO);
+            menu.feedPosts(postDAO, seguindoDAO);
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
@@ -108,6 +109,9 @@ public class ProgramaPDAO {
                     break;
                 case 6:
                     gerenciaAval();
+                    break;
+                case 7:
+                    gerenciaPost();
                     break;
                 case 8:
                     gerenciaMensagens();
@@ -207,5 +211,29 @@ public class ProgramaPDAO {
     public static void main(String[] args) {
 
         new ProgramaPDAO();
+    }
+
+    private void gerenciaPost() {
+        int opc = 0;
+        do{
+            opc = menu.menuPosts(postDAO);
+            switch(opc){
+                case 1:
+                    System.out.println("Post: ");
+                    String conteudo = s.nextLine();
+                    Post post = new Post();
+                    post.setPessoa(Utils.getPessoaLogada());
+                    post.setConteudo(conteudo);
+                    postDAO.criarPost(post);
+                    break;
+                case 2:
+                    System.out.println("Insira o id de um post para ser removido: ");
+                    long id = Integer.parseInt(s.nextLine());
+                    if(!postDAO.removePost(id, Utils.getPessoaLogada())){
+                        System.out.println("Post nao encontrado");
+                    }
+                    break;
+            }
+        }while(opc != 0);
     }
 }

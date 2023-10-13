@@ -68,7 +68,7 @@ public class Menus {
         menu.append("\n4 - Registrar Refeicao");
         menu.append("\n5 - Seguir usuario pelo nome");
         menu.append("\n6 - Gerenciar avaliacao fisica");
-        menu.append("\n7 - Fazer post");
+        menu.append("\n7 - Meus posts");
         menu.append("\n8 - Mensagens");
         menu.append("\n0 - Deslogar");
         menu.append("\n-> ");
@@ -84,8 +84,7 @@ public class Menus {
             System.out.println("\n\n====== TIMELINE ======");
             for (int i = 0; i < p.length; i++) {
                 if (p[i] != null) {
-                    System.out.println(p[i].getNome() + " postou:");
-                    System.out.println(posts.mostraTodosPostPessoa(p[i]) + "\n");
+                    posts.mostraTodosPostPessoa(p[i]);
                 }
             }
         } else {
@@ -259,5 +258,19 @@ public class Menus {
         
         return Integer.parseInt(s.nextLine());
     }
+    
+    public int menuPosts(PostDAO posts){
+        System.out.println("Meus posts: ");
+        posts.mostraTodosPostPessoa(Utils.getPessoaLogada());
+        
+        StringBuilder menu = new StringBuilder();
 
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Criar post");
+        menu.append("\n2 - Remover post");
+        menu.append("\n0 - Voltar");
+        System.out.println(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
 }
