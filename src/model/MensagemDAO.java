@@ -6,9 +6,16 @@ public class MensagemDAO {
 
     public MensagemDAO(PessoaDAO p1) {
         Mensagem m1 = new Mensagem();
-        m1.setConteudo("e ai, bahum???");
+        m1.setConteudo("E ai, bahum?");
         m1.setpOrigem(p1.buscaPorNome("renato"));
         m1.setpDestino(p1.buscaPorNome("hebert"));
+        criaMensagem(m1);
+        
+        Mensagem m2 = new Mensagem();
+        m2.setConteudo("Bahum de mais.");
+        m2.setpOrigem(p1.buscaPorNome("hebert"));
+        m2.setpDestino(p1.buscaPorNome("renato"));
+        criaMensagem(m2);
     }
 
     private int proximMensagemLivre() {
@@ -27,6 +34,22 @@ public class MensagemDAO {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    public void mostraMensagemEnviada(Pessoa p){
+        for (int i = 0; i < mensagens.length; i++) {
+            if(mensagens[i] != null && mensagens[i].getpOrigem().getId() == p.getId()){
+                System.out.println(mensagens[i]);
+            }
+        }
+    }
+    
+    public void mostraMensagemRecebida(Pessoa p){
+        for (int i = 0; i < mensagens.length; i++) {
+            if(mensagens[i] != null && mensagens[i].getpDestino().getId() == p.getId()){
+                System.out.println(mensagens[i]);
+            }
         }
     }
 

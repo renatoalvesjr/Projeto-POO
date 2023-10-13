@@ -1,80 +1,89 @@
 package model;
 
 public class PostDAO {
+
     Post posts[] = new Post[20];
-    
-    public PostDAO(PessoaDAO p1){
+
+    public PostDAO(PessoaDAO p1) {
         Post post1 = new Post();
         post1.setConteudo("Minha dieta esta indo bem");
         post1.setPessoa(p1.buscaPorNome("hebert"));
         criarPost(post1);
-        
+
         Post post2 = new Post();
         post2.setConteudo("Minha dieta nao esta indo tao bem como eu ");
         post2.setPessoa(p1.buscaPorNome("renato"));
         criarPost(post2);
-        
+
         Post post3 = new Post();
         post3.setConteudo("App em desenvolvimento por enquanto");
         post3.setPessoa(p1.buscaPorNome("root"));
         criarPost(post3);
     }
-    
-    private int proximoPostLivre(){
+
+    private int proximoPostLivre() {
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i] == null){
+            if (posts[i] == null) {
                 return i;
             }
         }
         return -1;
-    } 
-    
-    boolean criarPost(Post a){
+    }
+
+    public boolean criarPost(Post a) {
         int proximoPostLivre = proximoPostLivre();
-        if(proximoPostLivre != -1){
+        if (proximoPostLivre != -1) {
             posts[proximoPostLivre] = a;
             return true;
         } else {
             return false;
         }
     }
-    
-    public String mostraTodosPostPessoa(Pessoa p){
+
+    public String pegaPostPessoa(Pessoa p) {
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
+            if (posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
                 return posts[i].getConteudo();
-            } 
+            }
         }
         return null;
     }
-    
-    public boolean removePost(long id){
+
+    public void mostraTodosPostPessoa(Pessoa p) {
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].getId() == id){
+            if (posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
+                System.out.println(posts[i]);
+            }
+        }
+    }
+
+    public boolean removePost(long id, Pessoa p) {
+        for (int i = 0; i < posts.length; i++) {
+            if (posts[i] != null && posts[i].getId() == id && posts[i].getPessoa().getId() == p.getId()) {
                 posts[i] = null;
                 return true;
             }
         }
         return false;
     }
-    
-    public boolean alteraConteudo(long id, String conteudo){
+
+    public boolean alteraConteudo(long id, String conteudo) {
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i].getId() == id){
+            if (posts[i].getId() == id) {
                 posts[i].setConteudo(conteudo);
                 return true;
             }
-            
+
         }
         return false;
     }
-    
-    boolean postsVazio(){
+
+    boolean postsVazio() {
         for (int i = 0; i < posts.length; i++) {
-            if(posts[i] != null){
+            if (posts[i] != null) {
                 return false;
             }
-            
+
         }
         return true;
     }

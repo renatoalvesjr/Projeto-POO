@@ -7,14 +7,20 @@ package control;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoDAO;
+import model.Avaliacao;
 import model.AvaliacaoDAO;
+import model.Mensagem;
+import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
+import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
+import model.TipoDietaDAO;
 import model.Utils;
 import view.Menus;
 
@@ -26,11 +32,14 @@ public class ProgramaPDAO {
 
     Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    PostDAO postsDAO = new PostDAO(pessoaDAO);
+    PostDAO postDAO = new PostDAO(pessoaDAO);
     AlimentoDAO alimentoDAO = new AlimentoDAO();
     PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
-    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postsDAO);
+    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
+    MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
+    TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
+    RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {
@@ -47,7 +56,7 @@ public class ProgramaPDAO {
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
                                 System.out.println(Utils.getPessoaLogada().getNome() + ", voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
-                                menu.realizarAval(avalDAO);
+                                avalDAO.criaAval(menu.realizarAval(avalDAO));
                             } else {
                                 menuPrincipal();
                                 opc = 2;
@@ -72,40 +81,44 @@ public class ProgramaPDAO {
 
     }
 
-    public void menuPrincipal() {
+    void menuPrincipal() {
         int opc = 0;
         do {
-            menu.feedPosts(postsDAO, seguindoDAO);
+            menu.feedPosts(postDAO, seguindoDAO);
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
-                    gerenciaPreferencia();
+                    gerenciaDieta();
                     break;
                 case 2:
-                    System.out.println("\n2 - Registrar Tipo de Dieta");
+                    gerenciaPreferencia();
                     break;
                 case 3:
                     System.out.println("\n3 - Registrar Dieta");
+                    
                     break;
                 case 4:
                     System.out.println("\n4 - Registrar Refeicao");
                     break;
                 case 5:
-                    System.out.println("\n5 - Seguir usuario pelo nome");
                     pessoaDAO.mostrarTodas();
                     System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
                     String nome = s.nextLine();
-                    if(!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())){
+                    if (!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())) {
                         Seguindo addSeguidor = seguindoDAO.buscaSeguidorPessoa(Utils.getPessoaLogada());
                         addSeguidor.setSeguidores(pessoaDAO.buscaPorNome(nome));
-                    }else{
+                    } else {
                         System.out.println("Não é possível seguir a si mesmo");
-                        
                     }
-                    
                     break;
                 case 6:
-                    menu.realizarAval(avalDAO);
+                    gerenciaAval();
+                    break;
+                case 7:
+                    gerenciaPost();
+                    break;
+                case 8:
+                    gerenciaMensagens();
                     break;
                 case 0:
                     System.out.println("Deslogando...");
@@ -116,14 +129,28 @@ public class ProgramaPDAO {
         } while (opc != 0);
 
     }
-    
-    
-    
-    public void gerenciaPreferencia(){
+
+    void gerenciaAval() {
         int opc = 0;
-        do{
+        do {
+            opc = menu.menuAvaliacao();
+            switch (opc) {
+                case 1:
+                    System.out.println(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
+                    break;
+                case 2:
+                    long updateAval = avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()).getId();
+                    menu.alteraAval(avalDAO, updateAval);
+                    break;
+            }
+        } while (opc != 0);
+    }
+
+    void gerenciaPreferencia() {
+        int opc = 0;
+        do {
             opc = menu.menuPreferencias(preferenciaDAOO);
-            switch(opc){
+            switch (opc) {
                 case 1:
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     break;
@@ -150,11 +177,87 @@ public class ProgramaPDAO {
                     System.out.println("Voltando");
                     break;
             }
-        }while(opc != 0);
-        
+        } while (opc != 0);
+
     }
+
+    void gerenciaMensagens() {
+        int opc = 0;
+        do {
+            opc = menu.menuMensagens(mensagemDAO);
+
+            switch (opc) {
+                case 1:
+                    System.out.println("Destinatario: ");
+                    String nome = s.nextLine();
+                    System.out.println("Mensagem: ");
+                    String conteudo = s.nextLine();
+                    if (!Utils.getPessoaLogada().getNome().equalsIgnoreCase(nome)) {
+                        Mensagem m = new Mensagem();
+                        m.setpOrigem(Utils.getPessoaLogada());
+                        m.setpDestino(pessoaDAO.buscaPorNome(nome));
+                        m.setConteudo(conteudo);
+                        mensagemDAO.criaMensagem(m);
+                    } else{
+                        System.out.println("Nao e possivel enviar mensagem para voce mesmo.");
+                    }
+
+                    break;
+                case 2:
+                    System.out.println("Mensagens enviadas: ");
+                    mensagemDAO.mostraMensagemEnviada(Utils.getPessoaLogada());
+                    break;
+            }
+        } while (opc != 0);
+
+    }
+
     public static void main(String[] args) {
 
         new ProgramaPDAO();
+    }
+
+    void gerenciaPost() {
+        int opc = 0;
+        do{
+            opc = menu.menuPosts(postDAO);
+            switch(opc){
+                case 1:
+                    System.out.println("Post: ");
+                    String conteudo = s.nextLine();
+                    Post post = new Post();
+                    post.setPessoa(Utils.getPessoaLogada());
+                    post.setConteudo(conteudo);
+                    postDAO.criarPost(post);
+                    break;
+                case 2:
+                    System.out.println("Insira o id de um post para ser removido: ");
+                    long id = Integer.parseInt(s.nextLine());
+                    if(!postDAO.removePost(id, Utils.getPessoaLogada())){
+                        System.out.println("Post nao encontrado");
+                    }
+                    break;
+            }
+        }while(opc != 0);
+    }
+    
+    void gerenciaDieta(){
+        int opc = 0;
+        do{
+            opc = menu.menuDietas();
+            switch(opc){
+                case 1:
+                    if(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()) != null){
+                        System.out.println(registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada()));
+                    } else{
+                        System.out.println("Nenhuma dieta criada.");
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }while(opc != 0);
     }
 }

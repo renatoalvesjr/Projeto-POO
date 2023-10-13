@@ -4,6 +4,8 @@ import java.util.Scanner;
 import model.Alimento;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
+import model.Mensagem;
+import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
 import model.Post;
@@ -39,7 +41,7 @@ public class Menus {
         return p.buscaPessoaLogin(login, senha);
 
     }
-    
+
     public Pessoa cadastrar() {
         Pessoa p = new Pessoa();
         System.out.println("Nome completo: ");
@@ -60,12 +62,13 @@ public class Menus {
 
         menu.append("\n\n");
         menu.append("\n====== MENU PRINCIPAL ======");
-        menu.append("\n1 - Gerenciar Preferencias Alimentares");
-        menu.append("\n2 - Registrar Tipo de Dieta");
+        menu.append("\n1 - Dietas");
+        menu.append("\n2 - Preferencias");
         menu.append("\n3 - Registrar Dieta");
-        menu.append("\n4 - Registrar Refeicao");
         menu.append("\n5 - Seguir usuario pelo nome");
-        menu.append("\n6 - Alterar avaliacao fisica completa");
+        menu.append("\n6 - Gerenciar avaliacao fisica");
+        menu.append("\n7 - Meus posts");
+        menu.append("\n8 - Mensagens");
         menu.append("\n0 - Deslogar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -80,16 +83,15 @@ public class Menus {
             System.out.println("\n\n====== TIMELINE ======");
             for (int i = 0; i < p.length; i++) {
                 if (p[i] != null) {
-                    System.out.println(p[i].getNome() + " postou:");
-                    System.out.println(posts.mostraTodosPostPessoa(p[i]) + "\n");
+                    posts.mostraTodosPostPessoa(p[i]);
                 }
             }
-        }else{
+        } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
         }
     }
 
-    public void realizarAval(AvaliacaoDAO avalDAO) {       
+    public Avaliacao realizarAval(AvaliacaoDAO avalDAO) {
         System.out.println("Insira sua idade: ");
         int idade = Integer.parseInt(s.nextLine());
         System.out.println("Insira sua altura em cm: ");
@@ -124,10 +126,47 @@ public class Menus {
         aval.calcIMC();
         aval.calcTMB();
         aval.calcBF();
-        avalDAO.criaAval(aval);
-        aval = null;
+        return aval;
     }
-    
+
+    public int menuAvaliacao() {
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== AVALIACOES ======");
+        menu.append("\n1 - Exibir avaliacao completa");
+        menu.append("\n2 - Alterar Avaliacao");
+        menu.append("\n0 - Voltar");
+        menu.append("\n-> ");
+        System.out.print(menu);
+
+        return Integer.parseInt(s.nextLine());
+    }
+
+    public void alteraAval(AvaliacaoDAO avalDAO, long id) {
+        System.out.println("Insira sua idade: ");
+        int idade = Integer.parseInt(s.nextLine());
+        System.out.println("Insira sua altura em cm: ");
+        double altura = Double.parseDouble(s.nextLine());
+        System.out.println("Insira seu peso em kg: ");
+        double peso = Double.parseDouble(s.nextLine());
+        System.out.println("Insira sua cricunferencia de pesoco em cm: ");
+        double pescoco = Double.parseDouble(s.nextLine());
+        System.out.println("Insira sua cricunferencia de quadril em cm: ");
+        double quadril = Double.parseDouble(s.nextLine());
+        System.out.println("Insira sua cricunferencia de cintura em cm: ");
+        double cintura = Double.parseDouble(s.nextLine());
+        System.out.print("""
+                           Escolha um estilo de rotina abaixo
+                           1: sedentario (pouco ou nenhum exercicio)
+                           2: levemente ativo (exercicio leve 1 a 3 dias por semana)
+                           3: moderadamente ativo (exercicio moderado 6 a 7 dias por semana)
+                           4: muito ativo (exerciedcio intenso todos os dias ou exercicio duas vezes ao dia)
+                           5: extra ativo (exercicio muito dificil, treinamento ou trabalho fisico)
+                           -> """);
+        int rotina = Integer.parseInt(s.nextLine());
+        avalDAO.alteraMedidas(id, idade, altura, cintura, quadril, pescoco, peso, rotina);
+    }
+
     public void listaSeguidores(SeguindoDAO seguidores) {
         Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
         Pessoa[] p = logado.getSeguidores();
@@ -139,8 +178,8 @@ public class Menus {
 
         }
     }
-    
-    public int menuPreferencias(PreferenciaDAO preferencias){
+
+    public int menuPreferencias(PreferenciaDAO preferencias) {
         StringBuilder menu = new StringBuilder("");
 
         menu.append("\n\n");
@@ -155,19 +194,19 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
-    
-    public void exibePreferenciasUsuario(PreferenciaDAO preferenciasDAO){
+
+    public void exibePreferenciasUsuario(PreferenciaDAO preferenciasDAO) {
         Preferencia preferencias = preferenciasDAO.buscaPref(Utils.getPessoaLogada());
         Alimento[] alimentos = preferencias.getAlimento();
-        
-        for(Alimento al: alimentos){
-            if(al!=null){
+
+        for (Alimento al : alimentos) {
+            if (al != null) {
                 System.out.println(al.toString());
             }
         }
     }
-    
-    public int menuSeguidores(){
+
+    public int menuSeguidores() {
         StringBuilder menu = new StringBuilder("");
 
         menu.append("\n\n");
@@ -179,11 +218,11 @@ public class Menus {
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
-        
+
         return Integer.parseInt(s.nextLine());
     }
-    
-    public Alimento addNovoAlimento(){
+
+    public Alimento addNovoAlimento() {
         System.out.print("Nome do alimento: ");
         String nome = s.nextLine();
         System.out.print("Tamanho da porcao em gramas: ");
@@ -203,5 +242,47 @@ public class Menus {
         ali.setCal();
         return ali;
     }
+
+    public int menuMensagens(MensagemDAO mensagens) {
+        System.out.println("\n\nMensagens recebidas:");
+        mensagens.mostraMensagemRecebida(Utils.getPessoaLogada());
+
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Enviar mensagem");
+        menu.append("\n2 - Ver mensagens enviadas");
+        menu.append("\n0 - Voltar");
+        System.out.println(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
     
+    public int menuPosts(PostDAO posts){
+        System.out.println("Meus posts: ");
+        posts.mostraTodosPostPessoa(Utils.getPessoaLogada());
+        
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Criar post");
+        menu.append("\n2 - Remover post");
+        menu.append("\n0 - Voltar");
+        System.out.println(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
+    
+    public int menuDietas(){
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n1 - Ver minha dieta");
+        menu.append("\n2 - Criar dieta");
+        menu.append("\n3 - Gerenciar alimentos na dieta");
+        menu.append("\n0 - Voltar");
+        System.out.println(menu);
+        
+        return Integer.parseInt(s.nextLine());
+    }
 }

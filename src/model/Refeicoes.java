@@ -6,6 +6,7 @@ public class Refeicoes {
     private double carb;
     private double prot;
     private double gord;
+    private double cal;
     private String nomeRefeicao;
     private String createDate;
     private String modifyDate;
@@ -19,6 +20,14 @@ public class Refeicoes {
 
     public long getId() {
         return id;
+    }
+
+    public double getCal() {
+        return cal;
+    }
+
+    public void setCal() {
+        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     public TipoDieta getTd() {

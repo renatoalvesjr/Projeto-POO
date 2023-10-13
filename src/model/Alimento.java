@@ -60,7 +60,7 @@ public class Alimento {
     }
 
     public void setCal() {
-        this.cal = calcCaloria();
+        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     public double getPorcao() {
@@ -89,11 +89,6 @@ public class Alimento {
 
     public void setModifyDate() {
         this.modifyDate = Utils.dataAgora();
-    }
-
-    private double calcCaloria(){
-        setModifyDate();
-        return (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     @Override

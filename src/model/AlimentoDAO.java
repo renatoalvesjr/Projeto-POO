@@ -18,6 +18,7 @@ public class AlimentoDAO {
         ali1.setGord(2.5);
         ali1.setProt(32);
         ali1.setPorcao(100);
+        ali1.setCal();
         this.adicionaAlimento(ali1);
         
         Alimento ali2 = new Alimento();
@@ -26,6 +27,7 @@ public class AlimentoDAO {
         ali2.setGord(1);
         ali2.setProt(2.6);
         ali2.setPorcao(100);
+        ali2.setCal();
         this.adicionaAlimento(ali2);
         
         Alimento ali3 = new Alimento();
@@ -34,6 +36,7 @@ public class AlimentoDAO {
         ali3.setGord(0.5);
         ali3.setProt(4.5);
         ali3.setPorcao(100);
+        ali3.setCal();
         this.adicionaAlimento(ali3);
         
         Alimento ali4 = new Alimento();
@@ -42,6 +45,7 @@ public class AlimentoDAO {
         ali4.setGord(0.5);
         ali4.setProt(2.9);
         ali4.setPorcao(100);
+        ali4.setCal();
         this.adicionaAlimento(ali4);
     }
     
