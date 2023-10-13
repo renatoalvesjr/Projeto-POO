@@ -7,7 +7,10 @@ package control;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoDAO;
+import model.Avaliacao;
 import model.AvaliacaoDAO;
+import model.Mensagem;
+import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
 import model.PostDAO;
@@ -31,6 +34,7 @@ public class ProgramaPDAO {
     PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
     SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postsDAO);
+    MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
     Scanner s = new Scanner(System.in);
 
     public ProgramaPDAO() {
@@ -47,7 +51,7 @@ public class ProgramaPDAO {
                         do {
                             if (avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()) == null) {
                                 System.out.println(Utils.getPessoaLogada().getNome() + ", voce ainda nao possui uma avaliacao fisica, insira os dados abaixo para realizar uma.");
-                                menu.realizarAval(avalDAO);
+                                avalDAO.criaAval(menu.realizarAval(avalDAO));
                             } else {
                                 menuPrincipal();
                                 opc = 2;
@@ -72,7 +76,7 @@ public class ProgramaPDAO {
 
     }
 
-    public void menuPrincipal() {
+    void menuPrincipal() {
         int opc = 0;
         do {
             menu.feedPosts(postsDAO, seguindoDAO);
@@ -95,17 +99,18 @@ public class ProgramaPDAO {
                     pessoaDAO.mostrarTodas();
                     System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
                     String nome = s.nextLine();
-                    if(!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())){
+                    if (!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())) {
                         Seguindo addSeguidor = seguindoDAO.buscaSeguidorPessoa(Utils.getPessoaLogada());
                         addSeguidor.setSeguidores(pessoaDAO.buscaPorNome(nome));
-                    }else{
+                    } else {
                         System.out.println("Não é possível seguir a si mesmo");
-                        
                     }
-                    
                     break;
                 case 6:
-                    menu.realizarAval(avalDAO);
+                    gerenciaAval();
+                    break;
+                case 8:
+                    gerenciaMensagens();
                     break;
                 case 0:
                     System.out.println("Deslogando...");
@@ -116,14 +121,28 @@ public class ProgramaPDAO {
         } while (opc != 0);
 
     }
-    
-    
-    
-    public void gerenciaPreferencia(){
+
+    void gerenciaAval() {
         int opc = 0;
-        do{
+        do {
+            opc = menu.menuAvaliacao();
+            switch (opc) {
+                case 1:
+                    System.out.println(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
+                    break;
+                case 2:
+                    long updateAval = avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()).getId();
+                    menu.alteraAval(avalDAO, updateAval);
+                    break;
+            }
+        } while (opc != 0);
+    }
+
+    void gerenciaPreferencia() {
+        int opc = 0;
+        do {
             opc = menu.menuPreferencias(preferenciaDAOO);
-            switch(opc){
+            switch (opc) {
                 case 1:
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     break;
@@ -150,9 +169,41 @@ public class ProgramaPDAO {
                     System.out.println("Voltando");
                     break;
             }
-        }while(opc != 0);
-        
+        } while (opc != 0);
+
     }
+
+    void gerenciaMensagens() {
+        int opc = 0;
+        do {
+            opc = menu.menuMensagens(mensagemDAO);
+
+            switch (opc) {
+                case 1:
+                    System.out.println("Destinatario: ");
+                    String nome = s.nextLine();
+                    System.out.println("Mensagem: ");
+                    String conteudo = s.nextLine();
+                    if (!Utils.getPessoaLogada().getNome().equalsIgnoreCase(nome)) {
+                        Mensagem m = new Mensagem();
+                        m.setpOrigem(Utils.getPessoaLogada());
+                        m.setpDestino(pessoaDAO.buscaPorNome(nome));
+                        m.setConteudo(conteudo);
+                        mensagemDAO.criaMensagem(m);
+                    } else{
+                        System.out.println("Nao e possivel enviar mensagem para voce mesmo.");
+                    }
+
+                    break;
+                case 2:
+                    System.out.println("Mensagens enviadas: ");
+                    mensagemDAO.mostraMensagemEnviada(Utils.getPessoaLogada());
+                    break;
+            }
+        } while (opc != 0);
+
+    }
+
     public static void main(String[] args) {
 
         new ProgramaPDAO();
