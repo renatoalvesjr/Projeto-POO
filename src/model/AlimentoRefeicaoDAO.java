@@ -119,16 +119,13 @@ public class AlimentoRefeicaoDAO {
         }
         return null;
     }
-    
-    public boolean removeAlimentoPorId(AlimentoRefeicao alrf, long id){
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].equals(alrf)){
-                Alimento[] alimentos = alimentoRefeicao[i].getAlimento();
-                for (int j = 0; j < alimentos.length; j++) {
-                    if(alimentos[i] != null && alimentos[i].getId() == id)
-                    alimentos[i] = null;
-                    return true;
-                }
+
+    public boolean removeAlimentoPorId(AlimentoRefeicao alrf, long id) {
+        Alimento[] alimentos = alrf.getAlimento();
+        for (int i = 0; i < alimentos.length; i++) {
+            if (alimentos[i] != null && alimentos[i].getId() == id) {
+                alimentos[i] = null;
+                return true;
             }
         }
         return false;
@@ -142,7 +139,6 @@ public class AlimentoRefeicaoDAO {
                     if (alrfs[i] == null) {
                         alrfs[i] = alimentoRefeicao[i];
                     }
-
                 }
             }
 
