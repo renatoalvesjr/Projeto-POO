@@ -64,8 +64,8 @@ public class Menus {
 
         menu.append("\n\n");
         menu.append("\n====== MENU PRINCIPAL ======");
-        menu.append("\n1 - Dietas");
-        menu.append("\n2 - Preferencias");
+        menu.append("\n1 - Minha Dieta");
+        menu.append("\n2 - Preferencias Alimentares");
         menu.append("\n3 - Registrar Dieta");
         menu.append("\n5 - Seguir usuario pelo nome");
         menu.append("\n6 - Gerenciar avaliacao fisica");
@@ -79,6 +79,7 @@ public class Menus {
     }
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
+        System.out.println("\n\n====== BEM-VINDO "+Utils.getPessoaLogada().getNome().toUpperCase()+" ======");
         Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
         if (logado != null) {
             Pessoa[] p = logado.getSeguidores();
@@ -212,7 +213,7 @@ public class Menus {
         StringBuilder menu = new StringBuilder("");
 
         menu.append("\n\n");
-        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n====== SEGUIDORES ======");
         menu.append("\n1 - Busca usuario para seguir");
         menu.append("\n2 - Adicionar alimento registrado");
         menu.append("\n3 - Adicionar novo alimento");
@@ -251,11 +252,12 @@ public class Menus {
 
         StringBuilder menu = new StringBuilder();
 
-        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n====== MENSAGENS ======");
         menu.append("\n1 - Enviar mensagem");
         menu.append("\n2 - Ver mensagens enviadas");
         menu.append("\n0 - Voltar");
-        System.out.println(menu);
+        menu.append("\n-> ");
+        System.out.print(menu);
 
         return Integer.parseInt(s.nextLine());
     }
@@ -266,11 +268,12 @@ public class Menus {
 
         StringBuilder menu = new StringBuilder();
 
-        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n====== POSTS ======");
         menu.append("\n1 - Criar post");
         menu.append("\n2 - Remover post");
         menu.append("\n0 - Voltar");
-        System.out.println(menu);
+        menu.append("\n-> ");
+        System.out.print(menu);
 
         return Integer.parseInt(s.nextLine());
     }
@@ -278,13 +281,29 @@ public class Menus {
     public int menuDietas() {
         StringBuilder menu = new StringBuilder();
 
-        menu.append("\n====== PREFERENCIAS ======");
+        menu.append("\n====== DIETAS ======");
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
         menu.append("\n3 - Criar dieta");
         menu.append("\n4 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
-        System.out.println(menu);
+        menu.append("\n-> ");
+        System.out.print(menu);
+
+        return Integer.parseInt(s.nextLine());
+    }
+
+    public int menuAlimentosDieta() {
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== GERENCIAR ALIMENTOS ======");
+        menu.append("\n1 - Ver alimentos em uma refeicao");
+        menu.append("\n2 - Adicionar alimento cadastrado em uma refeicao");
+        menu.append("\n3 - Adicionar novo alimento em uma refeicao");
+        menu.append("\n4 - Remover alimentos de uma refeicao");
+        menu.append("\n0 - Voltar");
+        menu.append("\n-> ");
+        System.out.print(menu);
 
         return Integer.parseInt(s.nextLine());
     }
@@ -292,14 +311,17 @@ public class Menus {
     public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {
         if (alrf.length != 0) {
             for (int i = 0; i < alrf.length; i++) {
-                if (alrf != null) {
-                    System.out.println(alrf[i].getRefeicao().getNomeRefeicao());
-                    Alimento[] alimentos = alrf[i].getAlimento();
-                    for (int j = 0; j < alimentos.length; j++) {
-                        if (alimentos[i] != null) {
-                            System.out.println(alimentos[i]);
+                if (alrf[i] != null) {
+                    if (!alrf[i].alimentoVazio()) {
+                        System.out.println("\n" + alrf[i].getRefeicao().getNomeRefeicao());
+                        Alimento[] alimentos = alrf[i].getAlimento();
+                        for (int j = 0; j < alimentos.length; j++) {
+                            if (alimentos[j] != null) {
+                                System.out.println(alimentos[j]);
+                            }
                         }
                     }
+
                 }
             }
         } else {

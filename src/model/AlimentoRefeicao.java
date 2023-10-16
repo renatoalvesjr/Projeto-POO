@@ -101,18 +101,24 @@ public class AlimentoRefeicao {
     public Alimento[] getAlimento() {
         return alimento;
     }
+    public int proxVazio(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(alimento[i]==null)
+                return i;
+        }
+        return -1;
+    }
 
-    public void setAl(Alimento al) {
-        if (!alimentoCheio()) {
+    public void setAlimento(Alimento al) {
+        int proxVazio = proxVazio();
+        if(proxVazio != -1) {
             for (int i = 0; i < this.alimento.length; i++) {
-                if (alimento[i] == null) {
-                    alimento[i] = al;
+                if (alimento[proxVazio] == null) {
+                    alimento[proxVazio] = al;
                 }
             }
         }
     }
-    
-    
     
     public boolean alimentoVazio() {
         for (int i = 0; i < alimento.length; i++) {

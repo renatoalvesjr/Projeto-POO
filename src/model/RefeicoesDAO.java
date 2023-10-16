@@ -86,6 +86,14 @@ public class RefeicoesDAO {
         }
         return false;
     }
+    
+    public Refeicoes buscaPorId(long id){
+        for (int i = 0; i < rfs.length; i++) {
+            if(rfs[i] != null && rfs[i].getId() == id)
+                return rfs[i];
+        }
+        return null;
+    }
 
     public boolean alteraNomeRfs(long id, String novoNome){
         for (int i = 0; i < rfs.length; i++) {
