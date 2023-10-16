@@ -317,7 +317,8 @@ public class ProgramaPDAO {
                     }
                     System.out.print("Insira o Id do alimento acima para ser removido: ");
                     long id2 = Integer.parseInt(s.nextLine());
-                    if(!alimentorefeicaoDAO.removeAlimentoPorId(refeicao3, id2)){
+                    boolean removeu = alimentorefeicaoDAO.removeAlimentoPorId(refeicao3, id2);
+                    if(!removeu){
                         System.out.println("Alimento nao encontrado");
                     }
                     break;

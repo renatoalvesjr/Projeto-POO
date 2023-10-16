@@ -40,7 +40,6 @@ public class Avaliacao {
         if(this.pessoa.getSexo().equalsIgnoreCase("M")){
             this.bf = 495 / (1.0324 - 0.19077 * Math.log10(cintura - pescoco) + 0.15456 * Math.log10(altura)) - 450;
         }else{
-            this.bf = (163.205*Math.log10(this.cintura-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
             this.bf = 163.205 - (97.684 * Math.log10(cintura + quadril - pescoco)) - (78.387 * Math.log10(altura)) + (4.369 * Math.log10(peso));
         }
         this.massMagra = this.peso*(1-(this.bf/100));
