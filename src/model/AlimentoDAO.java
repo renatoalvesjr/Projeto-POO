@@ -9,7 +9,7 @@ package model;
  * @author grang
  */
 public class AlimentoDAO {
-    Alimento[] alimentos = new Alimento[10];
+    Alimento[] alimentos = new Alimento[20];
     
     public AlimentoDAO(){
         Alimento ali1 = new Alimento();
@@ -79,7 +79,7 @@ public class AlimentoDAO {
     
     public Alimento BuscaAlimento(long id){
         for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
+            if(alimentos[i] != null && alimentos[i].getId() == id){
                 return alimentos[i];
             }
             
