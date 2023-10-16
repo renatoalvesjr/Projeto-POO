@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 import model.Alimento;
+import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.AlimentoRefeicaoDAO;
 import model.Avaliacao;
@@ -14,8 +15,14 @@ import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.Refeicoes;
+import model.RefeicoesDAO;
+import model.RegistroDieta;
+import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
+import model.TipoDieta;
+import model.TipoDietaDAO;
 import model.Utils;
 
 public class Menus {
@@ -66,11 +73,10 @@ public class Menus {
         menu.append("\n====== MENU PRINCIPAL ======");
         menu.append("\n1 - Minha Dieta");
         menu.append("\n2 - Preferencias Alimentares");
-        menu.append("\n3 - Registrar Dieta");
-        menu.append("\n5 - Seguir usuario pelo nome");
-        menu.append("\n6 - Gerenciar avaliacao fisica");
-        menu.append("\n7 - Meus posts");
-        menu.append("\n8 - Mensagens");
+        menu.append("\n3 - Seguir usuario pelo nome");
+        menu.append("\n4 - Gerenciar avaliacao fisica");
+        menu.append("\n5 - Meus posts");
+        menu.append("\n6 - Mensagens");
         menu.append("\n0 - Deslogar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -285,7 +291,10 @@ public class Menus {
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
         menu.append("\n3 - Criar dieta");
-        menu.append("\n4 - Gerenciar alimentos na dieta");
+        menu.append("\n4 - Criar refeicoes");
+        menu.append("\n5 - Remover dieta");
+        menu.append("\n6 - Remover refeicoes");
+        menu.append("\n7 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -330,3 +339,5 @@ public class Menus {
 
     }
 }
+
+
