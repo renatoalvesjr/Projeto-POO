@@ -47,6 +47,7 @@ public class AlimentoDAO {
         ali4.setPorcao(100);
         ali4.setCal();
         this.adicionaAlimento(ali4);
+
         
         Alimento ali5 = new Alimento();
         ali4.setNome("Cereal matinal - Milho");
@@ -95,6 +96,7 @@ public class AlimentoDAO {
         
         
         
+
     }
     
     private int proximoAlimentoLivre() {
