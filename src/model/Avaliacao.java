@@ -27,7 +27,7 @@ public class Avaliacao {
     }
     
     public void calcIMC(){
-        this.imc = this.peso/Math.pow(this.altura,2);
+        this.imc = this.peso/((this.altura/100)*(this.altura/100));
     }
     public void calcTMB(){
         if(this.pessoa.getSexo().equalsIgnoreCase("M")){
@@ -38,9 +38,10 @@ public class Avaliacao {
     }
     public void calcBF(){
         if(this.pessoa.getSexo().equalsIgnoreCase("M")){
-            this.bf = (163.205*Math.log10(this.cintura+this.quadril-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
+            this.bf = 495 / (1.0324 - 0.19077 * Math.log10(cintura - pescoco) + 0.15456 * Math.log10(altura)) - 450;
         }else{
-            this.bf = (86.010*Math.log10(this.cintura+this.quadril-this.pescoco))-(70.041*Math.log10(this.altura))+36.76;
+            this.bf = (163.205*Math.log10(this.cintura-this.pescoco))-(97.684*Math.log10(this.altura))-78.387;
+            this.bf = 163.205 - (97.684 * Math.log10(cintura + quadril - pescoco)) - (78.387 * Math.log10(altura)) + (4.369 * Math.log10(peso));
         }
         this.massMagra = this.peso*(1-(this.bf/100));
         this.massGorda = this.peso*(this.bf/100);
@@ -133,6 +134,10 @@ public class Avaliacao {
         }
         
     }
+    
+    public double getTMB(){
+        return tmb;
+    }
 
     public double getImc() {
         return imc;
@@ -186,7 +191,7 @@ public class Avaliacao {
 
     @Override
     public String toString() {
-        return "Avaliacao{" + "id=" + id + ", pessoa=" + pessoa + ", peso=" + peso + ", altura=" + altura + ", idade=" + idade + ", pescoco=" + pescoco + ", cintura=" + cintura + ", quadril=" + quadril + ", rotina=" + rotina + ", imc=" + imc + ", tmb=" + tmb + ", bf=" + bf + ", massGorda=" + massGorda + ", massMagra=" + massMagra + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return id + " - Nome: " + pessoa.getNome() + "\nPeso: " + peso + "\nAltura: " + altura + "\nIdade: " + idade + "\nPescoco: " + pescoco + "\nCintura: " + cintura + "\nQuadril: " + quadril + "\nRotina: " + rotina + "\nImc: " + imc + "\nTaxa metabolica basal: " + tmb + "\nIndice de gordura corporal: " + bf + "\nMassa gorda: " + massGorda + "\nMassa magra: " + massMagra;
     }
     
     

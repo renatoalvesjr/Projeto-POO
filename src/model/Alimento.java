@@ -60,7 +60,7 @@ public class Alimento {
     }
 
     public void setCal() {
-        this.cal = calcCaloria();
+        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     public double getPorcao() {
@@ -91,11 +91,6 @@ public class Alimento {
         this.modifyDate = Utils.dataAgora();
     }
 
-    private double calcCaloria(){
-        setModifyDate();
-        return (4*this.carb)+(4*this.prot)+(9*this.gord);
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
@@ -120,7 +115,7 @@ public class Alimento {
 
     @Override
     public String toString() {
-        return "Alimento{" + "id=" + id + ", nome=" + nome + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", cal=" + cal + ", porcao=" + porcaoGramas + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return (id+": "+nome + " ||Carboidratos: " + carb + " || Proteinas: " + prot + " || Gorduras: " + gord + " || Calorias: " + cal + " || Porcao: " + porcaoGramas + "||");
     }
     
     

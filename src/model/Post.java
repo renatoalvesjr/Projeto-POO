@@ -70,7 +70,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post{" + "id=" + id + ", pessoa=" + pessoa + ", conteudo=" + conteudo + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return id +" - "+ pessoa.getNome() + ":\n" + conteudo +"\nData: "+ createDate;
     }
     
     

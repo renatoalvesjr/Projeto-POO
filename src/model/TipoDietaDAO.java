@@ -41,7 +41,7 @@ public class TipoDietaDAO {
     
     public TipoDieta BuscaPorNome(String nome){
         for (int i = 0; i < TDs.length; i++) {
-            if(TDs[i].getNome().equalsIgnoreCase(nome)){
+            if(TDs[i] != null && TDs[i].getNome().equalsIgnoreCase(nome)){
                 return TDs[i];
             }
         }

@@ -1,9 +1,11 @@
 package model;
 
 public class AlimentoRefeicao {
+
     private long id;
-    private Refeicoes rf;
-    private Alimento al;
+    private Pessoa pessoa;
+    private Refeicoes refeicao;
+    private Alimento[] alimento = new Alimento[20];
     private int porcao;
     private double prot;
     private double gord;
@@ -12,31 +14,128 @@ public class AlimentoRefeicao {
     private String createDate;
     private String modifyDate;
     private static long serial;
-    
-    public AlimentoRefeicao(){
+
+    public AlimentoRefeicao() {
         this.id = ++AlimentoRefeicao.serial;
         this.createDate = Utils.dataAgora();
         this.modifyDate = "";
     }
 
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+    
+    private void calcPorcao(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.porcao += alimento[i].getPorcao();
+                }
+            }    
+        }
+    }
+    
+    private void calcProt(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.prot += alimento[i].getProt();
+                }
+            }    
+        }
+    }
+    
+    private void calcCarb(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.carb += alimento[i].getCarb();
+                }
+            }    
+        }
+    }
+    
+    private void calcGord(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.gord += alimento[i].getGord();
+                }
+            }    
+        }
+    }
+    
+    private void calcCal(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.cal += alimento[i].getCal();
+                }
+            }    
+        }
+    }
+    
+    public void setNutrientes(){
+        calcCarb();
+        calcGord();
+        calcProt();
+        calcCal();
+    }
+    
     public long getId() {
         return id;
     }
 
-    public Refeicoes getRf() {
-        return rf;
+    public Refeicoes getRefeicao() {
+        return refeicao;
     }
 
-    public void setRf(Refeicoes rf) {
-        this.rf = rf;
+    public void setRefeicao(Refeicoes refeicao) {
+        this.refeicao = refeicao;
     }
 
-    public Alimento getAl() {
-        return al;
+    public Alimento[] getAlimento() {
+        return alimento;
+    }
+    public int proxVazio(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(alimento[i]==null)
+                return i;
+        }
+        return -1;
     }
 
-    public void setAl(Alimento al) {
-        this.al = al;
+    public void setAlimento(Alimento al) {
+        int proxVazio = proxVazio();
+        if(proxVazio != -1) {
+            for (int i = 0; i < this.alimento.length; i++) {
+                if (alimento[proxVazio] == null) {
+                    alimento[proxVazio] = al;
+                }
+            }
+        }
+    }
+    
+    public boolean alimentoVazio() {
+        for (int i = 0; i < alimento.length; i++) {
+            if (alimento[i] != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean alimentoCheio() {
+        for (int i = 0; i < alimento.length; i++) {
+            if (alimento[i] == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getPorcao() {
@@ -82,7 +181,7 @@ public class AlimentoRefeicao {
     public String getCreateDate() {
         return createDate;
     }
-    
+
     public String getModifyDate() {
         return modifyDate;
     }
@@ -115,8 +214,7 @@ public class AlimentoRefeicao {
 
     @Override
     public String toString() {
-        return "AlimentoRefeicao{" + "id=" + id + ", rf=" + rf + ", al=" + al + ", porcao=" + porcao + ", prot=" + prot + ", gord=" + gord + ", carb=" + carb + ", cal=" + cal + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "AlimentoRefeicao{" + "id=" + id + ", rf=" + refeicao + ", al=" + alimento + ", porcao=" + porcao + ", prot=" + prot + ", gord=" + gord + ", carb=" + carb + ", cal=" + cal + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
-    
-    
+
 }

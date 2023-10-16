@@ -52,13 +52,24 @@ public class RegistroDieta {
 
     public void setObjetivo(int objetivo) {
         this.objetivo = objetivo;
+        switch(objetivo){
+            case 1:
+                setCal(((int) av.getTMB())-300);
+                break;
+            case 2:
+                setCal((int) av.getTMB());
+                break;
+            case 3:
+                setCal(((int) av.getTMB())+300);
+                break;
+        }
     }
 
     public double getCal() {
         return cal;
     }
 
-    public void setCal(double cal) {
+    private void setCal(double cal) {
         this.cal = cal;
     }
 
@@ -107,7 +118,16 @@ public class RegistroDieta {
 
     @Override
     public String toString() {
-        return "RegistroDieta{" + "id=" + id + ", p=" + p + ", av=" + av + ", td=" + td + ", objetivo=" + objetivo + ", cal=" + cal + ", numRefeicao=" + numRefeicao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        String objetivo = "";
+        if(this.objetivo == 1){
+                objetivo = "Perder peso";
+        } else if(this.objetivo == 2){
+                objetivo = "Manter peso";
+        }
+            else if(this.objetivo == 2){
+                objetivo = "Ganhar peso";
+        }          
+        return id + " : " + "\nDieta de: " + p.getNome() + "\nTipo de dieta: " + td + "\nObjetivo da dieta: " + objetivo + "\nQuantidade de calorias: " + cal + "\nNumero de refeicoes: " + numRefeicao;
     }
     
     
