@@ -47,6 +47,56 @@ public class AlimentoDAO {
         ali4.setPorcao(100);
         ali4.setCal();
         this.adicionaAlimento(ali4);
+
+        
+        Alimento ali5 = new Alimento();
+        ali4.setNome("Cereal matinal - Milho");
+        ali4.setCarb(83.9);
+        ali4.setGord(1.0);
+        ali4.setProt(7.2);
+        ali4.setPorcao(100);
+        ali4.setCal();
+        this.adicionaAlimento(ali5);
+        
+        Alimento ali6 = new Alimento();
+        ali4.setNome("Batata inglesa cozida");
+        ali4.setCarb(11.9);
+        ali4.setGord(0.1);
+        ali4.setProt(1.2);
+        ali4.setPorcao(100);
+        ali4.setCal();
+        this.adicionaAlimento(ali6);
+        
+        Alimento ali7 = new Alimento();
+        ali4.setNome("Abacate");
+        ali4.setCarb(6.0);
+        ali4.setGord(8.4);
+        ali4.setProt(1.9);
+        ali4.setPorcao(100);
+        ali4.setCal();
+        this.adicionaAlimento(ali7);
+        
+        Alimento ali8 = new Alimento();
+        ali4.setNome("Atum conserva em oleo");
+        ali4.setCarb(0.0);
+        ali4.setGord(6.0);
+        ali4.setProt(26.2);
+        ali4.setPorcao(100);
+        ali4.setCal();
+        this.adicionaAlimento(ali8);
+        
+        Alimento ali9 = new Alimento();
+        ali4.setNome("Acem moido cozido");
+        ali4.setCarb(0.0);
+        ali4.setGord(10.9);
+        ali4.setProt(26.7);
+        ali4.setPorcao(100);
+        ali4.setCal();
+        this.adicionaAlimento(ali9);
+        
+        
+        
+
     }
     
     private int proximoAlimentoLivre() {
