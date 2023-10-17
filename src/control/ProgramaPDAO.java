@@ -16,6 +16,7 @@ import model.Preferencia;
 import model.PreferenciaDAO;
 import model.Refeicoes;
 import model.RefeicoesDAO;
+import model.RegistroDieta;
 import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
@@ -91,12 +92,6 @@ public class ProgramaPDAO {
                     gerenciaPreferencia();
                     break;
                 case 3:
-                    System.out.println("\n3 - Registrar Dieta");
-                    break;
-                case 4:
-                    System.out.println("\n4 - Registrar Refeicao");
-                    break;
-                case 5:
                     pessoaDAO.mostrarTodas();
                     System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
                     String nome = s.nextLine();
@@ -107,13 +102,13 @@ public class ProgramaPDAO {
                         System.out.println("Não é possível seguir a si mesmo");
                     }
                     break;
-                case 6:
+                case 4:
                     gerenciaAval();
                     break;
-                case 7:
+                case 5:
                     gerenciaPost();
                     break;
-                case 8:
+                case 6:
                     gerenciaMensagens();
                     break;
                 case 0:
@@ -249,14 +244,31 @@ public class ProgramaPDAO {
                         System.out.println("Nenhuma dieta criada.");
                     }
                     break;
+                    
                 case 2:
                     menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
+                    
                 case 3:
-
+                    menu.menuGerenciarDieta();
+                    int opc1 = 0;
+                    
+                    switch(opc1){
+                        case 1:
+                            break;
+                        
+                        case 2:
+                            break;
+                    }
                     break;
+
+
+                                                         
                 case 4:
-                    gerenciaAlimentosDieta();
+                    break;                             
+                    
+                case 0:
+                    System.out.println("Voltando");
                     break;
             }
         } while (opc != 0);
@@ -269,7 +281,9 @@ public class ProgramaPDAO {
 
             switch (opc2) {
                 case 1:
-                    System.out.print("Insira o nome da refeicao: ");
+
+                    System.out.print("Insira o nome da refeicoes para mostra-la: ");
+
                     String nome = s.nextLine();
                     AlimentoRefeicao refeicao = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome);
                     System.out.println(refeicao.getRefeicao().getNomeRefeicao());

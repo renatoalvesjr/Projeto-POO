@@ -4,7 +4,7 @@ public class TipoDietaDAO {
     TipoDieta TDs[] = new TipoDieta[10];
     public TipoDietaDAO(){
         TipoDieta td1 = new TipoDieta();
-        td1.setNome("EQUILIBRADA");
+        td1.setNome("1 - EQUILIBRADA");
         td1.setCarb(40);
         td1.setProt(30);
         td1.setGord(30);
@@ -39,6 +39,14 @@ public class TipoDietaDAO {
         }
     }
     
+
+    public TipoDieta buscaTDId(long id){
+        for (int i = 0; i < TDs.length; i++) {
+            if(TDs[i] != null && TDs[i].getId() == id)
+                return TDs[i];
+        }
+    }
+
     public TipoDieta[] buscaTodosTipoDieta(){
         if(TDs.length != 0){
             return TDs;

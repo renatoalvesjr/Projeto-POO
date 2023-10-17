@@ -2,6 +2,7 @@ package view;
 
 import java.util.Scanner;
 import model.Alimento;
+import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.AlimentoRefeicaoDAO;
 import model.Avaliacao;
@@ -16,6 +17,8 @@ import model.Preferencia;
 import model.PreferenciaDAO;
 import model.Refeicoes;
 import model.RefeicoesDAO;
+import model.RegistroDieta;
+import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
 import model.TipoDieta;
@@ -70,11 +73,10 @@ public class Menus {
         menu.append("\n====== MENU PRINCIPAL ======");
         menu.append("\n1 - Minha Dieta");
         menu.append("\n2 - Preferencias Alimentares");
-        menu.append("\n3 - Registrar Dieta");
-        menu.append("\n5 - Seguir usuario pelo nome");
-        menu.append("\n6 - Gerenciar avaliacao fisica");
-        menu.append("\n7 - Meus posts");
-        menu.append("\n8 - Mensagens");
+        menu.append("\n3 - Seguir usuario pelo nome");
+        menu.append("\n4 - Gerenciar avaliacao fisica");
+        menu.append("\n5 - Meus posts");
+        menu.append("\n6 - Mensagens");
         menu.append("\n0 - Deslogar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -288,7 +290,7 @@ public class Menus {
         menu.append("\n====== DIETAS ======");
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
-        menu.append("\n3 - Criar dieta");
+        menu.append("\n3 - Gerenciar dieta");
         menu.append("\n4 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
@@ -296,6 +298,20 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
+    
+    public int menuGerenciarDieta(){
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== DIETAS ======");
+        menu.append("\n1 - Criar dieta");
+        menu.append("\n2 - Remover dieta");
+        menu.append("\n0 - Voltar");
+        menu.append("\n-> ");
+        System.out.print(menu);
+
+        return Integer.parseInt(s.nextLine());
+    }
+    
 
     public int menuAlimentosDieta() {
         StringBuilder menu = new StringBuilder();
@@ -364,3 +380,5 @@ public class Menus {
 
     }
 }
+
+
