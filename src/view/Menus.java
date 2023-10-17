@@ -360,18 +360,14 @@ public class Menus {
 
     public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {
         if (alrf.length != 0) {
+            int id = 1;
             for (int i = 0; i < alrf.length; i++) {
-                if (alrf[i] != null) {
-                    if (!alrf[i].alimentoVazio()) {
-                        System.out.println("\n" + alrf[i].getRefeicao().getNomeRefeicao());
-                        Alimento[] alimentos = alrf[i].getAlimento();
-                        for (int j = 0; j < alimentos.length; j++) {
-                            if (alimentos[j] != null) {
-                                System.out.println(alimentos[j]);
-                            }
-                        }
+                if(alrf[i] != null){
+                    if(alrf[i].getRefeicao().getId() == id){
+                        System.out.println(alrf[i].getRefeicao().getNomeRefeicao());
+                        id++;
                     }
-
+                    System.out.println(alrf[i].getAlimento());
                 }
             }
         } else {

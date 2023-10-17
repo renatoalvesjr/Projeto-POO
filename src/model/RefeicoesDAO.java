@@ -15,37 +15,22 @@ public class RefeicoesDAO {
         Refeicoes rf1 = new Refeicoes();
         rf1.setTd(td.BuscaPorNome("equilibrada"));
         rf1.setNomeRefeicao("Cafe da manha");
-        rf1.setCarb(60);
-        rf1.setGord(45);
-        rf1.setProt(45);
-        rf1.setCal();
         criaRfs(rf1);
         
         Refeicoes rf2 = new Refeicoes();
         rf2.setTd(td.BuscaPorNome("equilibrada"));
         rf2.setNomeRefeicao("Almoco");
-        rf2.setCarb(56);
-        rf2.setGord(42);
-        rf2.setProt(42);
-        rf2.setCal();
         criaRfs(rf2);
         
         Refeicoes rf3 = new Refeicoes();
         rf3.setTd(td.BuscaPorNome("equilibrada"));
         rf3.setNomeRefeicao("Jantar");
-        rf3.setCarb(40);
-        rf3.setGord(30);
-        rf3.setProt(30);
-        rf3.setCal();
+
         criaRfs(rf3);
         
         Refeicoes rf4 = new Refeicoes();
         rf4.setTd(td.BuscaPorNome("equilibrada"));
         rf4.setNomeRefeicao("Cafe da Tarde");
-        rf4.setCarb(40);
-        rf4.setGord(30);
-        rf4.setProt(30);
-        rf4.setCal();
         criaRfs(rf4);
     }
     
@@ -94,7 +79,7 @@ public class RefeicoesDAO {
         }
         return null;
     }
-
+    
     public boolean alteraNomeRfs(long id, String novoNome){
         for (int i = 0; i < rfs.length; i++) {
             if(rfs[i].getId() == id){

@@ -43,7 +43,7 @@ public class Refeicoes {
     }
 
     public void setCarb(double carb) {
-        this.carb = carb;
+        this.carb += carb;
     }
 
     public double getProt() {
@@ -51,7 +51,7 @@ public class Refeicoes {
     }
 
     public void setProt(double prot) {
-        this.prot = prot;
+        this.prot += prot;
     }
 
     public double getGord() {
@@ -59,7 +59,7 @@ public class Refeicoes {
     }
 
     public void setGord(double gord) {
-        this.gord = gord;
+        this.gord += gord;
     }
 
     public String getNomeRefeicao() {
