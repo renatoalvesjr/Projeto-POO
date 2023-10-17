@@ -5,8 +5,8 @@ public class AlimentoRefeicao {
     private long id;
     private Pessoa pessoa;
     private Refeicoes refeicao;
-    private Alimento alimento;
-    private double porcao;
+    private Alimento[] alimento = new Alimento[20];
+    private int porcao;
     private double prot;
     private double gord;
     private double carb;
@@ -30,31 +30,60 @@ public class AlimentoRefeicao {
     }
     
     private void calcPorcao(){
-        this.porcao = alimento.getPorcao();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.porcao += alimento[i].getPorcao();
+                }
+            }    
+        }
     }
     
     private void calcProt(){
-        this.prot = alimento.getProt();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.prot += alimento[i].getProt();
+                }
+            }    
+        }
     }
     
     private void calcCarb(){
-        this.prot = alimento.getCarb();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.carb += alimento[i].getCarb();
+                }
+            }    
+        }
     }
     
     private void calcGord(){
-        this.prot = alimento.getGord();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.gord += alimento[i].getGord();
+                }
+            }    
+        }
     }
     
     private void calcCal(){
-        this.cal = alimento.getCal();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.cal += alimento[i].getCal();
+                }
+            }    
+        }
     }
     
     public void setNutrientes(){
-        this.calcCarb();
-        this.calcGord();
-        this.calcProt();
-        this.calcCal();
-        this.calcPorcao();
+        calcCarb();
+        calcGord();
+        calcProt();
+        calcCal();
     }
     
     public long getId() {
@@ -69,19 +98,47 @@ public class AlimentoRefeicao {
         this.refeicao = refeicao;
     }
 
-    public Alimento getAlimento() {
+    public Alimento[] getAlimento() {
         return alimento;
+    }
+    public int proxVazio(){
+        for (int i = 0; i < alimento.length; i++) {
+            if(alimento[i]==null)
+                return i;
+        }
+        return -1;
     }
 
     public void setAlimento(Alimento al) {
-        this.alimento = al;
-        refeicao.setCarb(al.getCarb());
-        refeicao.setGord(al.getGord());
-        refeicao.setProt(al.getProt());
-        refeicao.setCal();
+        int proxVazio = proxVazio();
+        if(proxVazio != -1) {
+            for (int i = 0; i < this.alimento.length; i++) {
+                if (alimento[proxVazio] == null) {
+                    alimento[proxVazio] = al;
+                }
+            }
+        }
+    }
+    
+    public boolean alimentoVazio() {
+        for (int i = 0; i < alimento.length; i++) {
+            if (alimento[i] != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public double getPorcao() {
+    public boolean alimentoCheio() {
+        for (int i = 0; i < alimento.length; i++) {
+            if (alimento[i] == null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int getPorcao() {
         return porcao;
     }
 
