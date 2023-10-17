@@ -290,17 +290,28 @@ public class Menus {
         menu.append("\n====== DIETAS ======");
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
-        menu.append("\n3 - Criar dieta");
-        menu.append("\n4 - Criar refeicoes");
-        menu.append("\n5 - Remover dieta");
-        menu.append("\n6 - Remover refeicoes");
-        menu.append("\n7 - Gerenciar alimentos na dieta");
+        menu.append("\n3 - Gerenciar dieta");
+        menu.append("\n4 - Gerenciar alimentos na dieta");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
 
         return Integer.parseInt(s.nextLine());
     }
+    
+    public int menuGerenciarDieta(){
+        StringBuilder menu = new StringBuilder();
+
+        menu.append("\n====== DIETAS ======");
+        menu.append("\n1 - Criar dieta");
+        menu.append("\n2 - Remover dieta");
+        menu.append("\n0 - Voltar");
+        menu.append("\n-> ");
+        System.out.print(menu);
+
+        return Integer.parseInt(s.nextLine());
+    }
+    
 
     public int menuAlimentosDieta() {
         StringBuilder menu = new StringBuilder();

@@ -259,39 +259,25 @@ public class ProgramaPDAO {
                     break;
                     
                 case 3:
-                    System.out.println("Monte sua dieta: ");
-                    RegistroDieta rd = new RegistroDieta();
-                    rd.setPessoa(Utils.getPessoaLogada());
-                    rd.setAvaliacao(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
-                    rd.setTipoDieta(tipodietaDAO.buscaTDId(1));
-                    tipodietaDAO.mostraTDs();
-                    System.out.println("Escolha o tipo da dieta pelo numero: ");
-                    long id = Integer.parseInt(s.nextLine()); 
-                    rd.setObjetivo(1);
-                    rd.setNumRefeicao(1);
-                    registrodietaDAO.criaRD(rd);
-                    break;
+                    menu.menuGerenciarDieta();
+                    int opc1 = 0;
                     
+                    switch(opc1){
+                        case 1:
+                            break;
+                        
+                        case 2:
+                            break;
+                    }
+                    break;
+
+
+                                                         
                 case 4:
-                    System.out.println("Monte sua refeicao: ");    
-                    Refeicoes ref = new Refeicoes();
-                    ref.setTd(tipodietaDAO.buscaTDId(1));
-                    ref.setNomeRefeicao("Almoco");
-                    ref.setCarb(60);
-                    ref.setGord(45);
-                    ref.setProt(45);
-                    ref.setCal();
-                    refeicoesDAO.criaRfs(ref);
-                    break;
+                    break;                             
                     
-                case 5:
-                    break;
-                
-                case 6:
-                    break;
-                    
-                case 7:
-                    gerenciaAlimentosDieta();
+                case 0:
+                    System.out.println("Voltando");
                     break;
             }
         } while (opc != 0);
