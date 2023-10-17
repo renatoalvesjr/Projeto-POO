@@ -318,14 +318,44 @@ public class Menus {
 
         menu.append("\n====== GERENCIAR ALIMENTOS ======");
         menu.append("\n1 - Ver alimentos em uma refeicao");
-        menu.append("\n2 - Adicionar alimento cadastrado em uma refeicao");
-        menu.append("\n3 - Adicionar novo alimento em uma refeicao");
-        menu.append("\n4 - Remover alimentos de uma refeicao");
+        menu.append("\n2 - Adicionar nova refeicao");
+        menu.append("\n3 - Remover refeicao");
+        menu.append("\n4 - Adicionar alimento cadastrado em uma refeicao");
+        menu.append("\n5 - Adicionar novo alimento em uma refeicao");
+        menu.append("\n6 - Remover alimentos de uma refeicao");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
 
         return Integer.parseInt(s.nextLine());
+    }
+    
+    public Refeicoes menuCriarRefeicao(TipoDietaDAO td, RefeicoesDAO refeicaoDAO){
+        Refeicoes refeicao = new Refeicoes();
+        TipoDieta[] tds = td.buscaTodosTipoDieta();
+        System.out.print("Insira o nome da refeicao: ");
+        String nome = s.nextLine();
+        refeicao.setNomeRefeicao(nome);
+        for (TipoDieta td1 : tds) {
+            if(td1 != null)
+            System.out.println(td1);
+        }
+        System.out.print("Selecione um tipo de dieta da sua refeicao pelo id: ");
+        long tdid = Integer.parseInt(s.nextLine());
+        refeicao.setTd(td.BuscaPorId(tdid));
+        System.out.print("Insira a quantidade de carboidratos desejados na refeicao: ");
+        double carb = Double.parseDouble(s.nextLine());
+        refeicao.setCarb(carb);
+        System.out.print("Insira a quantidade de gorduras desejados na refeicao: ");
+        double gord = Double.parseDouble(s.nextLine());
+        refeicao.setGord(gord);
+        System.out.print("Insira a quantidade de proteinas desejados na refeicao: ");
+        double prot = Double.parseDouble(s.nextLine());
+        refeicao.setProt(prot);
+        refeicao.setCal();
+        System.out.println("Sua refeicao possuirá " + refeicao.getCal() + " calorias.");
+        refeicaoDAO.criaRfs(refeicao);
+        return refeicao;
     }
 
     public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {

@@ -39,10 +39,17 @@ public class TipoDietaDAO {
         }
     }
     
+
     public TipoDieta buscaTDId(long id){
         for (int i = 0; i < TDs.length; i++) {
             if(TDs[i] != null && TDs[i].getId() == id)
                 return TDs[i];
+        }
+    }
+
+    public TipoDieta[] buscaTodosTipoDieta(){
+        if(TDs.length != 0){
+            return TDs;
         }
         return null;
     }
@@ -50,6 +57,15 @@ public class TipoDietaDAO {
     public TipoDieta BuscaPorNome(String nome){
         for (int i = 0; i < TDs.length; i++) {
             if(TDs[i] != null && TDs[i].getNome().equalsIgnoreCase(nome)){
+                return TDs[i];
+            }
+        }
+        return null;
+    }
+    
+    public TipoDieta BuscaPorId(long id){
+        for (int i = 0; i < TDs.length; i++) {
+            if(TDs[i] != null && TDs[i].getId() == id){
                 return TDs[i];
             }
         }
