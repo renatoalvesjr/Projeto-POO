@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 import java.util.Scanner;
@@ -9,7 +5,6 @@ import model.Alimento;
 import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.AlimentoRefeicaoDAO;
-import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Mensagem;
 import model.MensagemDAO;
@@ -19,6 +14,7 @@ import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
+import model.Refeicoes;
 import model.RefeicoesDAO;
 import model.RegistroDietaDAO;
 import model.Seguindo;
@@ -27,10 +23,6 @@ import model.TipoDietaDAO;
 import model.Utils;
 import view.Menus;
 
-/**
- *
- * @author heber
- */
 public class ProgramaPDAO {
 
     Menus menu = new Menus();
@@ -277,7 +269,7 @@ public class ProgramaPDAO {
 
             switch (opc2) {
                 case 1:
-                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+                    System.out.print("Insira o nome da refeicao: ");
                     String nome = s.nextLine();
                     AlimentoRefeicao refeicao = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome);
                     System.out.println(refeicao.getRefeicao().getNomeRefeicao());
@@ -289,6 +281,24 @@ public class ProgramaPDAO {
                     }
                     break;
                 case 2:
+                    Refeicoes novaRefeicao = menu.menuCriarRefeicao(tipodietaDAO, refeicoesDAO);
+                    AlimentoRefeicao novoAlRf = new AlimentoRefeicao();
+                    novoAlRf.setPessoa(Utils.getPessoaLogada());
+                    novoAlRf.setRefeicao(novaRefeicao);
+                    alimentorefeicaoDAO.criaRefeicaoAlimento(novoAlRf);
+                    break;
+                case 3:
+                    AlimentoRefeicao[] alrfDel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+                    for (int i = 0; i < alrfDel.length; i++) {
+                        if(alrfDel[i]!=null){
+                            System.out.println(alrfDel[i].getRefeicao().getId()+" : " +alrfDel[i].getRefeicao().getNomeRefeicao());
+                        }
+                    }
+                    System.out.print("Digite o id da refeicao que deseja remover: ");
+                    long idDel = Integer.parseInt(s.nextLine());
+                    alimentorefeicaoDAO.removeAlimentoRefeicao(idDel);
+                    break;
+                case 4:
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
                     String nome4 = s.nextLine();
                     AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
@@ -297,14 +307,14 @@ public class ProgramaPDAO {
                     long id4 = Integer.parseInt(s.nextLine());
                     refeicao4.setAlimento(alimentoDAO.BuscaAlimento(id4));
                     break;
-                case 3:
+                case 5:
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
                     String nome2 = s.nextLine();
                     AlimentoRefeicao refeicao2 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome2);
                     System.out.println("Adicionando alimento em: " + refeicao2.getRefeicao().getNomeRefeicao());
                     refeicao2.setAlimento(menu.addNovoAlimento());
                     break;
-                case 4:
+                case 6:
                     System.out.print("Insira o nome da refeicoes para remover um alimento: ");
                     String nome3 = s.nextLine();
                     AlimentoRefeicao refeicao3 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome3);

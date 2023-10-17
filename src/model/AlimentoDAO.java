@@ -50,48 +50,48 @@ public class AlimentoDAO {
 
         
         Alimento ali5 = new Alimento();
-        ali4.setNome("Cereal matinal - Milho");
-        ali4.setCarb(83.9);
-        ali4.setGord(1.0);
-        ali4.setProt(7.2);
-        ali4.setPorcao(100);
-        ali4.setCal();
+        ali5.setNome("Cereal matinal - Milho");
+        ali5.setCarb(83.9);
+        ali5.setGord(1.0);
+        ali5.setProt(7.2);
+        ali5.setPorcao(100);
+        ali5.setCal();
         this.adicionaAlimento(ali5);
         
         Alimento ali6 = new Alimento();
-        ali4.setNome("Batata inglesa cozida");
-        ali4.setCarb(11.9);
-        ali4.setGord(0.1);
-        ali4.setProt(1.2);
-        ali4.setPorcao(100);
-        ali4.setCal();
+        ali6.setNome("Batata inglesa cozida");
+        ali6.setCarb(11.9);
+        ali6.setGord(0.1);
+        ali6.setProt(1.2);
+        ali6.setPorcao(100);
+        ali6.setCal();
         this.adicionaAlimento(ali6);
         
         Alimento ali7 = new Alimento();
-        ali4.setNome("Abacate");
-        ali4.setCarb(6.0);
-        ali4.setGord(8.4);
-        ali4.setProt(1.9);
-        ali4.setPorcao(100);
-        ali4.setCal();
+        ali7.setNome("Abacate");
+        ali7.setCarb(6.0);
+        ali7.setGord(8.4);
+        ali7.setProt(1.9);
+        ali7.setPorcao(100);
+        ali7.setCal();
         this.adicionaAlimento(ali7);
         
         Alimento ali8 = new Alimento();
-        ali4.setNome("Atum conserva em oleo");
-        ali4.setCarb(0.0);
-        ali4.setGord(6.0);
-        ali4.setProt(26.2);
-        ali4.setPorcao(100);
-        ali4.setCal();
+        ali8.setNome("Atum conserva em oleo");
+        ali8.setCarb(0.0);
+        ali8.setGord(6.0);
+        ali8.setProt(26.2);
+        ali8.setPorcao(100);
+        ali8.setCal();
         this.adicionaAlimento(ali8);
         
         Alimento ali9 = new Alimento();
-        ali4.setNome("Acem moido cozido");
-        ali4.setCarb(0.0);
-        ali4.setGord(10.9);
-        ali4.setProt(26.7);
-        ali4.setPorcao(100);
-        ali4.setCal();
+        ali9.setNome("Acem moido cozido");
+        ali9.setCarb(0.0);
+        ali9.setGord(10.9);
+        ali9.setProt(26.7);
+        ali9.setPorcao(100);
+        ali9.setCal();
         this.adicionaAlimento(ali9);
         
         
