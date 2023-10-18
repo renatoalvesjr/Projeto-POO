@@ -71,6 +71,26 @@ public class AlimentoRefeicaoDAO {
         }
         return false;
     }
+    
+    public boolean removeRefeicaoPorNome(String nome, Pessoa p){
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().equals(p) && alimentoRefeicao[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome)){
+                alimentoRefeicao[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean removeAlimentoDaRefeicao(long id, String nome){
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome) && alimentoRefeicao[i].getAlimento().getId() == id){
+                alimentoRefeicao[i] = null;
+                return true;
+            }
+        }
+        return false;
+    }
 
     public AlimentoRefeicao buscaPorId(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
