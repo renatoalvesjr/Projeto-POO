@@ -15,22 +15,37 @@ public class RefeicoesDAO {
         Refeicoes rf1 = new Refeicoes();
         rf1.setTd(td.BuscaPorNome("equilibrada"));
         rf1.setNomeRefeicao("Cafe da manha");
+        rf1.setCarb(40);
+        rf1.setProt(30);
+        rf1.setGord(30);
+        rf1.setCal();
         criaRfs(rf1);
         
         Refeicoes rf2 = new Refeicoes();
         rf2.setTd(td.BuscaPorNome("equilibrada"));
         rf2.setNomeRefeicao("Almoco");
+        rf2.setCarb(40);
+        rf2.setProt(30);
+        rf2.setGord(30);
+        rf2.setCal();
         criaRfs(rf2);
         
         Refeicoes rf3 = new Refeicoes();
         rf3.setTd(td.BuscaPorNome("equilibrada"));
         rf3.setNomeRefeicao("Jantar");
-
+        rf3.setCarb(40);
+        rf3.setProt(30);
+        rf3.setGord(30);
+        rf3.setCal();
         criaRfs(rf3);
         
         Refeicoes rf4 = new Refeicoes();
         rf4.setTd(td.BuscaPorNome("equilibrada"));
         rf4.setNomeRefeicao("Cafe da Tarde");
+        rf4.setCarb(40);
+        rf4.setProt(30);
+        rf4.setGord(30);
+        rf4.setCal();
         criaRfs(rf4);
     }
     

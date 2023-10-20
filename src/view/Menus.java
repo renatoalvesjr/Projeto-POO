@@ -2,23 +2,17 @@ package view;
 
 import java.util.Scanner;
 import model.Alimento;
-import model.AlimentoDAO;
 import model.AlimentoRefeicao;
-import model.AlimentoRefeicaoDAO;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
-import model.Mensagem;
 import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
-import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
 import model.Refeicoes;
 import model.RefeicoesDAO;
-import model.RegistroDieta;
-import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
 import model.TipoDieta;
@@ -365,7 +359,7 @@ public class Menus {
             for (int i = 0; i < alrf.length; i++) {
                 if (alrf[i] != null) {
                     if (alrf[i].getRefeicao().getId() == id) {
-                        System.out.println(alrf[i].getRefeicao().getNomeRefeicao());
+                        System.out.println("\n" + alrf[i].getRefeicao());
                         for (int j = 0; j < alrf.length; j++) {
                             if (alrf[j] != null && alrf[j].getRefeicao().getId() == id) {
                                 System.out.println(alrf[j].getAlimento());

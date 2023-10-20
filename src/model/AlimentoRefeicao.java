@@ -75,18 +75,14 @@ public class AlimentoRefeicao {
 
     public void setAlimento(Alimento al) {
         this.alimento = al;
-        refeicao.setCarb(al.getCarb());
-        refeicao.setGord(al.getGord());
-        refeicao.setProt(al.getProt());
-        refeicao.setCal();
     }
 
     public double getPorcao() {
         return porcao;
     }
 
-    public void setPorcao(int porcao) {
-        this.porcao = porcao;
+    public void setPorcao(double porcao) {
+        this.porcao = alimento.getPorcao()*porcao;
     }
 
     public double getProt() {

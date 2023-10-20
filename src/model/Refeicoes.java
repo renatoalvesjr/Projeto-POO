@@ -43,7 +43,7 @@ public class Refeicoes {
     }
 
     public void setCarb(double carb) {
-        this.carb += carb;
+        this.carb = carb;
     }
 
     public double getProt() {
@@ -51,7 +51,7 @@ public class Refeicoes {
     }
 
     public void setProt(double prot) {
-        this.prot += prot;
+        this.prot = prot;
     }
 
     public double getGord() {
@@ -59,7 +59,7 @@ public class Refeicoes {
     }
 
     public void setGord(double gord) {
-        this.gord += gord;
+        this.gord = gord;
     }
 
     public String getNomeRefeicao() {
@@ -106,7 +106,8 @@ public class Refeicoes {
 
     @Override
     public String toString() {
-        return "Refeicoes{" + "id=" + id + ", td=" + td + ", carb=" + carb + ", prot=" + prot + ", gord=" + gord + ", nomeRefeicao=" + nomeRefeicao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return id + " - Nome: "+ nomeRefeicao +"\nTipo de dieta: " + td.getNome() +"\nMetas - Carboidratos: " + carb + ", Proteinas: " + prot + ", Gorduas: " + gord+ ", Calorias: "+cal;
+        
     }
     
     
