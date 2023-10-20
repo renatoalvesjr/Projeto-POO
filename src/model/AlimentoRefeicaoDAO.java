@@ -21,6 +21,7 @@ public class AlimentoRefeicaoDAO {
         alrf2.setRefeicao(refeicaoDAO.buscaPorId(1));
         alrf2.setAlimento(alimentoDAO.BuscaAlimento(2));
         alrf2.setPorcao(1);
+
         criaRefeicaoAlimento(alrf2);
 
         AlimentoRefeicao alrf3 = new AlimentoRefeicao();
@@ -43,6 +44,7 @@ public class AlimentoRefeicaoDAO {
         alrf5.setAlimento(alimentoDAO.BuscaAlimento(1));
         alrf5.setPorcao(1);
         criaRefeicaoAlimento(alrf5);
+
 
     }
 
@@ -97,6 +99,22 @@ public class AlimentoRefeicaoDAO {
         return false;
     }
 
+    public boolean removeAlimentoPorId(long idAlimentoRefeicao, long idAlimento) {
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if (alimentoRefeicao[i].getId() == idAlimentoRefeicao) {
+                Alimento[] alimentos = new Alimento[20];
+                alimentos = alimentoRefeicao[i].getAlimento();
+                for (int j = 0; j < alimentos.length; j++) {
+                    if (alimentos[i] != null && alimentos[i].getId() == idAlimento) {
+                        alimentos[i] = null;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public AlimentoRefeicao buscaPorId(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
             if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getId() == id) {
@@ -115,11 +133,30 @@ public class AlimentoRefeicaoDAO {
         return null;
     }
 
-    public AlimentoRefeicao[] buscaTodosPorPessoa(Pessoa p) {
-        if(alimentoRefeicao.length != 0){
-            return alimentoRefeicao;
+    public boolean removeAlimentoPorId(AlimentoRefeicao alrf, long id) {
+        Alimento[] alimentos = alrf.getAlimento();
+        for (int i = 0; i < alimentos.length; i++) {
+            if (alimentos[i] != null && alimentos[i].getId() == id) {
+                alimentos[i] = null;
+                return true;
+            }
         }
-        return null;
+        return false;
+    }
+
+    public AlimentoRefeicao[] buscaTodosPorPessoa(Pessoa p) {
+        AlimentoRefeicao[] alrfs = new AlimentoRefeicao[10];
+        for (int i = 0; i < alimentoRefeicao.length; i++) {
+            if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().equals(p)) {
+                for (int j = 0; j < alrfs.length; j++) {
+                    if (alrfs[i] == null) {
+                        alrfs[i] = alimentoRefeicao[i];
+                    }
+                }
+            }
+
+        }
+        return alrfs;
     }
     
     public AlimentoRefeicao[] buscaTodosPorRefeicao(Pessoa p, String nome) {

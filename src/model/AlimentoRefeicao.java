@@ -6,7 +6,7 @@ public class AlimentoRefeicao {
     private Pessoa pessoa;
     private Refeicoes refeicao;
     private Alimento alimento;
-    private double porcao;
+    private int porcao;
     private double prot;
     private double gord;
     private double carb;
@@ -30,31 +30,60 @@ public class AlimentoRefeicao {
     }
     
     private void calcPorcao(){
-        this.porcao = alimento.getPorcao();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.porcao += alimento[i].getPorcao();
+                }
+            }    
+        }
     }
     
     private void calcProt(){
-        this.prot = alimento.getProt();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.prot += alimento[i].getProt();
+                }
+            }    
+        }
     }
     
     private void calcCarb(){
-        this.prot = alimento.getCarb();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.carb += alimento[i].getCarb();
+                }
+            }    
+        }
     }
     
     private void calcGord(){
-        this.prot = alimento.getGord();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.gord += alimento[i].getGord();
+                }
+            }    
+        }
     }
     
     private void calcCal(){
-        this.cal = alimento.getCal();
+        for (int i = 0; i < alimento.length; i++) {
+            if(!alimentoVazio()){
+                if(alimento[i] != null){
+                    this.cal += alimento[i].getCal();
+                }
+            }    
+        }
     }
     
     public void setNutrientes(){
-        this.calcCarb();
-        this.calcGord();
-        this.calcProt();
-        this.calcCal();
-        this.calcPorcao();
+        calcCarb();
+        calcGord();
+        calcProt();
+        calcCal();
     }
     
     public long getId() {
@@ -77,7 +106,7 @@ public class AlimentoRefeicao {
         this.alimento = al;
     }
 
-    public double getPorcao() {
+    public int getPorcao() {
         return porcao;
     }
 
