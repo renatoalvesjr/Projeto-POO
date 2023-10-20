@@ -85,7 +85,7 @@ public class Menus {
     }
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
-        System.out.println("\n\n====== BEM-VINDO "+Utils.getPessoaLogada().getNome().toUpperCase()+" ======");
+        System.out.println("\n\n====== BEM-VINDO " + Utils.getPessoaLogada().getNome().toUpperCase() + " ======");
         Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
         if (logado != null) {
             Pessoa[] p = logado.getSeguidores();
@@ -298,8 +298,8 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
-    
-    public int menuGerenciarDieta(){
+
+    public int menuGerenciarDieta() {
         StringBuilder menu = new StringBuilder();
 
         menu.append("\n====== DIETAS ======");
@@ -311,7 +311,6 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
-    
 
     public int menuAlimentosDieta() {
         StringBuilder menu = new StringBuilder();
@@ -329,16 +328,17 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
-    
-    public Refeicoes menuCriarRefeicao(TipoDietaDAO td, RefeicoesDAO refeicaoDAO){
+
+    public Refeicoes menuCriarRefeicao(TipoDietaDAO td, RefeicoesDAO refeicaoDAO) {
         Refeicoes refeicao = new Refeicoes();
         TipoDieta[] tds = td.buscaTodosTipoDieta();
         System.out.print("Insira o nome da refeicao: ");
         String nome = s.nextLine();
         refeicao.setNomeRefeicao(nome);
         for (TipoDieta td1 : tds) {
-            if(td1 != null)
-            System.out.println(td1);
+            if (td1 != null) {
+                System.out.println(td1);
+            }
         }
         System.out.print("Selecione um tipo de dieta da sua refeicao pelo id: ");
         long tdid = Integer.parseInt(s.nextLine());
@@ -361,13 +361,13 @@ public class Menus {
     public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {
         if (alrf.length != 0) {
             long id = 1;
-            
+
             for (int i = 0; i < alrf.length; i++) {
-                if(alrf[i] != null){
-                    if(alrf[i].getRefeicao().getId() == id){
+                if (alrf[i] != null) {
+                    if (alrf[i].getRefeicao().getId() == id) {
                         System.out.println(alrf[i].getRefeicao().getNomeRefeicao());
                         for (int j = 0; j < alrf.length; j++) {
-                            if(alrf[j] != null && alrf[j].getRefeicao().getId()==id){
+                            if (alrf[j] != null && alrf[j].getRefeicao().getId() == id) {
                                 System.out.println(alrf[j].getAlimento());
                             }
                         }
@@ -380,6 +380,12 @@ public class Menus {
         }
 
     }
+
+    public void exibeAlimentosEmRefeicao(AlimentoRefeicao[] alrfdel, String nome) {
+        for (int i = 0; i < alrfdel.length; i++) {
+            if (alrfdel[i] != null && alrfdel[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome)) {
+                System.out.println(alrfdel[i].getAlimento());
+            }
+        }
+    }
 }
-
-
