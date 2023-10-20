@@ -5,7 +5,7 @@ public class AlimentoRefeicao {
     private long id;
     private Pessoa pessoa;
     private Refeicoes refeicao;
-    private Alimento[] alimento = new Alimento[20];
+    private Alimento alimento;
     private int porcao;
     private double prot;
     private double gord;
@@ -98,52 +98,20 @@ public class AlimentoRefeicao {
         this.refeicao = refeicao;
     }
 
-    public Alimento[] getAlimento() {
+    public Alimento getAlimento() {
         return alimento;
-    }
-    public int proxVazio(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(alimento[i]==null)
-                return i;
-        }
-        return -1;
     }
 
     public void setAlimento(Alimento al) {
-        int proxVazio = proxVazio();
-        if(proxVazio != -1) {
-            for (int i = 0; i < this.alimento.length; i++) {
-                if (alimento[proxVazio] == null) {
-                    alimento[proxVazio] = al;
-                }
-            }
-        }
-    }
-    
-    public boolean alimentoVazio() {
-        for (int i = 0; i < alimento.length; i++) {
-            if (alimento[i] != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean alimentoCheio() {
-        for (int i = 0; i < alimento.length; i++) {
-            if (alimento[i] == null) {
-                return false;
-            }
-        }
-        return true;
+        this.alimento = al;
     }
 
     public int getPorcao() {
         return porcao;
     }
 
-    public void setPorcao(int porcao) {
-        this.porcao = porcao;
+    public void setPorcao(double porcao) {
+        this.porcao = alimento.getPorcao()*porcao;
     }
 
     public double getProt() {

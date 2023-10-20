@@ -4,7 +4,7 @@ public class TipoDietaDAO {
     TipoDieta TDs[] = new TipoDieta[10];
     public TipoDietaDAO(){
         TipoDieta td1 = new TipoDieta();
-        td1.setNome("1 - EQUILIBRADA");
+        td1.setNome("EQUILIBRADA");
         td1.setCarb(40);
         td1.setProt(30);
         td1.setGord(30);
