@@ -45,6 +45,7 @@ public class TipoDietaDAO {
             if(TDs[i] != null && TDs[i].getId() == id)
                 return TDs[i];
         }
+        return null;
     }
 
     public TipoDieta[] buscaTodosTipoDieta(){

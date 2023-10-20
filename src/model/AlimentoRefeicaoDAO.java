@@ -99,22 +99,6 @@ public class AlimentoRefeicaoDAO {
         return false;
     }
 
-    public boolean removeAlimentoPorId(long idAlimentoRefeicao, long idAlimento) {
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if (alimentoRefeicao[i].getId() == idAlimentoRefeicao) {
-                Alimento[] alimentos = new Alimento[20];
-                alimentos = alimentoRefeicao[i].getAlimento();
-                for (int j = 0; j < alimentos.length; j++) {
-                    if (alimentos[i] != null && alimentos[i].getId() == idAlimento) {
-                        alimentos[i] = null;
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public AlimentoRefeicao buscaPorId(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
             if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getId() == id) {
@@ -131,17 +115,6 @@ public class AlimentoRefeicaoDAO {
             }
         }
         return null;
-    }
-
-    public boolean removeAlimentoPorId(AlimentoRefeicao alrf, long id) {
-        Alimento[] alimentos = alrf.getAlimento();
-        for (int i = 0; i < alimentos.length; i++) {
-            if (alimentos[i] != null && alimentos[i].getId() == id) {
-                alimentos[i] = null;
-                return true;
-            }
-        }
-        return false;
     }
 
     public AlimentoRefeicao[] buscaTodosPorPessoa(Pessoa p) {

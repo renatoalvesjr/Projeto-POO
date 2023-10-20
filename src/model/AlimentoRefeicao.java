@@ -6,7 +6,7 @@ public class AlimentoRefeicao {
     private Pessoa pessoa;
     private Refeicoes refeicao;
     private Alimento alimento;
-    private int porcao;
+    private double porcao;
     private double prot;
     private double gord;
     private double carb;
@@ -29,63 +29,6 @@ public class AlimentoRefeicao {
         this.pessoa = pessoa;
     }
     
-    private void calcPorcao(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(!alimentoVazio()){
-                if(alimento[i] != null){
-                    this.porcao += alimento[i].getPorcao();
-                }
-            }    
-        }
-    }
-    
-    private void calcProt(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(!alimentoVazio()){
-                if(alimento[i] != null){
-                    this.prot += alimento[i].getProt();
-                }
-            }    
-        }
-    }
-    
-    private void calcCarb(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(!alimentoVazio()){
-                if(alimento[i] != null){
-                    this.carb += alimento[i].getCarb();
-                }
-            }    
-        }
-    }
-    
-    private void calcGord(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(!alimentoVazio()){
-                if(alimento[i] != null){
-                    this.gord += alimento[i].getGord();
-                }
-            }    
-        }
-    }
-    
-    private void calcCal(){
-        for (int i = 0; i < alimento.length; i++) {
-            if(!alimentoVazio()){
-                if(alimento[i] != null){
-                    this.cal += alimento[i].getCal();
-                }
-            }    
-        }
-    }
-    
-    public void setNutrientes(){
-        calcCarb();
-        calcGord();
-        calcProt();
-        calcCal();
-    }
-    
     public long getId() {
         return id;
     }
@@ -106,7 +49,7 @@ public class AlimentoRefeicao {
         this.alimento = al;
     }
 
-    public int getPorcao() {
+    public double getPorcao() {
         return porcao;
     }
 
@@ -142,8 +85,8 @@ public class AlimentoRefeicao {
         return cal;
     }
 
-    public void setCal(double cal) {
-        this.cal = cal;
+    public void setCal() {
+        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
     }
 
     public String getCreateDate() {
