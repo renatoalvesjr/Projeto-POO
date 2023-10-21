@@ -115,7 +115,7 @@ public class Alimento {
 
     @Override
     public String toString() {
-        return (id+": "+nome + " ||Carboidratos: " + carb + " || Proteinas: " + prot + " || Gorduras: " + gord + " || Calorias: " + cal + " || Porcao: " + porcaoGramas + "||");
+        return (id+": "+nome + "\n|| Carboidratos: " + carb + " || Proteinas: " + prot + " || Gorduras: " + gord + " || Calorias: " + cal+ " ||" + " Porcao: " + porcaoGramas + "g ||");
     }
     
     

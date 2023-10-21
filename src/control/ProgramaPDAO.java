@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 import java.util.Scanner;
@@ -9,7 +5,6 @@ import model.Alimento;
 import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.AlimentoRefeicaoDAO;
-import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Mensagem;
 import model.MensagemDAO;
@@ -25,14 +20,11 @@ import model.RegistroDieta;
 import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
+import model.TipoDieta;
 import model.TipoDietaDAO;
 import model.Utils;
 import view.Menus;
 
-/**
- *
- * @author heber
- */
 public class ProgramaPDAO {
 
     Menus menu = new Menus();
@@ -253,48 +245,64 @@ public class ProgramaPDAO {
                         System.out.println("Nenhuma dieta criada.");
                     }
                     break;
-                    
+
                 case 2:
                     menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
-                    
+
                 case 3:
-                    System.out.println("Monte sua dieta: ");
-                    RegistroDieta rd = new RegistroDieta();
-                    rd.setPessoa(Utils.getPessoaLogada());
-                    rd.setAvaliacao(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
-                    rd.setTipoDieta(tipodietaDAO.buscaTDId(1));
-                    tipodietaDAO.mostraTDs();
-                    System.out.println("Escolha o tipo da dieta pelo numero: ");
-                    long id = Integer.parseInt(s.nextLine()); 
-                    rd.setObjetivo(1);
-                    rd.setNumRefeicao(1);
-                    registrodietaDAO.criaRD(rd);
-                    break;
+                    gerenciaDieta();
                     
+                    break;
+
                 case 4:
-                    System.out.println("Monte sua refeicao: ");    
-                    Refeicoes ref = new Refeicoes();
-                    ref.setTd(tipodietaDAO.buscaTDId(1));
-                    ref.setNomeRefeicao("Almoco");
-                    ref.setCarb(60);
-                    ref.setGord(45);
-                    ref.setProt(45);
-                    ref.setCal();
-                    refeicoesDAO.criaRfs(ref);
-                    break;
-                    
-                case 5:
-                    break;
-                
-                case 6:
-                    break;
-                    
-                case 7:
                     gerenciaAlimentosDieta();
+                    break;
+
+                case 0:
+                    System.out.println("Voltando");
                     break;
             }
         } while (opc != 0);
+    }
+    
+    void gerenciarDieta() {
+        int opc3 =0;
+        
+        do{
+            opc3 = menu.menuGerenciarDieta();
+            
+            switch (opc3) {
+                case 1:
+                    RegistroDieta novoRD  = menu.menuCriarRD(tipodietaDAO, avalDAO, registrodietaDAO);
+                    novoRD.setPessoa(Utils.getPessoaLogada());
+                    registrodietaDAO.criaRD(novoRD);
+                    break;
+                case 2:
+                    RegistroDieta rdDel = registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
+                    System.out.print("Insira o id da dieta que sera removida: ");
+                    long idDel = Integer.parseInt(s.nextLine());
+                    int x = 0;
+                    for (int i = 0; i < rdDel.length; i++) {
+                        if (registrodietaDAO.removeRD(idDel)) {
+                            System.out.println("Dieta removida com sucesso");
+                            x++;
+                        }
+                    }
+                    if (x > 0) {
+                        System.out.println("Dieta removida com sucesso");
+                    } else {
+                        System.out.println("Dieta nao encontrada");
+                    }
+
+                    break;
+
+                    
+                case 0:
+                    System.out.println("Voltando");
+                    break;
+            }  
+        }while(opc3 != 0);
     }
 
     void gerenciaAlimentosDieta() {
@@ -304,18 +312,38 @@ public class ProgramaPDAO {
 
             switch (opc2) {
                 case 1:
-                    System.out.print("Insira o nome da refeicoes para mostra-la: ");
+                    AlimentoRefeicao[] showalrf = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+                    System.out.print("Insira o nome da refeicao para mostra-la: ");
                     String nome = s.nextLine();
-                    AlimentoRefeicao refeicao = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome);
-                    System.out.println(refeicao.getRefeicao().getNomeRefeicao());
-                    Alimento[] alimentos = refeicao.getAlimento();
-                    for (Alimento alimento : alimentos) {
-                        if(alimento != null){
-                            System.out.println(alimento);
-                        }
-                    }
+                    menu.exibeAlimentosEmRefeicao(showalrf, nome);
+                    nutrientesRestantes(alimentorefeicaoDAO.buscaTodosPorRefeicao(Utils.getPessoaLogada(), nome));
                     break;
                 case 2:
+                    Refeicoes novaRefeicao = menu.menuCriarRefeicao(tipodietaDAO, refeicoesDAO);
+                    AlimentoRefeicao novoAlRf = new AlimentoRefeicao();
+                    novoAlRf.setPessoa(Utils.getPessoaLogada());
+                    novoAlRf.setRefeicao(novaRefeicao);
+                    alimentorefeicaoDAO.criaRefeicaoAlimento(novoAlRf);
+                    break;
+                case 3:
+                    AlimentoRefeicao[] alrfDel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+                    System.out.print("Insira o nome da refeicao para ser removido: ");
+                    String nomeDel = s.nextLine();
+                    int x = 0;
+                    for (int i = 0; i < alrfDel.length; i++) {
+                        if (alimentorefeicaoDAO.removeRefeicaoPorNome(nomeDel, Utils.getPessoaLogada())) {
+                            System.out.println("Refeicao removida com sucesso");
+                            x++;
+                        }
+                    }
+                    if (x > 0) {
+                        System.out.println("Refeicao removida com sucesso");
+                    } else {
+                        System.out.println("Refeicao nao encontrada");
+                    }
+
+                    break;
+                case 4:
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
                     String nome4 = s.nextLine();
                     AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
@@ -324,32 +352,98 @@ public class ProgramaPDAO {
                     long id4 = Integer.parseInt(s.nextLine());
                     refeicao4.setAlimento(alimentoDAO.BuscaAlimento(id4));
                     break;
-                case 3:
+                case 5:
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
                     String nome2 = s.nextLine();
                     AlimentoRefeicao refeicao2 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome2);
                     System.out.println("Adicionando alimento em: " + refeicao2.getRefeicao().getNomeRefeicao());
-                    refeicao2.setAlimento(menu.addNovoAlimento());
+                    System.out.print("Insira a quantidade de porcoes a adicionar(Ex.: 0.6 ou 1.5): ");
+                    int porcao = Integer.parseInt(s.nextLine());
+                    Alimento novoAlimento = menu.addNovoAlimento();
+                    refeicao2.setAlimento(novoAlimento);
+                    refeicao2.setPorcao(porcao*novoAlimento.getPorcao());
                     break;
-                case 4:
-                    System.out.print("Insira o nome da refeicoes para remover um alimento: ");
-                    String nome3 = s.nextLine();
-                    AlimentoRefeicao refeicao3 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome3);
-                    System.out.println("Removendo alimento em: " + refeicao3.getRefeicao().getNomeRefeicao());
-                    Alimento[] alimentos3 = refeicao3.getAlimento();
-                    for (Alimento alimento : alimentos3) {
-                        if(alimento != null){
-                            System.out.println(alimento);
-                        }
-                    }
-                    System.out.print("Insira o Id do alimento acima para ser removido: ");
-                    long id2 = Integer.parseInt(s.nextLine());
-                    boolean removeu = alimentorefeicaoDAO.removeAlimentoPorId(refeicao3, id2);
-                    if(!removeu){
-                        System.out.println("Alimento nao encontrado");
+                case 6:
+                    System.out.print("Insira o nome da refeicao: ");
+                    String nomeRef = s.nextLine();
+                    AlimentoRefeicao[] alrfdel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+                    menu.exibeAlimentosEmRefeicao(alrfdel, nomeRef);
+                    System.out.print("Insira o id para remocao: ");
+                    long idDel = Integer.parseInt(s.nextLine());
+                    if (alimentorefeicaoDAO.removeAlimentoDaRefeicao(idDel, nomeRef)) {
+                        System.out.println("removido com sucesso");
+                    } else {
+                        System.out.println("nao encontrado");
                     }
                     break;
             }
         } while (opc2 != 0);
+    }
+
+    public void nutrientesRestantes(AlimentoRefeicao alrf[]) {
+        Refeicoes rf = null;
+        if (alrf.length != 0) {
+            
+        }
+        for (int i = 0; i < alrf.length; i++) {
+            if(alrf[i]!=null){
+                rf = alrf[i].getRefeicao();
+                break;
+            }
+            
+        }
+        
+        if (rf != null) {
+            double metaCarb = rf.getCarb();
+            double metaProt = rf.getProt();
+            double metaGord = rf.getGord();
+            
+            double carb = 0;
+            double prot = 0;
+            double gord = 0;
+            
+            for (int i = 0; i < alrf.length; i++) {
+                if(alrf[i] != null){
+                    carb += alrf[i].getAlimento().getCarb();
+                    prot += alrf[i].getAlimento().getProt();
+                    gord += alrf[i].getAlimento().getGord();
+                }
+                
+            }
+            
+            double gordRestante = metaGord - gord;
+            double protRestante = metaProt - prot;
+            double carbRestante = metaCarb - carb;
+            
+            StringBuilder restantes = new StringBuilder();
+            int change = 0;
+            
+            if(carbRestante>5){
+                restantes.append(carbRestante+"g de Carboidratos faltando; ");
+                change++;
+            } else if(carbRestante < (-10)) {
+                restantes.append(-carbRestante+"g de  Carboidratos a mais; ");
+                change++;
+            }
+            
+            if(protRestante>5){
+                restantes.append(protRestante+"g de Proteinas faltando; ");
+                change++;
+            } else if(protRestante < (-10)) {
+                restantes.append(-protRestante+"g de  Proteinas a mais; ");
+                change++;
+            }
+            
+            if(gordRestante>5){
+                restantes.append(gordRestante+"g de  Gorduras faltando; ");
+                change++;
+            } else if(gordRestante < (-10)) {
+                restantes.append(-gordRestante+"g de  Gorduras a mais; ");
+                change++;
+            }
+            if(change!=0)
+                System.out.println(restantes);
+        }
+
     }
 }

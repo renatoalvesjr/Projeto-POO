@@ -11,6 +11,7 @@ public class RegistroDieta {
     private String createDate;
     private String modifyDate;
     private static long serial;
+    public int length;
     
     public RegistroDieta() {
         this.id = ++RegistroDieta.serial;
@@ -124,7 +125,7 @@ public class RegistroDieta {
         } else if(this.objetivo == 2){
                 objetivo = "Manter peso";
         }
-            else if(this.objetivo == 2){
+            else if(this.objetivo == 3){
                 objetivo = "Ganhar peso";
         }          
         return id + " : " + "\nDieta de: " + p.getNome() + "\nTipo de dieta: " + td + "\nObjetivo da dieta: " + objetivo + "\nQuantidade de calorias: " + cal + "\nNumero de refeicoes: " + numRefeicao;
