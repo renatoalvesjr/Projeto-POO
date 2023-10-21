@@ -7,13 +7,17 @@ public class SeguindoDAO {
         Seguindo s1 = new Seguindo();
         s1.setPessoa(pessoa.buscaPorNome("Renato"));
         s1.setSeguidores(pessoa.buscaPorNome("Hebert"));
-        s1.setSeguidores(pessoa.buscaPorNome("root"));
         criarSeguidor(s1);
         
         Seguindo s2 = new Seguindo();
-        s2.setPessoa(pessoa.buscaPorNome("Hebert"));
-        s2.setSeguidores(pessoa.buscaPorNome("Renato"));
+        s2.setPessoa(pessoa.buscaPorNome("Renato"));
+        s2.setSeguidores(pessoa.buscaPorNome("root"));
         criarSeguidor(s2);
+        
+        Seguindo s3 = new Seguindo();
+        s3.setPessoa(pessoa.buscaPorNome("Hebert"));
+        s3.setSeguidores(pessoa.buscaPorNome("Renato"));
+        criarSeguidor(s3);
     }
     
     private int proximoSeguidorLivre(){
@@ -25,7 +29,7 @@ public class SeguindoDAO {
         return -1;
     } 
     
-    boolean criarSeguidor(Seguindo a){
+    public boolean criarSeguidor(Seguindo a){
         int proximoSeguidorLivre = proximoSeguidorLivre();
         if(proximoSeguidorLivre != -1){
             seguidores[proximoSeguidorLivre] = a;
@@ -35,11 +39,17 @@ public class SeguindoDAO {
         }
     }
     
-    public Seguindo buscaSeguidorPessoa(Pessoa p) {
+    public Seguindo[] buscaSeguidoresPessoa(Pessoa p) {
+        Seguindo[] listaSeguidores = new Seguindo[20];
+        int cont = 0;
         for (int i = 0; i < seguidores.length; i++) {
             if(seguidores[i] != null && seguidores[i].getPessoa().getId() == p.getId()){
-                return seguidores[i];
+                listaSeguidores[cont] = seguidores[i];
+                cont++;
             }
+        }
+        if(cont!=0){
+            return listaSeguidores;
         }
         return null;
 

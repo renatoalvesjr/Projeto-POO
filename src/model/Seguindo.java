@@ -1,13 +1,14 @@
 package model;
 
 public class Seguindo {
+
     private long id;
     private Pessoa pessoa;
-    private Pessoa[] seguidores = new Pessoa[10];
+    private Pessoa seguidor;
     private String createDate;
     private String modifyDate;
     private static long serial;
-    
+
     public Seguindo() {
         this.id = ++Seguindo.serial;
         this.createDate = Utils.dataAgora();
@@ -26,27 +27,12 @@ public class Seguindo {
         this.pessoa = pessoa;
     }
 
-    public Pessoa[] getSeguidores() {
-        return seguidores;
+    public Pessoa getSeguidores() {
+        return seguidor;
     }
-    
-    public boolean seguidoresCheio(){
-        for (Pessoa seguidor : seguidores) {
-            if (seguidor == null) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public boolean setSeguidores(Pessoa seguidor) {
-        for (int i = 0; i < this.seguidores.length; i++) {
-            if(this.seguidores[i] == null){
-                this.seguidores[i] = seguidor;
-                return true;
-            }
-        }
-        return false;
+
+    public void setSeguidores(Pessoa seguidor) {
+        this.seguidor = seguidor;
     }
 
     public String getCreateDate() {
@@ -85,9 +71,7 @@ public class Seguindo {
 
     @Override
     public String toString() {
-        return "Seguindo{" + "id=" + id + ", pessoa=" + pessoa + ", seguidores=" + seguidores + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Seguindo{" + "id=" + id + ", pessoa=" + pessoa + ", seguidores=" + seguidor + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
-    
-    
-    
+
 }
