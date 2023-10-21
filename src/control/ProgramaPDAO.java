@@ -63,7 +63,6 @@ public class ProgramaPDAO {
                     } else {
                         System.out.println("Usuario nao encontrado");
                     }
-
                     break;
                 case 2:
                     pessoaDAO.adiciona(menu.cadastrar());

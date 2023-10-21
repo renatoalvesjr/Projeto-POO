@@ -270,7 +270,7 @@ public class Menus {
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
         menu.append("\n3 - Gerenciar dieta");
-        menu.append("\n4 - Gerenciar alimentos na dieta");
+        menu.append("\n4 - Gerenciar refeicoes");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
