@@ -13,7 +13,6 @@ import model.Preferencia;
 import model.PreferenciaDAO;
 import model.Refeicoes;
 import model.RefeicoesDAO;
-import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
 import model.TipoDieta;
@@ -306,27 +305,6 @@ public class Menus {
 
         return Integer.parseInt(s.nextLine());
     }
-    
-    public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
-        RegistroDieta regDieta = new RegistroDieta();
-        TipoDieta[] tds = td.buscaTodosTipoDieta();
-        Avaliacao[] aval = avals.buscaTodasAvals();
-        System.out.print("Escolha seu objetivo pelo id: "
-                + "1 - Perder Peso"
-                + "2 - Manter Peso"
-                + "3 - Ganhar Peso");
-        int obj = Integer.parseInt(s.nextLine());
-        regDieta.toString();
-        for (TipoDieta td1 : tds) {
-            if (td1 != null) {
-                System.out.println(td1);
-            }
-        }
-        System.out.print("Informe a quantidade de refeições desejadas:  ");
-        int qtdRef = Integer.parseInt(s.nextLine());
-        regDieta.toString();
-        return regDieta;
-    }
 
     public int menuAlimentosDieta() {
         StringBuilder menu = new StringBuilder();
@@ -402,12 +380,6 @@ public class Menus {
             if (alrfdel[i] != null && alrfdel[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome)) {
                 System.out.println(alrfdel[i].getAlimento());
             }
-        }
-    }
-
-    private static class RegistroDieta {
-
-        public RegistroDieta() {
         }
     }
 }

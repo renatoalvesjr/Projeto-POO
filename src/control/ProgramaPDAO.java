@@ -16,7 +16,6 @@ import model.Preferencia;
 import model.PreferenciaDAO;
 import model.Refeicoes;
 import model.RefeicoesDAO;
-import model.RegistroDieta;
 import model.RegistroDietaDAO;
 import model.Seguindo;
 import model.SeguindoDAO;
@@ -251,8 +250,16 @@ public class ProgramaPDAO {
                     break;
 
                 case 3:
-                    gerenciaDieta();
-                    
+                    menu.menuGerenciarDieta();
+                    int opc1 = 0;
+
+                    switch (opc1) {
+                        case 1:
+                            break;
+
+                        case 2:
+                            break;
+                    }
                     break;
 
                 case 4:
@@ -264,45 +271,6 @@ public class ProgramaPDAO {
                     break;
             }
         } while (opc != 0);
-    }
-    
-    void gerenciarDieta() {
-        int opc3 =0;
-        
-        do{
-            opc3 = menu.menuGerenciarDieta();
-            
-            switch (opc3) {
-                case 1:
-                    RegistroDieta novoRD  = menu.menuCriarRD(tipodietaDAO, avalDAO, registrodietaDAO);
-                    novoRD.setPessoa(Utils.getPessoaLogada());
-                    registrodietaDAO.criaRD(novoRD);
-                    break;
-                case 2:
-                    RegistroDieta rdDel = registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
-                    System.out.print("Insira o id da dieta que sera removida: ");
-                    long idDel = Integer.parseInt(s.nextLine());
-                    int x = 0;
-                    for (int i = 0; i < rdDel.length; i++) {
-                        if (registrodietaDAO.removeRD(idDel)) {
-                            System.out.println("Dieta removida com sucesso");
-                            x++;
-                        }
-                    }
-                    if (x > 0) {
-                        System.out.println("Dieta removida com sucesso");
-                    } else {
-                        System.out.println("Dieta nao encontrada");
-                    }
-
-                    break;
-
-                    
-                case 0:
-                    System.out.println("Voltando");
-                    break;
-            }  
-        }while(opc3 != 0);
     }
 
     void gerenciaAlimentosDieta() {

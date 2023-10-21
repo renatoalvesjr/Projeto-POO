@@ -32,6 +32,7 @@ public class RegistroDietaDAO {
                 rd[proxLivre] = reg;
                 return true;
             }
+
         }
         return false;
     }
@@ -45,16 +46,20 @@ public class RegistroDietaDAO {
         return null;
     }
     
+  //  public RegistroDieta mostraObj(RegistroDieta r){
+    //    for (int i = 0; i < 3; i++) {
+      //      
+        //}
+       // return null;
+    //}
+
     public boolean removeRD(long id) {
         for (int i = 0; i < rd.length; i++) {
             if (rd[i] != null && rd[i].getId() == id) {
                 rd[i] = null;
-                return true;
             }
+            return true;
         }
         return false;
     }
 }
-    
-
-    
