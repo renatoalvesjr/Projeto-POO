@@ -109,7 +109,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", nascimento=" + nascimento + ", login=" + login + ", senha=" + senha + ", userType=" + userType + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return id + " - Nome: " + nome + ", Sexo: " + sexo.toUpperCase() + ", Data de Nascimento" + nascimento;
     }
 
     
