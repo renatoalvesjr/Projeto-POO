@@ -11,6 +11,7 @@ public class RegistroDieta {
     private String createDate;
     private String modifyDate;
     private static long serial;
+    public int length;
     
     public RegistroDieta() {
         this.id = ++RegistroDieta.serial;
