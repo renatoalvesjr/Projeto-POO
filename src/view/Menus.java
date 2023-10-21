@@ -389,10 +389,12 @@ public class Menus {
         RegistroDieta regDieta = new RegistroDieta();
         TipoDieta[] tds = td.buscaTodosTipoDieta();
         Avaliacao[] aval = avals.buscaTodasAvals();
-        System.out.print("Escolha seu objetivo pelo id: "
-                + "1 - Perder Peso"
-                + "2 - Manter Peso"
-                + "3 - Ganhar Peso");
+        System.out.print("""
+                           Escolha seu objetivo pelo numero a esquerda:
+                           1: Perder peso.
+                           2: Manter peso.
+                           3: Ganhar peso.
+                           => """);
         int obj = Integer.parseInt(s.nextLine());
         regDieta.toString();
         for (TipoDieta td1 : tds) {
