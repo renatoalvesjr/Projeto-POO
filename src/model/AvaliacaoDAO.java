@@ -54,6 +54,13 @@ public class AvaliacaoDAO {
         }
         return null;
     }
+    
+    public Avaliacao[] buscaTodasAvals(){
+        if(avals.length != 0){
+            return avals;
+        }
+        return null;
+    }
 
     public void mostraTodasAval() {
         for (int i = 0; i < avals.length; i++) {
