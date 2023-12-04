@@ -7,10 +7,6 @@ public class AlimentoRefeicao {
     private Refeicoes refeicao;
     private Alimento alimento;
     private double porcao;
-    private double prot;
-    private double gord;
-    private double carb;
-    private double cal;
     private String createDate;
     private String modifyDate;
     private static long serial;
@@ -57,38 +53,6 @@ public class AlimentoRefeicao {
         this.porcao = alimento.getPorcao()*porcao;
     }
 
-    public double getProt() {
-        return prot;
-    }
-
-    public void setProt(double prot) {
-        this.prot = prot;
-    }
-
-    public double getGord() {
-        return gord;
-    }
-
-    public void setGord(double gord) {
-        this.gord = gord;
-    }
-
-    public double getCarb() {
-        return carb;
-    }
-
-    public void setCarb(double carb) {
-        this.carb = carb;
-    }
-
-    public double getCal() {
-        return cal;
-    }
-
-    public void setCal() {
-        this.cal = (4*this.carb)+(4*this.prot)+(9*this.gord);
-    }
-
     public String getCreateDate() {
         return createDate;
     }
@@ -125,7 +89,7 @@ public class AlimentoRefeicao {
 
     @Override
     public String toString() {
-        return "AlimentoRefeicao{" + "id=" + id + ", rf=" + refeicao + ", al=" + alimento + ", porcao=" + porcao + ", prot=" + prot + ", gord=" + gord + ", carb=" + carb + ", cal=" + cal + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "AlimentoRefeicao{" + "id=" + id + ", rf=" + refeicao + ", al=" + alimento + ", porcao=" + porcao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
     }
 
 }
