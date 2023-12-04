@@ -1,5 +1,14 @@
 package model;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class PostDAO {
 
     Post posts[] = new Post[20];
@@ -7,84 +16,73 @@ public class PostDAO {
     public PostDAO(PessoaDAO p1) {
         Post post1 = new Post();
         post1.setConteudo("Minha dieta esta indo bem");
-        post1.setPessoa(p1.buscaPorNome("hebert"));
+        post1.setPessoa(p1.buscaPorNome("Renato"));
         criarPost(post1);
-
-        Post post2 = new Post();
-        post2.setConteudo("Minha dieta nao esta indo tao bem como eu ");
-        post2.setPessoa(p1.buscaPorNome("renato"));
-        criarPost(post2);
-
-        Post post3 = new Post();
-        post3.setConteudo("App em desenvolvimento por enquanto");
-        post3.setPessoa(p1.buscaPorNome("root"));
-        criarPost(post3);
     }
 
-    private int proximoPostLivre() {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i] == null) {
-                return i;
-            }
+    public boolean criarPost(Post post) {
+        String sql = "insert into post "
+                + "(conteudo,Pessoa_idPessoa,createDate)" + " values (?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // seta os valores
+            stmt.setString(1, post.getConteudo());
+
+            stmt.setLong(2, post.getPessoa().getId());
+
+            stmt.setDate(3, java.sql.Date.valueOf(post.getCreateDate()));
+
+            stmt.execute();
+
+            System.out.println("Post criado com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return -1;
+
+        return true;
     }
 
-    public boolean criarPost(Post a) {
-        int proximoPostLivre = proximoPostLivre();
-        if (proximoPostLivre != -1) {
-            posts[proximoPostLivre] = a;
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public List<Post> mostraTodosPostPessoa(Pessoa p) {
+        String sql = "select * from post where Pessoa_idPessoa = ?";
+        List<Post> posts = new ArrayList<>();
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, p.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Long id = rs.getLong("idPost");
+                    String conteudo = rs.getString("conteudo");
 
-    public String pegaPostPessoa(Pessoa p) {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
-                return posts[i].getConteudo();
+
+                    Post post = new Post();
+                    post.setId(id);
+                    post.setConteudo(conteudo);
+                    posts.add(post);
+
+                    return posts;
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
 
-    public void mostraTodosPostPessoa(Pessoa p) {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i] != null && posts[i].getPessoa().getNome().equals(p.getNome())) {
-                System.out.println(posts[i]);
-            }
+    public boolean removePost(long id) {
+        
+        String sql = "delete from post where id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+            
+            stmt.execute();
+            
+            System.out.println("Post excluído com sucesso.");
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public boolean removePost(long id, Pessoa p) {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i] != null && posts[i].getId() == id && posts[i].getPessoa().getId() == p.getId()) {
-                posts[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean alteraConteudo(long id, String conteudo) {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i].getId() == id) {
-                posts[i].setConteudo(conteudo);
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    boolean postsVazio() {
-        for (int i = 0; i < posts.length; i++) {
-            if (posts[i] != null) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 }

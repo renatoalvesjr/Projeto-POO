@@ -1,19 +1,22 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Post {
     private long id;
     private Pessoa pessoa;
     private String conteudo;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
     
     public Post() {
-        this.id = ++Post.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+        this.createDate = LocalDate.now();
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public long getId() {
         return id;
     }
@@ -34,16 +37,16 @@ public class Post {
         this.conteudo = conteudo;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+        this.modifyDate = LocalDate.now();
     }
 
     @Override

@@ -74,7 +74,7 @@ CREATE TABLE `avaliacao` (
   `pescoco` decimal(10,2) DEFAULT NULL,
   `cintura` decimal(10,2) DEFAULT NULL,
   `quadril` decimal(10,2) DEFAULT NULL,
-  `rotina` decimal(10,2) DEFAULT NULL,
+  `rotina` int DEFAULT NULL,
   `imc` decimal(10,2) DEFAULT NULL,
   `tbm` decimal(10,2) DEFAULT NULL,
   `bf` decimal(10,2) DEFAULT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `avaliacao` (
   PRIMARY KEY (`idAvaliacao`,`Pessoa_idPessoa`),
   KEY `fk_Avaliacao_Pessoa1_idx` (`Pessoa_idPessoa`),
   CONSTRAINT `fk_Avaliacao_Pessoa1` FOREIGN KEY (`Pessoa_idPessoa`) REFERENCES `pessoa` (`idPessoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `pessoa` (
   `createDate` datetime DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
   PRIMARY KEY (`idPessoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -148,7 +148,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`idMensagem`,`Pessoa_idPessoa`),
   KEY `fk_Mensagem_Pessoa2_idx` (`Pessoa_idPessoa`),
   CONSTRAINT `fk_Mensagem_Pessoa20` FOREIGN KEY (`Pessoa_idPessoa`) REFERENCES `pessoa` (`idPessoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,4 +267,4 @@ CREATE TABLE `tipodieta` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-04 10:37:23
+-- Dump completed on 2023-12-04 16:55:18

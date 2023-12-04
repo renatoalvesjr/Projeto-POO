@@ -1,24 +1,15 @@
 package model;
 
+import java.util.Objects;
+
 public class Seguindo {
 
-    private long id;
     private Pessoa pessoa;
     private Pessoa seguidor;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
 
     public Seguindo() {
-        this.id = ++Seguindo.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
     }
-
-    public long getId() {
-        return id;
-    }
-
+    
     public Pessoa getPessoa() {
         return pessoa;
     }
@@ -35,22 +26,11 @@ public class Seguindo {
         this.seguidor = seguidor;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public String getModifyDate() {
-        return modifyDate;
-    }
-
-    public void setModifyDate(String modifyDate) {
-        this.modifyDate = Utils.dataAgora();
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.pessoa);
+        hash = 97 * hash + Objects.hashCode(this.seguidor);
         return hash;
     }
 
@@ -66,12 +46,17 @@ public class Seguindo {
             return false;
         }
         final Seguindo other = (Seguindo) obj;
-        return this.id == other.id;
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        return Objects.equals(this.seguidor, other.seguidor);
     }
+
+
 
     @Override
     public String toString() {
-        return "Seguindo{" + "id=" + id + ", pessoa=" + pessoa + ", seguidores=" + seguidor + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Seguindo{ " + ", pessoa=" + pessoa + ", seguidores=" + seguidor + " }";
     }
 
 }
