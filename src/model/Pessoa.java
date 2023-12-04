@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Pessoa {
 
     private long id;
@@ -9,16 +11,17 @@ public class Pessoa {
     private String login;
     private String senha;
     private int userType;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
 
     public Pessoa() {
-        this.id = ++Pessoa.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+        this.createDate = LocalDate.now();
     }
-
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     public long getId() {
         return id;
     }
@@ -71,16 +74,16 @@ public class Pessoa {
         this.userType = userType;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+    public void setModifyDate(LocalDate modifyDate) {
+        this.modifyDate = modifyDate;
     }
     
     
