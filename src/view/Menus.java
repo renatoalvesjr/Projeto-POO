@@ -92,7 +92,7 @@ public class Menus {
         if (listaSeguidores != null) {
             for (Seguindo listaSeguidor : listaSeguidores) {
                 if(listaSeguidor!=null)
-                    posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
+                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
             }
         } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");

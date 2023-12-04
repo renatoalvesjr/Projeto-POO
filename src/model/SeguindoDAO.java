@@ -1,55 +1,64 @@
 package model;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SeguindoDAO {
     Seguindo seguidores[] = new Seguindo[10];
     
     public SeguindoDAO(PessoaDAO pessoa, PostDAO posts) {
-        Seguindo s1 = new Seguindo();
-        s1.setPessoa(pessoa.buscaPorNome("Renato"));
-        s1.setSeguidores(pessoa.buscaPorNome("Hebert"));
-        criarSeguidor(s1);
-        
-        Seguindo s2 = new Seguindo();
-        s2.setPessoa(pessoa.buscaPorNome("Renato"));
-        s2.setSeguidores(pessoa.buscaPorNome("root"));
-        criarSeguidor(s2);
-        
-        Seguindo s3 = new Seguindo();
-        s3.setPessoa(pessoa.buscaPorNome("Hebert"));
-        s3.setSeguidores(pessoa.buscaPorNome("Renato"));
-        criarSeguidor(s3);
+
     }
+
     
-    private int proximoSeguidorLivre(){
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i] == null){
-                return i;
-            }
-        }
-        return -1;
-    } 
-    
-    public boolean criarSeguidor(Seguindo a){
-        int proximoSeguidorLivre = proximoSeguidorLivre();
-        if(proximoSeguidorLivre != -1){
-            seguidores[proximoSeguidorLivre] = a;
+    public boolean criarSeguidor(Seguindo seguindo){
+        String sql = "insert into seguindo "
+                + "(Pessoa_idPessoa,Pessoa_idPessoaSeguindo)" + " values (?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // seta os valores
+            stmt.setLong(1, seguindo.getPessoa().getId());
+
+            stmt.setLong(2, seguindo.getSeguidores().getId());
+
+
+            stmt.execute();
+
+            System.out.println("Seguidor criado com sucesso.");
             return true;
-        } else {
-            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+       
     }
     
-    public Seguindo[] buscaSeguidoresPessoa(Pessoa p) {
-        Seguindo[] listaSeguidores = new Seguindo[20];
-        int cont = 0;
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i] != null && seguidores[i].getPessoa().getId() == p.getId()){
-                listaSeguidores[cont] = seguidores[i];
-                cont++;
+    public List<Seguindo> buscaSeguidoresPessoa(Pessoa p) {
+        String sql = "select * from seguindo where Pessoa_idPessoa = ?";
+        List<Seguindo> seguindo = new ArrayList<>();
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, p.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Long id1 = rs.getLong("Pesso_idPessoa");
+                    Long id2 = rs.getLong("Pesso_idPessoaSeguindo");
+                    String nome = rs.getString("nome");
+                    String sexo = rs.getString("sexo");
+                    String login = rs.getString("login");
+                    String senha = rs.getString("senha");
+
+                    Seguindo seguidor = Seguindo();
+                    seguidor.setPessoa(pessoa.);
+                    return seguindo;
+                }
             }
-        }
-        if(cont!=0){
-            return listaSeguidores;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
 

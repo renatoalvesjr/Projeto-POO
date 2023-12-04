@@ -20,19 +20,6 @@ public class AvaliacaoDAO {
     Avaliacao[] avals = new Avaliacao[10];
 
     public AvaliacaoDAO(PessoaDAO pdao) {
-        Avaliacao av1 = new Avaliacao();
-        av1.setPessoa(pdao.buscaPorNome("Renato"));
-        av1.setAltura(190);
-        av1.setIdade(23);
-        av1.setPeso(75);
-        av1.setRotina(2);
-        av1.setQuadril(100);
-        av1.setCintura(80);
-        av1.setPescoco(38);
-        av1.calcBF();
-        av1.calcIMC();
-        av1.calcTMB();
-        criaAval(av1);
     }
 
     private int proximAvalLivre() {

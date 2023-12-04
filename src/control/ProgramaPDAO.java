@@ -83,7 +83,7 @@ public class ProgramaPDAO {
     void menuPrincipal() {
         int opc = 0;
         do {
-            //menu.feedPosts(postDAO, seguindoDAO);
+            menu.feedPosts(postDAO, seguindoDAO);
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
@@ -236,7 +236,7 @@ public class ProgramaPDAO {
                 case 2:
                     System.out.println("Insira o id de um post para ser removido: ");
                     long id = Integer.parseInt(s.nextLine());
-                    if (!postDAO.removePost(id, Utils.getPessoaLogada())) {
+                    if (postDAO.removePost(id) != true) {
                         System.out.println("Post nao encontrado");
                     }
                     break;
