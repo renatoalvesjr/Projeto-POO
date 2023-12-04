@@ -110,8 +110,8 @@ public class Avaliacao {
         return rotina;
     }
 
-    public void setRotina(int rotina) {
-        switch(rotina){
+    public void setRotina(double rotina) {
+        switch((int)rotina){
             case 1:
                 this.rotina = 1.2;
                 break;

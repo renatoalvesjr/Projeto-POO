@@ -5,6 +5,7 @@ import model.Alimento;
 import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.AlimentoRefeicaoDAO;
+import model.Avaliacao;
 import model.AvaliacaoDAO;
 import model.Mensagem;
 import model.MensagemDAO;
@@ -122,8 +123,10 @@ public class ProgramaPDAO {
                     System.out.println(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
                     break;
                 case 2:
-                    long updateAval = avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()).getId();
-                    menu.alteraAval(avalDAO, updateAval);
+                    Avaliacao aval = avalDAO.buscaAvalPessoa(Utils.getPessoaLogada());
+                    if(aval != null){
+                        menu.alteraAval(avalDAO, aval);
+                    }
                     break;
             }
         } while (opc != 0);
@@ -165,7 +168,7 @@ public class ProgramaPDAO {
     }
 
     void gerenciaSeguidores() {
-        pessoaDAO.mostrarTodas();
+        pessoaDAO.lista();
         System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
         String nome = s.nextLine();
         if(nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome()))

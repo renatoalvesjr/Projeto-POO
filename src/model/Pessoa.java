@@ -7,7 +7,7 @@ public class Pessoa {
     private long id;
     private String nome;
     private String sexo;
-    private String nascimento;
+    private LocalDate nascimento;
     private String login;
     private String senha;
     private int userType;
@@ -42,11 +42,11 @@ public class Pessoa {
         this.sexo = sexo;
     }
 
-    public String getNascimento() {
+    public LocalDate getNascimento() {
         return nascimento;
     }
 
-    public void setNascimento(String nascimento) {
+    public void setNascimento(LocalDate nascimento) {
         this.nascimento = nascimento;
     }
 
@@ -112,7 +112,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return id + " - Nome: " + nome + ", Sexo: " + sexo.toUpperCase() + ", Data de Nascimento: " + nascimento;
+        return id + " - Nome: " + nome + ", Sexo: " + sexo.toUpperCase() + ", Data de Nascimento: " + nascimento + "\n";
     }
 
     
