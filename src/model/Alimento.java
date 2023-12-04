@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Alimento {
     private long id;
     private String nome;
@@ -9,14 +11,12 @@ public class Alimento {
     private double cal;
     private double porcaoGramas;
     private String userType;
-    private String createDate;
-    private String modifyDate;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
     private static long serial;
 
     public Alimento() {
-        this.id = ++Alimento.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+     createDate = LocalDate.now();
     }
 
     public long getId() {
@@ -79,16 +79,16 @@ public class Alimento {
         this.userType = userType;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+        this.modifyDate = LocalDate.now();
     }
 
     @Override
@@ -116,6 +116,10 @@ public class Alimento {
     @Override
     public String toString() {
         return (id+": "+nome + "\n|| Carboidratos: " + carb + " || Proteinas: " + prot + " || Gorduras: " + gord + " || Calorias: " + cal+ " ||" + " Porcao: " + porcaoGramas + "g ||");
+    }
+
+    void setId(Long id) {
+        this.id = id;
     }
     
     
