@@ -64,7 +64,6 @@ public class ProgramaPDAO {
                     } else {
                         System.out.println("Usuario nao encontrado");
                     }
-
                     break;
                 case 2:
                     pessoaDAO.adiciona(menu.cadastrar());
@@ -93,15 +92,7 @@ public class ProgramaPDAO {
                     gerenciaPreferencia();
                     break;
                 case 3:
-                    pessoaDAO.mostrarTodas();
-                    System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
-                    String nome = s.nextLine();
-                    if (!nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())) {
-                        Seguindo addSeguidor = seguindoDAO.buscaSeguidorPessoa(Utils.getPessoaLogada());
-                        addSeguidor.setSeguidores(pessoaDAO.buscaPorNome(nome));
-                    } else {
-                        System.out.println("Não é possível seguir a si mesmo");
-                    }
+                    gerenciaSeguidores();
                     break;
                 case 4:
                     gerenciaAval();
@@ -171,6 +162,23 @@ public class ProgramaPDAO {
             }
         } while (opc != 0);
 
+    }
+
+    void gerenciaSeguidores() {
+        pessoaDAO.mostrarTodas();
+        System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
+        String nome = s.nextLine();
+        if(nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome()))
+        {
+            System.out.println("Nao e possivel seguir a si mesmo.");
+        }else if(pessoaDAO.buscaPorNome(nome) != null){
+            Seguindo s = new Seguindo();
+            s.setPessoa(Utils.getPessoaLogada());
+            s.setSeguidores(pessoaDAO.buscaPorNome(nome));
+            seguindoDAO.criarSeguidor(s);
+        }else{
+            System.out.println("Usuario nao encontrado.");
+        }
     }
 
     void gerenciaMensagens() {
@@ -359,7 +367,7 @@ public class ProgramaPDAO {
                     int porcao = Integer.parseInt(s.nextLine());
                     Alimento novoAlimento = menu.addNovoAlimento();
                     refeicao2.setAlimento(novoAlimento);
-                    refeicao2.setPorcao(porcao*novoAlimento.getPorcao());
+                    refeicao2.setPorcao(porcao * novoAlimento.getPorcao());
                     break;
                 case 6:
                     System.out.print("Insira o nome da refeicao: ");
@@ -381,66 +389,67 @@ public class ProgramaPDAO {
     public void nutrientesRestantes(AlimentoRefeicao alrf[]) {
         Refeicoes rf = null;
         if (alrf.length != 0) {
-            
+
         }
         for (int i = 0; i < alrf.length; i++) {
-            if(alrf[i]!=null){
+            if (alrf[i] != null) {
                 rf = alrf[i].getRefeicao();
                 break;
             }
-            
+
         }
-        
+
         if (rf != null) {
             double metaCarb = rf.getCarb();
             double metaProt = rf.getProt();
             double metaGord = rf.getGord();
-            
+
             double carb = 0;
             double prot = 0;
             double gord = 0;
-            
+
             for (int i = 0; i < alrf.length; i++) {
-                if(alrf[i] != null){
+                if (alrf[i] != null) {
                     carb += alrf[i].getAlimento().getCarb();
                     prot += alrf[i].getAlimento().getProt();
                     gord += alrf[i].getAlimento().getGord();
                 }
-                
+
             }
-            
+
             double gordRestante = metaGord - gord;
             double protRestante = metaProt - prot;
             double carbRestante = metaCarb - carb;
-            
+
             StringBuilder restantes = new StringBuilder();
             int change = 0;
-            
-            if(carbRestante>5){
-                restantes.append(carbRestante+"g de Carboidratos faltando; ");
+
+            if (carbRestante > 5) {
+                restantes.append(carbRestante + "g de Carboidratos faltando; ");
                 change++;
-            } else if(carbRestante < (-10)) {
-                restantes.append(-carbRestante+"g de  Carboidratos a mais; ");
-                change++;
-            }
-            
-            if(protRestante>5){
-                restantes.append(protRestante+"g de Proteinas faltando; ");
-                change++;
-            } else if(protRestante < (-10)) {
-                restantes.append(-protRestante+"g de  Proteinas a mais; ");
+            } else if (carbRestante < (-10)) {
+                restantes.append(-carbRestante + "g de  Carboidratos a mais; ");
                 change++;
             }
-            
-            if(gordRestante>5){
-                restantes.append(gordRestante+"g de  Gorduras faltando; ");
+
+            if (protRestante > 5) {
+                restantes.append(protRestante + "g de Proteinas faltando; ");
                 change++;
-            } else if(gordRestante < (-10)) {
-                restantes.append(-gordRestante+"g de  Gorduras a mais; ");
+            } else if (protRestante < (-10)) {
+                restantes.append(-protRestante + "g de  Proteinas a mais; ");
                 change++;
             }
-            if(change!=0)
+
+            if (gordRestante > 5) {
+                restantes.append(gordRestante + "g de  Gorduras faltando; ");
+                change++;
+            } else if (gordRestante < (-10)) {
+                restantes.append(-gordRestante + "g de  Gorduras a mais; ");
+                change++;
+            }
+            if (change != 0) {
                 System.out.println(restantes);
+            }
         }
 
     }

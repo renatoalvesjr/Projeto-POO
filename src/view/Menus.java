@@ -82,14 +82,11 @@ public class Menus {
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
         System.out.println("\n\n====== BEM-VINDO " + Utils.getPessoaLogada().getNome().toUpperCase() + " ======");
-        Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
-        if (logado != null) {
-            Pessoa[] p = logado.getSeguidores();
-            System.out.println("\n\n====== TIMELINE ======");
-            for (int i = 0; i < p.length; i++) {
-                if (p[i] != null) {
-                    posts.mostraTodosPostPessoa(p[i]);
-                }
+        Seguindo[] listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
+        if (listaSeguidores != null) {
+            for (Seguindo listaSeguidor : listaSeguidores) {
+                if(listaSeguidor!=null)
+                    posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
             }
         } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
@@ -170,18 +167,6 @@ public class Menus {
                            -> """);
         int rotina = Integer.parseInt(s.nextLine());
         avalDAO.alteraMedidas(id, idade, altura, cintura, quadril, pescoco, peso, rotina);
-    }
-
-    public void listaSeguidores(SeguindoDAO seguidores) {
-        Seguindo logado = seguidores.buscaSeguidorPessoa(Utils.getPessoaLogada());
-        Pessoa[] p = logado.getSeguidores();
-
-        for (int i = 0; i < p.length; i++) {
-            if (p[i] != null) {
-                System.out.println(p[i].getNome());
-            }
-
-        }
     }
 
     public int menuPreferencias(PreferenciaDAO preferencias) {
@@ -287,7 +272,7 @@ public class Menus {
         menu.append("\n1 - Ver minha dieta");
         menu.append("\n2 - Ver minhas refeicoes");
         menu.append("\n3 - Gerenciar dieta");
-        menu.append("\n4 - Gerenciar alimentos na dieta");
+        menu.append("\n4 - Gerenciar refeicoes");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
