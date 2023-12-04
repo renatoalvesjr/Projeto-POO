@@ -48,6 +48,7 @@ CREATE TABLE `alimentorefeicao` (
   `Refeicoes_TipoDieta_idTipoDieta` int NOT NULL,
   `Alimento_idAlimento` int NOT NULL,
   `Pessoa_idPessoa` int NOT NULL,
+  `Porcao` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`Refeicoes_idRefeicoes`,`Refeicoes_TipoDieta_idTipoDieta`,`Alimento_idAlimento`,`Pessoa_idPessoa`),
   KEY `fk_AlimentoRefeicao_Refeicoes1_idx` (`Refeicoes_idRefeicoes`,`Refeicoes_TipoDieta_idTipoDieta`),
   KEY `fk_AlimentoRefeicao_Alimento1_idx` (`Alimento_idAlimento`),
@@ -67,18 +68,18 @@ DROP TABLE IF EXISTS `avaliacao`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `avaliacao` (
   `idAvaliacao` int NOT NULL AUTO_INCREMENT,
-  `peso` decimal(5,2) DEFAULT NULL,
-  `altura` decimal(5,2) DEFAULT NULL,
+  `peso` decimal(10,2) DEFAULT NULL,
+  `altura` decimal(10,2) DEFAULT NULL,
   `idade` int DEFAULT NULL,
-  `pescoco` decimal(5,2) DEFAULT NULL,
-  `cintura` decimal(5,2) DEFAULT NULL,
-  `quadril` decimal(5,2) DEFAULT NULL,
-  `rotina` decimal(5,2) DEFAULT NULL,
-  `imc` decimal(5,2) DEFAULT NULL,
+  `pescoco` decimal(10,2) DEFAULT NULL,
+  `cintura` decimal(10,2) DEFAULT NULL,
+  `quadril` decimal(10,2) DEFAULT NULL,
+  `rotina` decimal(10,2) DEFAULT NULL,
+  `imc` decimal(10,2) DEFAULT NULL,
   `tbm` decimal(10,2) DEFAULT NULL,
-  `bf` decimal(5,2) DEFAULT NULL,
-  `massGorda` decimal(5,2) DEFAULT NULL,
-  `massMagra` decimal(5,2) DEFAULT NULL,
+  `bf` decimal(10,2) DEFAULT NULL,
+  `massGorda` decimal(10,2) DEFAULT NULL,
+  `massMagra` decimal(10,2) DEFAULT NULL,
   `createDate` datetime DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
   `Pessoa_idPessoa` int NOT NULL,
@@ -203,7 +204,7 @@ DROP TABLE IF EXISTS `registrodieta`;
 CREATE TABLE `registrodieta` (
   `idRegistroDieta` int NOT NULL AUTO_INCREMENT,
   `objetivo` int DEFAULT NULL,
-  `cal` decimal(4,2) DEFAULT NULL,
+  `cal` decimal(10,2) DEFAULT NULL,
   `numRefeicoes` int DEFAULT NULL,
   `modifyDate` datetime DEFAULT NULL,
   `createDate` datetime DEFAULT NULL,
@@ -266,4 +267,4 @@ CREATE TABLE `tipodieta` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-30 16:13:34
+-- Dump completed on 2023-12-04 10:37:23
