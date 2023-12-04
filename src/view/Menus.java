@@ -1,5 +1,8 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoRefeicao;
@@ -53,8 +56,11 @@ public class Menus {
         p.setNome(s.nextLine());
         System.out.println("Sexo(M/F): ");
         p.setSexo(s.nextLine());
-        System.out.println("Data de nascimento(DD/MM/YYYY): ");
-        p.setNascimento(s.nextLine());
+        System.out.println("Data de nascimento(yyyy-MM-dd): ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String date = s.nextLine();
+        LocalDate dateTime = LocalDate.parse(date);
+        p.setNascimento(dateTime);
         System.out.println("Insira seu login: ");
         p.setLogin(s.nextLine());
         System.out.println("Insira sua senha: ");
@@ -376,7 +382,6 @@ public class Menus {
     public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
         RegistroDieta regDieta = new RegistroDieta();
         TipoDieta[] tds = td.buscaTodosTipoDieta();
-        Avaliacao[] aval = avals.buscaTodasAvals();
         System.out.print("""
                            Escolha seu objetivo pelo numero a esquerda:
                            1: Perder peso.

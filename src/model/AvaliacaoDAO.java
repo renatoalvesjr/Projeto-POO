@@ -21,7 +21,7 @@ public class AvaliacaoDAO {
 
     public AvaliacaoDAO(PessoaDAO pdao) {
         Avaliacao av1 = new Avaliacao();
-        av1.setPessoa(pdao.buscaPorNome("renato"));
+        av1.setPessoa(pdao.buscaPorNome("Renato"));
         av1.setAltura(190);
         av1.setIdade(23);
         av1.setPeso(75);
@@ -81,7 +81,7 @@ public class AvaliacaoDAO {
             ps.setLong(1, p.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Long id = rs.getLong("idPessoa");
+                    Long id = rs.getLong("idAvaliacao");
                     Double peso = rs.getDouble("peso");
                     Double altura = rs.getDouble("altura");
                     int idade = rs.getInt("idade");
@@ -96,6 +96,7 @@ public class AvaliacaoDAO {
                     Double massMagra = rs.getDouble("massMagra");
 
                     Avaliacao avaliacao = new Avaliacao();
+                    avaliacao.setPessoa(p);
                     avaliacao.setPeso(peso);
                     avaliacao.setAltura(altura);
                     avaliacao.setIdade(idade);

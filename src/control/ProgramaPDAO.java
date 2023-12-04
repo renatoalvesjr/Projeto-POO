@@ -83,7 +83,7 @@ public class ProgramaPDAO {
     void menuPrincipal() {
         int opc = 0;
         do {
-            menu.feedPosts(postDAO, seguindoDAO);
+            //menu.feedPosts(postDAO, seguindoDAO);
             opc = menu.menuPrincipal();
             switch (opc) {
                 case 1:
