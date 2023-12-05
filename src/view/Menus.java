@@ -1,5 +1,8 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoRefeicao;
@@ -43,7 +46,7 @@ public class Menus {
         String login = s.nextLine();
         System.out.println("Senha: ");
         String senha = s.nextLine();
-        return p.buscaPessoaLogin(login, senha);
+        return p.logarPessoa(login, senha);
 
     }
 
@@ -53,8 +56,11 @@ public class Menus {
         p.setNome(s.nextLine());
         System.out.println("Sexo(M/F): ");
         p.setSexo(s.nextLine());
-        System.out.println("Data de nascimento(DD/MM/YYYY): ");
-        p.setNascimento(s.nextLine());
+        System.out.println("Data de nascimento(yyyy-MM-dd): ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String date = s.nextLine();
+        LocalDate dateTime = LocalDate.parse(date);
+        p.setNascimento(dateTime);
         System.out.println("Insira seu login: ");
         p.setLogin(s.nextLine());
         System.out.println("Insira sua senha: ");
@@ -86,7 +92,7 @@ public class Menus {
         if (listaSeguidores != null) {
             for (Seguindo listaSeguidor : listaSeguidores) {
                 if(listaSeguidor!=null)
-                    posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
+                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
             }
         } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
@@ -144,19 +150,19 @@ public class Menus {
         return Integer.parseInt(s.nextLine());
     }
 
-    public void alteraAval(AvaliacaoDAO avalDAO, long id) {
+    public void alteraAval(AvaliacaoDAO avalDAO, Avaliacao aval) {
         System.out.println("Insira sua idade: ");
-        int idade = Integer.parseInt(s.nextLine());
+        aval.setIdade(Integer.parseInt(s.nextLine()));
         System.out.println("Insira sua altura em cm: ");
-        double altura = Double.parseDouble(s.nextLine());
+        aval.setAltura(Double.parseDouble(s.nextLine()));
         System.out.println("Insira seu peso em kg: ");
-        double peso = Double.parseDouble(s.nextLine());
+        aval.setPeso(Double.parseDouble(s.nextLine()));
         System.out.println("Insira sua cricunferencia de pesoco em cm: ");
-        double pescoco = Double.parseDouble(s.nextLine());
+        aval.setPescoco(Double.parseDouble(s.nextLine()));
         System.out.println("Insira sua cricunferencia de quadril em cm: ");
-        double quadril = Double.parseDouble(s.nextLine());
+        aval.setQuadril(Double.parseDouble(s.nextLine()));
         System.out.println("Insira sua cricunferencia de cintura em cm: ");
-        double cintura = Double.parseDouble(s.nextLine());
+        aval.setCintura(Double.parseDouble(s.nextLine()));
         System.out.print("""
                            Escolha um estilo de rotina abaixo
                            1: sedentario (pouco ou nenhum exercicio)
@@ -165,8 +171,11 @@ public class Menus {
                            4: muito ativo (exerciedcio intenso todos os dias ou exercicio duas vezes ao dia)
                            5: extra ativo (exercicio muito dificil, treinamento ou trabalho fisico)
                            -> """);
-        int rotina = Integer.parseInt(s.nextLine());
-        avalDAO.alteraMedidas(id, idade, altura, cintura, quadril, pescoco, peso, rotina);
+        aval.setRotina(Integer.parseInt(s.nextLine()));
+        aval.calcBF();
+        aval.calcIMC();
+        aval.calcTMB();
+        avalDAO.alteraMedidas(aval);
     }
 
     public int menuPreferencias(PreferenciaDAO preferencias) {
@@ -373,7 +382,6 @@ public class Menus {
     public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
         RegistroDieta regDieta = new RegistroDieta();
         TipoDieta[] tds = td.buscaTodosTipoDieta();
-        Avaliacao[] aval = avals.buscaTodasAvals();
         System.out.print("""
                            Escolha seu objetivo pelo numero a esquerda:
                            1: Perder peso.

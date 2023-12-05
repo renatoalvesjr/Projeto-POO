@@ -1,7 +1,10 @@
 package model;
 
+import static java.lang.Math.log10;
+import java.time.LocalDate;
+
 public class Avaliacao {
-    private long id;
+    private int id;
     private Pessoa pessoa;
     private double peso;
     private double altura;
@@ -15,15 +18,11 @@ public class Avaliacao {
     private double bf;
     private double massGorda;
     private double massMagra;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
     
     public Avaliacao() {
-        this.id = ++Avaliacao.serial;
-        
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+        this.createDate = LocalDate.now();
     }
     
     public void calcIMC(){
@@ -38,14 +37,18 @@ public class Avaliacao {
     }
     public void calcBF(){
         if(this.pessoa.getSexo().equalsIgnoreCase("M")){
-            this.bf = 495 / (1.0324 - 0.19077 * Math.log10(cintura - pescoco) + 0.15456 * Math.log10(altura)) - 450;
+            this.bf = 86.010 * Math.log10(cintura - pescoco) - 70.041 * Math.log10(altura) + 36.76;
         }else{
-            this.bf = 163.205 - (97.684 * Math.log10(cintura + quadril - pescoco)) - (78.387 * Math.log10(altura)) + (4.369 * Math.log10(peso));
+            this.bf = 163.205 * Math.log10(cintura + quadril - pescoco) - 97.684 * Math.log10(altura) - 78.387;
         }
         this.massMagra = this.peso*(1-(this.bf/100));
         this.massGorda = this.peso*(this.bf/100);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public long getId() {
         return id;
     }
@@ -110,8 +113,8 @@ public class Avaliacao {
         return rotina;
     }
 
-    public void setRotina(int rotina) {
-        switch(rotina){
+    public void setRotina(double rotina) {
+        switch((int)rotina){
             case 1:
                 this.rotina = 1.2;
                 break;
@@ -154,16 +157,16 @@ public class Avaliacao {
         return massMagra;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+        this.modifyDate = LocalDate.now();
     }
 
     @Override
