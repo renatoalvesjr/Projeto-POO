@@ -135,8 +135,8 @@ public class PessoaDAO {
         return pessoas;
     }
 
-    public Pessoa buscaPoId(long id) {
-        String sql = "select * from pessoa where id = ?";
+    public Pessoa buscaPorId(long id) {
+        String sql = "select * from pessoa where idPessoa = ?";
         try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -165,7 +165,7 @@ public class PessoaDAO {
     }
     
     public void altera(Pessoa pessoa) {
-        String sql = "update pessoa set nome = ?, sexo = ?, senha = ? where id = ?";
+        String sql = "update pessoa set nome = ?, sexo = ?, senha = ? where idPessoa = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -184,7 +184,7 @@ public class PessoaDAO {
     }
     
     public void remover(Pessoa pessoa){
-        String sql = "delete from contatos where id = ?";
+        String sql = "delete from contatos where idPessoa = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {

@@ -3,6 +3,7 @@ package view;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoRefeicao;
@@ -88,11 +89,11 @@ public class Menus {
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
         System.out.println("\n\n====== BEM-VINDO " + Utils.getPessoaLogada().getNome().toUpperCase() + " ======");
-        Seguindo[] listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
-        if (listaSeguidores != null) {
-            for (Seguindo listaSeguidor : listaSeguidores) {
-                if(listaSeguidor!=null)
-                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
+        List<Seguindo> listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
+        if (!listaSeguidores.isEmpty()) {
+            for (Seguindo seguidor : listaSeguidores) {
+                if(seguidor!=null)
+                     System.out.println(posts.mostraTodosPostPessoa(seguidor.getSeguidores()));
             }
         } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");

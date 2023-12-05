@@ -49,7 +49,7 @@ public class PostDAO {
             ps.setLong(1, p.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Long id = rs.getLong("idPost");
+                    Long id = rs.getLong("idMensagem");
                     String conteudo = rs.getString("conteudo");
 
 
@@ -69,7 +69,7 @@ public class PostDAO {
 
     public boolean removePost(long id) {
         
-        String sql = "delete from post where id = ?";
+        String sql = "delete from post where idMensagem = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
