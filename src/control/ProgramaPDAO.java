@@ -31,7 +31,7 @@ public class ProgramaPDAO {
     PessoaDAO pessoaDAO = new PessoaDAO();
     PostDAO postDAO = new PostDAO(pessoaDAO);
     AlimentoDAO alimentoDAO = new AlimentoDAO();
-    PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
+    PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO,alimentoDAO);
     AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
     SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
     MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
