@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.Alimento;
-
 /**
  *
  * @author grang
@@ -58,7 +56,8 @@ public class AlimentoDAO {
             stmt.setDate(7, java.sql.Date.valueOf(alimento.getCreateDate()));
             
             stmt.execute();
-            
+            Alimento al = new Alimento();
+            double alsdl = al.carb;
             System.out.println("Alimento inserido com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
