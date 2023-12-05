@@ -5,15 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.PessoaDAO;
 
 public class SeguindoDAO {
-    Seguindo seguidores[] = new Seguindo[10];
     
-    public SeguindoDAO(PessoaDAO pessoa, PostDAO posts) {
+    public SeguindoDAO() {
 
     }
 
@@ -61,14 +58,23 @@ public class SeguindoDAO {
 
     }
     
-    public Pessoa mostraSeguidoresPessoa(Pessoa p){
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i].getPessoa() == p) {
-                return seguidores[i].getPessoa();
-            } 
+    public List<Pessoa> mostraSeguidoresPessoa(Pessoa p){
+        String sql = "select * from seguindo where Pessoa_idPessoa = ?";
+        List<Pessoa> seguidores = new ArrayList<>();
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    Long id = rs.getLong("Pessoa_idPessoaSeguindo");
+                
+                    Pessoa pessoa = new PessoaDAO().buscaPorId(id);
+                    seguidores.add(pessoa);
+                }
+                return seguidores;
+            }
             
+        } catch (SQLException e){
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public boolean removeSeguidor(long id){

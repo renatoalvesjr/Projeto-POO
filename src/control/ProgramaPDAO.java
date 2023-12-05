@@ -30,12 +30,12 @@ public class ProgramaPDAO {
 
     Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    PostDAO postDAO = new PostDAO(pessoaDAO);
+    PostDAO postDAO = new PostDAO();
     AlimentoDAO alimentoDAO = new AlimentoDAO();
     PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
-    AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
-    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
-    MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
+    AvaliacaoDAO avalDAO = new AvaliacaoDAO();
+    SeguindoDAO seguindoDAO = new SeguindoDAO();
+    MensagemDAO mensagemDAO = new MensagemDAO();
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
     RefeicoesDAO refeicoesDAO = new RefeicoesDAO(tipodietaDAO);
 //    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);

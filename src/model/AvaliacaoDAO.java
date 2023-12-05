@@ -17,18 +17,7 @@ import java.time.LocalDate;
  */
 public class AvaliacaoDAO {
 
-    Avaliacao[] avals = new Avaliacao[10];
-
-    public AvaliacaoDAO(PessoaDAO pdao) {
-    }
-
-    private int proximAvalLivre() {
-        for (int i = 0; i < avals.length; i++) {
-            if (avals[i] == null) {
-                return i;
-            }
-        }
-        return -1;
+    public AvaliacaoDAO( ) {
     }
 
     public boolean criaAval(Avaliacao aval) {
@@ -104,18 +93,9 @@ public class AvaliacaoDAO {
         return null;
     }
 
-    public boolean removeAvals(long id) {
-        for (int i = 0; i < avals.length; i++) {
-            if (avals[i].getId() == id) {
-                avals[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void alteraMedidas(Avaliacao aval) {
-        String sql = "update avaliacao set idade = ?, altura = ?, cintura = ?, quadril = ?, pescoco = ?, peso = ?, rotina = ?,imc = ?,tbm = ?,bf = ?,massGorda = ?, massMagra = ? where Pessoa_idPessoa = ?";
+        String sql = "update avaliacao set idade = ?, altura = ?, cintura = ?, quadril = ?, pescoco = ?, peso = ?, rotina = ?,imc = ?,tbm = ?,bf = ?,massGorda = ?, massMagra = ?,modifyDate = ? where Pessoa_idPessoa = ?";
         try (Connection connection = new ConnectionFactory().getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -132,6 +112,7 @@ public class AvaliacaoDAO {
             stmt.setDouble(11, aval.getMassGorda());
             stmt.setDouble(12, aval.getMassMagra());
             stmt.setLong(13, aval.getPessoa().getId());
+            stmt.setDate(14,java.sql.Date.valueOf(aval.getModifyDate()));
 
             stmt.execute();
             
