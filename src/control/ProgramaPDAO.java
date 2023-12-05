@@ -141,11 +141,11 @@ public class ProgramaPDAO {
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     break;
                 case 2:
-                    alimentoDAO.mostraTodosAlimentos();
+                    alimentoDAO.mostraAlimentos();
                     System.out.print("\nSelecione um dos alimentos acima para adicionar pelo seu numero à esquerda: ");
                     Preferencia prefAdd = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
                     long idAdd = Integer.parseInt(s.nextLine());
-                    prefAdd.setAlimento(alimentoDAO.BuscaAlimento(idAdd));
+                    prefAdd.setAlimento((Alimento) alimentoDAO.buscaAlimento(idAdd));
                     break;
                 case 3:
                     Preferencia prefNew = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
@@ -356,10 +356,10 @@ public class ProgramaPDAO {
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
                     String nome4 = s.nextLine();
                     AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
-                    alimentoDAO.mostraTodosAlimentos();
+                    alimentoDAO.mostraAlimentos();
                     System.out.print("Escolha o id de um alimento acima para adicionar: ");
                     long id4 = Integer.parseInt(s.nextLine());
-                    refeicao4.setAlimento(alimentoDAO.BuscaAlimento(id4));
+                    refeicao4.setAlimento((Alimento) alimentoDAO.buscaAlimento(id4));
                     break;
                 case 5:
                     System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");

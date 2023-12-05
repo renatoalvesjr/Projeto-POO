@@ -4,203 +4,258 @@
  */
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import connection.ConnectionFactory;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import model.Alimento;
+
 /**
  *
  * @author grang
  */
 public class AlimentoDAO {
-    Alimento[] alimentos = new Alimento[20];
+   // List<Alimento> alimentos = new ArrayList<>();
+    
     
     public AlimentoDAO(){
-        Alimento ali1 = new Alimento();
-        ali1.setNome("Peito de Frango Grelhado, sem pele");
-        ali1.setCarb(0);
-        ali1.setGord(2.5);
-        ali1.setProt(32);
-        ali1.setPorcao(100);
-        ali1.setCal();
-        this.adicionaAlimento(ali1);
+              
+//        Alimento ali1 = new Alimento();
+//        ali1.setNome("Peito de Frango Grelhado, sem pele");
+//        ali1.setCarb(0);
+//        ali1.setGord(2.5);
+//        ali1.setProt(32);
+//        ali1.setPorcao(100);
+//        ali1.setCal();
+//        adiciona(ali1);
         
-        Alimento ali2 = new Alimento();
-        ali2.setNome("Arroz Integral cozido");
-        ali2.setCarb(28.8);
-        ali2.setGord(1);
-        ali2.setProt(2.6);
-        ali2.setPorcao(100);
-        ali2.setCal();
-        this.adicionaAlimento(ali2);
-        
-        Alimento ali3 = new Alimento();
-        ali3.setNome("Feijao Carioca cozido");
-        ali3.setCarb(13.6);
-        ali3.setGord(0.5);
-        ali3.setProt(4.5);
-        ali3.setPorcao(100);
-        ali3.setCal();
-        this.adicionaAlimento(ali3);
-        
-        Alimento ali4 = new Alimento();
-        ali4.setNome("Couve");
-        ali4.setCarb(4.3);
-        ali4.setGord(0.5);
-        ali4.setProt(2.9);
-        ali4.setPorcao(100);
-        ali4.setCal();
-        this.adicionaAlimento(ali4);
+//        List lista = mostraAlimentos();
+//        System.out.println(lista);
+    }
+    
+    public static void main(String[] args) {
+        new AlimentoDAO();
+    }
 
-        
-        Alimento ali5 = new Alimento();
-        ali5.setNome("Cereal matinal - Milho");
-        ali5.setCarb(83.9);
-        ali5.setGord(1.0);
-        ali5.setProt(7.2);
-        ali5.setPorcao(100);
-        ali5.setCal();
-        this.adicionaAlimento(ali5);
-        
-        Alimento ali6 = new Alimento();
-        ali6.setNome("Batata inglesa cozida");
-        ali6.setCarb(11.9);
-        ali6.setGord(0.1);
-        ali6.setProt(1.2);
-        ali6.setPorcao(100);
-        ali6.setCal();
-        this.adicionaAlimento(ali6);
-        
-        Alimento ali7 = new Alimento();
-        ali7.setNome("Abacate");
-        ali7.setCarb(6.0);
-        ali7.setGord(8.4);
-        ali7.setProt(1.9);
-        ali7.setPorcao(100);
-        ali7.setCal();
-        this.adicionaAlimento(ali7);
-        
-        Alimento ali8 = new Alimento();
-        ali8.setNome("Atum conserva em oleo");
-        ali8.setCarb(0.0);
-        ali8.setGord(6.0);
-        ali8.setProt(26.2);
-        ali8.setPorcao(100);
-        ali8.setCal();
-        this.adicionaAlimento(ali8);
-        
-        Alimento ali9 = new Alimento();
-        ali9.setNome("Acem moido cozido");
-        ali9.setCarb(0.0);
-        ali9.setGord(10.9);
-        ali9.setProt(26.7);
-        ali9.setPorcao(100);
-        ali9.setCal();
-        this.adicionaAlimento(ali9);
-        
-        
-        
+    public boolean adiciona(Alimento alimento) {
+        String sql = "insert into alimento"
+                + "(nome,carb,prot,gord,cal,porcao,createDate)" + " values (?,?,?,?,?,?,?)";
 
-    }
-    
-    private int proximoAlimentoLivre() {
-        for (int i = 0; i < alimentos.length; i++) {
-            if (alimentos[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-        
-    public boolean adicionaAlimento(Alimento a){
-        int proximoAlimentoLivre = proximoAlimentoLivre();
-        if(proximoAlimentoLivre != -1){
-            alimentos[proximoAlimentoLivre] = a;
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
-    public void mostraTodosAlimentos(){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i] != null) {
-                System.out.println(alimentos[i]);
-            } 
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // seta os valores
+            stmt.setString(1, alimento.getNome());
+            stmt.setDouble(2, alimento.getCarb());
+            stmt.setDouble(3, alimento.getProt());
+            stmt.setDouble(4, alimento.getGord());
+            stmt.setDouble(5, alimento.getCal());
+            stmt.setDouble(6, alimento.getPorcao());
+            stmt.setDate(7, java.sql.Date.valueOf(alimento.getCreateDate()));
             
-        }
-    }
-    
-    public Alimento BuscaAlimento(long id){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i] != null && alimentos[i].getId() == id){
-                return alimentos[i];
-            }
+            stmt.execute();
             
+            System.out.println("Alimento inserido com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
-    }
-    
-    public boolean removeAlimento(long id){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
-                alimentos[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alteraNomeAlimento(long id, String novoNome){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
-                alimentos[i].setNome(novoNome);
-                alimentos[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean alteraCarbAlimento(long id, double novoCarb){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
-                alimentos[i].setCarb(novoCarb);
-                alimentos[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean alteraProtAlimento(long id, double novoProt){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
-                alimentos[i].setProt(novoProt);
-                alimentos[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean alteraGordAlimento(long id, double novoGord){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i].getId() == id){
-                alimentos[i].setGord(novoGord);
-                alimentos[i].setModifyDate();
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean alimentoVazio(){
-        for (int i = 0; i < alimentos.length; i++) {
-            if(alimentos[i] != null){
-                return false;
-            }
-            
-        }
+        //na verdade deveria retornar o elemento que foi inserido agora
         return true;
     }
+    
+    public List<Alimento> mostraAlimentos() {
+        String sql = "select * from alimento";
+
+        List<Alimento> alimentos = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Long id = rs.getLong("idAlimento");
+                String nome = rs.getString("nome");
+                Double carb = rs.getDouble("carb");
+                Double prot = rs.getDouble("prot");
+                Double gord = rs.getDouble("gord");
+                Double porcao = rs.getDouble("porcao");
+
+                Alimento ali = new Alimento();
+                ali.setId(id);
+                ali.setNome(nome);
+                ali.setCarb(carb);
+                ali.setProt(prot);
+                ali.setGord(gord);
+                ali.setPorcao(porcao);
+                
+                alimentos.add(ali);
+            }
+        } catch (SQLException e) {
+             throw new RuntimeException(e);
+        }
+
+        return alimentos;
+    }
+    
+    public List<Alimento> buscaAlimento(long code) {
+        String sql = "select * from alimento where idAlimento = ?";
+        List<Alimento> alimentos = new ArrayList<>();
+        try (Connection connection = new ConnectionFactory().getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {           
+            ps.setLong(1, code);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while(rs.next()) {
+                    Long id = rs.getLong("idAlimento");
+                    String nome = rs.getString("nome");
+                    Double carb = rs.getDouble("carb");
+                    Double prot = rs.getDouble("prot");
+                    Double gord = rs.getDouble("gord");
+                    Double porcao = rs.getDouble("porcao");
+
+                    Alimento ali = new Alimento();
+                    ali.setId(id);
+                    ali.setNome(nome);
+                    ali.setCarb(carb);
+                    ali.setProt(prot);
+                    ali.setGord(gord);
+                    ali.setPorcao(porcao);
+
+                    alimentos.add(ali);
+                }
+            }
+        } catch (SQLException e) {
+             throw new RuntimeException(e);
+        }
+        return alimentos;
+    }
+//    
+        public Alimento removeAlimento(Alimento alimento) {
+            String sql = "delete from alimento where idAlimento = ?";
+
+            try (Connection connection = new ConnectionFactory().getConnection();
+                    PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+                stmt.setLong(1, alimento.getId());
+
+                stmt.execute();
+
+                System.out.println("Alimento excluído com sucesso.");
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return alimento;
+        }
+// VERIFICAR SE NECESSARIO ALTERACAO PARA BOOLEAN
+    public Alimento alterarNomeAlimento(Alimento alimento) {
+        String sql = "update alimento set nome = ? where idAlimento = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setString(1, alimento.getNome());
+            stmt.setLong(2, alimento.getId());
+            //ADICIONAR O MODIFYDATE
+            
+            stmt.execute();
+            
+            System.out.println("Nome alterado com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return alimento;
+    }
+
+    public Alimento alteraCarbAlimento(Alimento alimento) {
+        String sql = "update alimento set carb = ? where idAlimento = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setDouble(1, alimento.getCarb());
+            stmt.setLong(2, alimento.getId());
+            //ADICIONAR O MODIFYDATE
+            
+            stmt.execute();
+            
+            System.out.println("Carboidrato alterado com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return alimento;
+    }
+//    
+//    public boolean alteraCarbAlimento(long id, double novoCarb){
+//        for (int i = 0; i < alimentos.length; i++) {
+//            if(alimentos[i].getId() == id){
+//                alimentos[i].setCarb(novoCarb);
+//                alimentos[i].setModifyDate();
+//                return true;
+//            }
+//            
+//        }
+//        return false;
+//    }
+      public Alimento alteraProtAlimento(Alimento alimento) {
+        String sql = "update alimento set prot = ? where idAlimento = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setDouble(1, alimento.getProt());
+            stmt.setLong(2, alimento.getId());
+            //ADICIONAR O MODIFYDATE
+            
+            stmt.execute();
+            
+            System.out.println("Proteina alterada com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return alimento;
+    }
+//    public boolean alteraProtAlimento(long id, double novoProt){
+//        for (int i = 0; i < alimentos.length; i++) {
+//            if(alimentos[i].getId() == id){
+//                alimentos[i].setProt(novoProt);
+//                alimentos[i].setModifyDate();
+//                return true;
+//            }
+//            
+//        }
+//        return false;
+//    }
+    public Alimento alteraGordAlimento(Alimento alimento) {
+        String sql = "update alimento set gord = ? where idAlimento = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setDouble(1, alimento.getGord());
+            stmt.setLong(2, alimento.getId());
+            //ADICIONAR O MODIFYDATE
+            
+            stmt.execute();
+            
+            System.out.println("Gordura alterada com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return alimento;
+    }       
+//    public boolean alteraGordAlimento(long id, double novoGord){
+//        for (int i = 0; i < alimentos.length; i++) {
+//            if(alimentos[i].getId() == id){
+//                alimentos[i].setGord(novoGord);
+//                alimentos[i].setModifyDate();
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    
 }

@@ -4,6 +4,7 @@
  */
 package model;
 
+
 public class AlimentoRefeicaoDAO {
 
     AlimentoRefeicao[] alimentoRefeicao = new AlimentoRefeicao[20];
@@ -12,14 +13,14 @@ public class AlimentoRefeicaoDAO {
         AlimentoRefeicao alrf1 = new AlimentoRefeicao();
         alrf1.setPessoa(pessoaDAO.buscaPorNome("renato"));
         alrf1.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf1.setAlimento(alimentoDAO.BuscaAlimento(1));
+        alrf1.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
         alrf1.setPorcao(1);
         criaRefeicaoAlimento(alrf1);
 
         AlimentoRefeicao alrf2 = new AlimentoRefeicao();
         alrf2.setPessoa(pessoaDAO.buscaPorNome("renato"));
         alrf2.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf2.setAlimento(alimentoDAO.BuscaAlimento(2));
+        alrf2.setAlimento((Alimento) alimentoDAO.buscaAlimento(2));
         alrf2.setPorcao(1);
 
         criaRefeicaoAlimento(alrf2);
@@ -27,21 +28,21 @@ public class AlimentoRefeicaoDAO {
         AlimentoRefeicao alrf3 = new AlimentoRefeicao();
         alrf3.setPessoa(pessoaDAO.buscaPorNome("renato"));
         alrf3.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf3.setAlimento(alimentoDAO.BuscaAlimento(3));
+        alrf3.setAlimento((Alimento) alimentoDAO.buscaAlimento(3));
         alrf3.setPorcao(1);
         criaRefeicaoAlimento(alrf3);
 
         AlimentoRefeicao alrf4 = new AlimentoRefeicao();
         alrf4.setPessoa(pessoaDAO.buscaPorNome("renato"));
         alrf4.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf4.setAlimento(alimentoDAO.BuscaAlimento(4));
+        alrf4.setAlimento((Alimento) alimentoDAO.buscaAlimento(4));
         alrf4.setPorcao(1);
         criaRefeicaoAlimento(alrf4);
         
         AlimentoRefeicao alrf5 = new AlimentoRefeicao();
         alrf5.setPessoa(pessoaDAO.buscaPorNome("renato"));
         alrf5.setRefeicao(refeicaoDAO.buscaPorId(2));
-        alrf5.setAlimento(alimentoDAO.BuscaAlimento(1));
+        alrf5.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
         alrf5.setPorcao(1);
         criaRefeicaoAlimento(alrf5);
 

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import model.PessoaDAO;
 
 public class SeguindoDAO {
     Seguindo seguidores[] = new Seguindo[10];
@@ -52,8 +53,8 @@ public class SeguindoDAO {
                     String login = rs.getString("login");
                     String senha = rs.getString("senha");
 
-                    Seguindo seguidor = Seguindo();
-                    seguidor.setPessoa(pessoa.);
+                    Seguindo seguidor = new Seguindo();
+                    seguidor.setPessoa(new PessoaDAO().buscaPoId(p.getId()));
                     return seguindo;
                 }
             }
@@ -75,22 +76,22 @@ public class SeguindoDAO {
     }
     
     public boolean removeSeguidor(long id){
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i].getId() == id){
-                seguidores[i] = null;
-                return true;
-            }
-        }
+//        for (int i = 0; i < seguidores.length; i++) {
+//            if(seguidores[i].getId() == id){
+//                seguidores[i] = null;
+//                return true;
+//            }
+//        }
         return false;
     }
     
     boolean seguidoresVazio(){
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i] != null){
-                return false;
-            }
-            
-        }
+//        for (int i = 0; i < seguidores.length; i++) {
+//            if(seguidores[i] != null){
+//                return false;
+//            }
+//            
+//        }
         return true;
     }
 }
