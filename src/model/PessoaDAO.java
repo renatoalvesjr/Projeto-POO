@@ -4,15 +4,12 @@
  */
 package model;
 
-import com.mysql.cj.result.LocalDateTimeValueFactory;
 import connection.ConnectionFactory;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,8 +132,8 @@ public class PessoaDAO {
         return pessoas;
     }
 
-    public Pessoa buscaPoId(long id) {
-        String sql = "select * from pessoa where id = ?";
+    public Pessoa buscaPorId(long id) {
+        String sql = "select * from pessoa where idPessoa = ?";
         try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -165,7 +162,7 @@ public class PessoaDAO {
     }
     
     public void altera(Pessoa pessoa) {
-        String sql = "update pessoa set nome = ?, sexo = ?, senha = ? where id = ?";
+        String sql = "update pessoa set nome = ?, sexo = ?, senha = ? where idPessoa = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -184,7 +181,7 @@ public class PessoaDAO {
     }
     
     public void remover(Pessoa pessoa){
-        String sql = "delete from contatos where id = ?";
+        String sql = "delete from contatos where idPessoa = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {

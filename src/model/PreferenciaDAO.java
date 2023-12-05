@@ -4,11 +4,6 @@ public class PreferenciaDAO {
     Preferencia prefs[] = new Preferencia[10];
 
     public PreferenciaDAO(PessoaDAO p, AlimentoDAO al) {
-        Preferencia p1 = new Preferencia();
-        p1.setPessoa(p.buscaPorNome("renato"));
-        p1.setAlimento((Alimento) al.buscaAlimento(1));
-        p1.setAlimento((Alimento) al.buscaAlimento(2));
-        criaPref(p1);
                 
     }
     

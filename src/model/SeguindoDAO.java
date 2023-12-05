@@ -5,15 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import model.PessoaDAO;
 
 public class SeguindoDAO {
-    Seguindo seguidores[] = new Seguindo[10];
     
-    public SeguindoDAO(PessoaDAO pessoa, PostDAO posts) {
+    public SeguindoDAO() {
 
     }
 
@@ -27,7 +24,6 @@ public class SeguindoDAO {
             stmt.setLong(1, seguindo.getPessoa().getId());
 
             stmt.setLong(2, seguindo.getSeguidores().getId());
-
 
             stmt.execute();
 
@@ -46,52 +42,55 @@ public class SeguindoDAO {
             ps.setLong(1, p.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Long id1 = rs.getLong("Pesso_idPessoa");
-                    Long id2 = rs.getLong("Pesso_idPessoaSeguindo");
-                    String nome = rs.getString("nome");
-                    String sexo = rs.getString("sexo");
-                    String login = rs.getString("login");
-                    String senha = rs.getString("senha");
+                    Long id1 = rs.getLong("Pessoa_idPessoa");
+                    Long id2 = rs.getLong("Pessoa_idPessoaSeguindo");
 
                     Seguindo seguidor = new Seguindo();
-                    seguidor.setPessoa(new PessoaDAO().buscaPoId(p.getId()));
-                    return seguindo;
+                    seguidor.setPessoa(new PessoaDAO().buscaPorId(id1));
+                    seguidor.setSeguidores(new PessoaDAO().buscaPorId(id2));
+                    seguindo.add(seguidor);
                 }
+                return seguindo;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
 
     }
     
-    public Pessoa mostraSeguidoresPessoa(Pessoa p){
-        for (int i = 0; i < seguidores.length; i++) {
-            if(seguidores[i].getPessoa() == p) {
-                return seguidores[i].getPessoa();
-            } 
+    public List<Pessoa> mostraSeguidoresPessoa(Pessoa p){
+        String sql = "select * from seguindo where Pessoa_idPessoa = ?";
+        List<Pessoa> seguidores = new ArrayList<>();
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)){
+            try (ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    Long id = rs.getLong("Pessoa_idPessoaSeguindo");
+                
+                    Pessoa pessoa = new PessoaDAO().buscaPorId(id);
+                    seguidores.add(pessoa);
+                }
+                return seguidores;
+            }
             
+        } catch (SQLException e){
+            throw new RuntimeException(e);
         }
-        return null;
     }
-    
+
     public boolean removeSeguidor(long id){
-//        for (int i = 0; i < seguidores.length; i++) {
-//            if(seguidores[i].getId() == id){
-//                seguidores[i] = null;
-//                return true;
-//            }
-//        }
-        return false;
-    }
-    
-    boolean seguidoresVazio(){
-//        for (int i = 0; i < seguidores.length; i++) {
-//            if(seguidores[i] != null){
-//                return false;
-//            }
-//            
-//        }
-        return true;
+       String sql = "delete from seguindo where Pessoa_idPessoaSeguindo = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, id);
+            
+            stmt.execute();
+            
+            System.out.println("Seguidor excluído com sucesso.");
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

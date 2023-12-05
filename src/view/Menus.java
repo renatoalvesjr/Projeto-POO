@@ -3,14 +3,18 @@ package view;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoRefeicao;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
+import model.Mensagem;
 import model.MensagemDAO;
 import model.Pessoa;
 import model.PessoaDAO;
+import model.Post;
 import model.PostDAO;
 import model.Preferencia;
 import model.PreferenciaDAO;
@@ -88,11 +92,18 @@ public class Menus {
 
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
         System.out.println("\n\n====== BEM-VINDO " + Utils.getPessoaLogada().getNome().toUpperCase() + " ======");
-        Seguindo[] listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
-        if (listaSeguidores != null) {
-            for (Seguindo listaSeguidor : listaSeguidores) {
-                if(listaSeguidor!=null)
-                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
+        List<Seguindo> listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
+        List<Post> postlist = null;
+        if (!listaSeguidores.isEmpty()) {
+            for (Seguindo seguidor : listaSeguidores) {
+                if(seguidor != null)
+                    postlist = posts.mostraTodosPostPessoa(seguidor.getSeguidores());
+                    ListIterator<Post> li = postlist.listIterator();
+                    while (li.hasNext()) {
+                        Post next = li.next();
+                        li.remove();
+                        System.out.println(next);
+                }
             }
         } else {
             System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
@@ -175,6 +186,7 @@ public class Menus {
         aval.calcBF();
         aval.calcIMC();
         aval.calcTMB();
+        aval.setModifyDate();
         avalDAO.alteraMedidas(aval);
     }
 
@@ -244,7 +256,14 @@ public class Menus {
 
     public int menuMensagens(MensagemDAO mensagens) {
         System.out.println("\n\nMensagens recebidas:");
-        mensagens.mostraMensagemRecebida(Utils.getPessoaLogada());
+        List<Mensagem> lista = mensagens.mostraMensagemRecebida(Utils.getPessoaLogada());
+        
+        ListIterator<Mensagem> li =  lista.listIterator();
+        while (li.hasNext()) {
+            Mensagem next = li.next();
+            li.remove();
+            System.out.println(next);            
+        }
 
         StringBuilder menu = new StringBuilder();
 
@@ -260,7 +279,14 @@ public class Menus {
 
     public int menuPosts(PostDAO posts) {
         System.out.println("Meus posts: ");
-        posts.mostraTodosPostPessoa(Utils.getPessoaLogada());
+        List<Post> postlist = posts.mostraTodosPostPessoa(Utils.getPessoaLogada());
+        
+        ListIterator<Post> li =  postlist.listIterator();
+        while (li.hasNext()) {
+            Post next = li.next();
+            li.remove();
+            System.out.println(next);            
+        }
 
         StringBuilder menu = new StringBuilder();
 

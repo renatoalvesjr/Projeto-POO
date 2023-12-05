@@ -11,13 +11,7 @@ import java.util.List;
 
 public class PostDAO {
 
-    Post posts[] = new Post[20];
-
-    public PostDAO(PessoaDAO p1) {
-        Post post1 = new Post();
-        post1.setConteudo("Minha dieta esta indo bem");
-        post1.setPessoa(p1.buscaPorNome("Renato"));
-        criarPost(post1);
+    public PostDAO() {
     }
 
     public boolean criarPost(Post post) {
@@ -49,27 +43,28 @@ public class PostDAO {
             ps.setLong(1, p.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    Long id = rs.getLong("idPost");
+                    Long id = rs.getLong("idMensagem");
                     String conteudo = rs.getString("conteudo");
 
 
                     Post post = new Post();
                     post.setId(id);
                     post.setConteudo(conteudo);
+                    post.setPessoa(p);
                     posts.add(post);
 
-                    return posts;
+                    
                 }
+                return posts;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public boolean removePost(long id) {
         
-        String sql = "delete from post where id = ?";
+        String sql = "delete from post where idMensagem = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
