@@ -8,6 +8,7 @@ public class Seguindo {
     private Pessoa seguidor;
 
     public Seguindo() {
+            
     }
     
     public Pessoa getPessoa() {
