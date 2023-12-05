@@ -71,7 +71,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'Dietinha runfando!','2023-11-30 00:00:00',NULL,1),(2,'Até o CBUM treme!','2023-11-30 00:00:00',NULL,2),(3,'Programa em fase Alpha','2023-11-30 00:00:00',NULL,3),(4,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6);
+INSERT INTO `post` VALUES (1,'Dietinha runfando!','2023-11-30 00:00:00',NULL,1),(2,'Até o CBUM treme!','2023-11-30 00:00:00',NULL,2),(3,'Programa em fase Alpha','2023-11-30 00:00:00',NULL,3),(4,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(5,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(6,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(7,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(8,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(9,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(10,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(11,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(12,'Minha dieta esta indo bem','2023-12-04 00:00:00',NULL,6),(13,'Minha dieta esta indo bem','2023-12-05 00:00:00',NULL,6),(14,'Minha dieta esta indo bem','2023-12-05 00:00:00',NULL,6),(15,'Minha dieta esta indo bem','2023-12-05 00:00:00',NULL,6),(17,'to monstro de novo','2023-12-05 00:00:00',NULL,1);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-04 16:55:33
+-- Dump completed on 2023-12-05 15:58:01

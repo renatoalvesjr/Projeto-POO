@@ -148,7 +148,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`idMensagem`,`Pessoa_idPessoa`),
   KEY `fk_Mensagem_Pessoa2_idx` (`Pessoa_idPessoa`),
   CONSTRAINT `fk_Mensagem_Pessoa20` FOREIGN KEY (`Pessoa_idPessoa`) REFERENCES `pessoa` (`idPessoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,8 +161,6 @@ DROP TABLE IF EXISTS `preferencia`;
 CREATE TABLE `preferencia` (
   `Pessoa_idPessoa` int NOT NULL,
   `Alimento_idAlimento` int NOT NULL,
-  `createDate` datetime DEFAULT NULL,
-  `modifyDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Pessoa_idPessoa`,`Alimento_idAlimento`),
   KEY `fk_Preferencia_Pessoa1_idx` (`Pessoa_idPessoa`),
   KEY `fk_Preferencia_Alimento1_idx` (`Alimento_idAlimento`),
@@ -267,4 +265,4 @@ CREATE TABLE `tipodieta` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-04 16:55:18
+-- Dump completed on 2023-12-05 15:58:11
