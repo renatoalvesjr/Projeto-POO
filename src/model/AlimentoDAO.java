@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import connection.ConnectionFactory;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +43,12 @@ public class AlimentoDAO {
         new AlimentoDAO();
     }
 
-    public boolean adiciona(Alimento alimento) {
+    public long adiciona(Alimento alimento) {
         String sql = "insert into alimento"
                 + "(nome,carb,prot,gord,cal,porcao,createDate)" + " values (?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+                PreparedStatement stmt = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
             // seta os valores
             stmt.setString(1, alimento.getNome());
             stmt.setDouble(2, alimento.getCarb());
@@ -59,12 +60,18 @@ public class AlimentoDAO {
             
             stmt.execute();
             
-            System.out.println("Alimento inserido com sucesso.");
+            ResultSet rs=stmt.getGeneratedKeys();
+            
+            int retorno=0;
+            if(rs.next()){
+                retorno = rs.getInt(1);
+            }
+                        
+            return retorno;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         //na verdade deveria retornar o elemento que foi inserido agora
-        return true;
     }
     
     public List<Alimento> mostraAlimentos() {
@@ -101,9 +108,8 @@ public class AlimentoDAO {
         return alimentos;
     }
     
-    public List<Alimento> buscaAlimento(long code) {
+    public Alimento buscaAlimento(long code) {
         String sql = "select * from alimento where idAlimento = ?";
-        List<Alimento> alimentos = new ArrayList<>();
         try (Connection connection = new ConnectionFactory().getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)) {           
             ps.setLong(1, code);
@@ -125,13 +131,13 @@ public class AlimentoDAO {
                     ali.setGord(gord);
                     ali.setPorcao(porcao);
 
-                    alimentos.add(ali);
+                    return ali;
                 }
             }
         } catch (SQLException e) {
              throw new RuntimeException(e);
         }
-        return alimentos;
+        return null;
     }
 //    
         public Alimento removeAlimento(Alimento alimento) {
