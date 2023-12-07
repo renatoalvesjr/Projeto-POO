@@ -14,6 +14,11 @@ public class Alimento {
     private LocalDate createDate;
     private LocalDate modifyDate;
 
+
+    private static long serial;
+    private int busca;
+
+
     public Alimento() {
      createDate = LocalDate.now();
     }
@@ -23,6 +28,7 @@ public class Alimento {
     }
 
     public String getNome() {
+        busca++;
         return nome;
     }
 

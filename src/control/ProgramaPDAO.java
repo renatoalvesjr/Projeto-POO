@@ -30,15 +30,16 @@ public class ProgramaPDAO {
 
     Menus menu = new Menus();
     PessoaDAO pessoaDAO = new PessoaDAO();
-    PostDAO postDAO = new PostDAO(pessoaDAO);
+    PostDAO postDAO = new PostDAO();
     AlimentoDAO alimentoDAO = new AlimentoDAO();
-    PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO,alimentoDAO);
-    AvaliacaoDAO avalDAO = new AvaliacaoDAO(pessoaDAO);
-    SeguindoDAO seguindoDAO = new SeguindoDAO(pessoaDAO, postDAO);
-    MensagemDAO mensagemDAO = new MensagemDAO(pessoaDAO);
+    PreferenciaDAO preferenciaDAOO = new PreferenciaDAO(pessoaDAO, alimentoDAO);
+    AvaliacaoDAO avalDAO = new AvaliacaoDAO();
+    SeguindoDAO seguindoDAO = new SeguindoDAO();
+    MensagemDAO mensagemDAO = new MensagemDAO();
+
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
     RefeicoesDAO refeicoesDAO = new RefeicoesDAO(tipodietaDAO);
-    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
+//    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
     RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
 
@@ -216,7 +217,6 @@ public class ProgramaPDAO {
     }
 
     public static void main(String[] args) {
-
         new ProgramaPDAO();
     }
 
@@ -258,7 +258,7 @@ public class ProgramaPDAO {
                     break;
 
                 case 2:
-                    menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
+                    //menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
 
                 case 3:
@@ -321,38 +321,39 @@ public class ProgramaPDAO {
 
             switch (opc2) {
                 case 1:
-                    AlimentoRefeicao[] showalrf = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
-                    System.out.print("Insira o nome da refeicao para mostra-la: ");
-                    String nome = s.nextLine();
-                    menu.exibeAlimentosEmRefeicao(showalrf, nome);
-                    nutrientesRestantes(alimentorefeicaoDAO.buscaTodosPorRefeicao(Utils.getPessoaLogada(), nome));
-                    break;
+//                    AlimentoRefeicao[] showalrf = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+//                    System.out.print("Insira o nome da refeicao para mostra-la: ");
+//                    String nome = s.nextLine();
+//                    menu.exibeAlimentosEmRefeicao(showalrf, nome);
+//                    nutrientesRestantes(alimentorefeicaoDAO.buscaTodosPorRefeicao(Utils.getPessoaLogada(), nome));
+//                    break;
                 case 2:
-                    Refeicoes novaRefeicao = menu.menuCriarRefeicao(tipodietaDAO, refeicoesDAO);
-                    AlimentoRefeicao novoAlRf = new AlimentoRefeicao();
-                    novoAlRf.setPessoa(Utils.getPessoaLogada());
-                    novoAlRf.setRefeicao(novaRefeicao);
-                    alimentorefeicaoDAO.criaRefeicaoAlimento(novoAlRf);
+//                    Refeicoes novaRefeicao = menu.menuCriarRefeicao(tipodietaDAO, refeicoesDAO);
+//                    AlimentoRefeicao novoAlRf = new AlimentoRefeicao();
+//                    novoAlRf.setPessoa(Utils.getPessoaLogada());
+//                    novoAlRf.setRefeicao(novaRefeicao);
+//                    alimentorefeicaoDAO.criaRefeicaoAlimento(novoAlRf);
                     break;
                 case 3:
-                    AlimentoRefeicao[] alrfDel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
-                    System.out.print("Insira o nome da refeicao para ser removido: ");
-                    String nomeDel = s.nextLine();
-                    int x = 0;
-                    for (int i = 0; i < alrfDel.length; i++) {
-                        if (alimentorefeicaoDAO.removeRefeicaoPorNome(nomeDel, Utils.getPessoaLogada())) {
-                            System.out.println("Refeicao removida com sucesso");
-                            x++;
-                        }
-                    }
-                    if (x > 0) {
-                        System.out.println("Refeicao removida com sucesso");
-                    } else {
-                        System.out.println("Refeicao nao encontrada");
-                    }
+//                    AlimentoRefeicao[] alrfDel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+//                    System.out.print("Insira o nome da refeicao para ser removido: ");
+//                    String nomeDel = s.nextLine();
+//                    int x = 0;
+//                    for (int i = 0; i < alrfDel.length; i++) {
+//                        if (alimentorefeicaoDAO.removeRefeicaoPorNome(nomeDel, Utils.getPessoaLogada())) {
+//                            System.out.println("Refeicao removida com sucesso");
+//                            x++;
+//                        }
+//                    }
+//                    if (x > 0) {
+//                        System.out.println("Refeicao removida com sucesso");
+//                    } else {
+//                        System.out.println("Refeicao nao encontrada");
+//                    }
 
                     break;
                 case 4:
+
                     System.out.print("Insira o nome da refeicao para adicionar um alimento: ");
                     String nome4 = s.nextLine();
                     AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
@@ -384,6 +385,39 @@ public class ProgramaPDAO {
                     } else {
                         System.out.println("Nao encontrado");
                     }
+
+//                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+//                    String nome4 = s.nextLine();
+//                    AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
+//                    alimentoDAO.mostraAlimentos();
+//                    System.out.print("Escolha o id de um alimento acima para adicionar: ");
+//                    long id4 = Integer.parseInt(s.nextLine());
+//                    refeicao4.setAlimento((Alimento) alimentoDAO.buscaAlimento(id4));
+//                    break;
+                case 5:
+//                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+//                    String nome2 = s.nextLine();
+//                    AlimentoRefeicao refeicao2 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome2);
+//                    System.out.println("Adicionando alimento em: " + refeicao2.getRefeicao().getNomeRefeicao());
+//                    System.out.print("Insira a quantidade de porcoes a adicionar(Ex.: 0.6 ou 1.5): ");
+//                    int porcao = Integer.parseInt(s.nextLine());
+//                    Alimento novoAlimento = menu.addNovoAlimento();
+//                    refeicao2.setAlimento(novoAlimento);
+//                    refeicao2.setPorcao(porcao * novoAlimento.getPorcao());
+                    break;
+                case 6:
+//                    System.out.print("Insira o nome da refeicao: ");
+//                    String nomeRef = s.nextLine();
+//                    AlimentoRefeicao[] alrfdel = alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada());
+//                    menu.exibeAlimentosEmRefeicao(alrfdel, nomeRef);
+//                    System.out.print("Insira o id para remocao: ");
+//                    long idDel = Integer.parseInt(s.nextLine());
+//                    if (alimentorefeicaoDAO.removeAlimentoDaRefeicao(idDel, nomeRef)) {
+//                        System.out.println("removido com sucesso");
+//                    } else {
+//                        System.out.println("nao encontrado");
+//                    }
+
                     break;
             }
         } while (opc2 != 0);
