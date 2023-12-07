@@ -4,6 +4,14 @@
  */
 package model;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author grang
@@ -49,106 +57,106 @@ public class RefeicoesDAO {
         criaRfs(rf4);
     }
     
-    private int proximRfsLivre() {
-        for (int i = 0; i < rfs.length; i++) {
-            if (rfs[i] == null) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public boolean criaRfs(Refeicoes a) {
-        int proximRfsLivre = proximRfsLivre();
-        if (proximRfsLivre != -1) {
-            rfs[proximRfsLivre] = a;
-            return true;
-        } else {
-            return false;
-        }
-    }
+        String sql = "insert into refeicoes "
+                + "(nome,carb,prot,gord,cal,TipoDieta_idTipoDieta,createDate)" + " values (?,?,?,?,?,?,?)";
 
-    public void mostraRfs() {
-        for (int i = 0; i < rfs.length; i++) {
-            if (rfs[i] != null) {
-                System.out.println(rfs[i]);
-            }
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // seta os valores
+            stmt.setString(1, a.getNomeRefeicao());
+            stmt.setDouble(2, a.getCarb());
+            stmt.setDouble(3, a.getProt());
+            stmt.setDouble(4, a.getGord());
+            stmt.setDouble(5, a.getCal());
+            //stmt.setInt(6, a.getTd());
+            stmt.setDate(7, java.sql.Date.valueOf(a.getCreateDate()));
 
-        }
-    }
+            stmt.execute();
 
-    public boolean removeRfsById(long id) {
-        for (int i = 0; i < rfs.length; i++) {
-            if (rfs[i].getId() == id) {
-                rfs[i] = null;
-                return true;
-            }
+            System.out.println("Refeicao inserida com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return false;
+
+        return true;
     }
     
-    public Refeicoes buscaPorId(long id){
-        for (int i = 0; i < rfs.length; i++) {
-            if(rfs[i] != null && rfs[i].getId() == id)
-                return rfs[i];
+
+    public List<Refeicoes> mostraRfs() {
+        String sql = "select * from refeicoes";
+
+        List<Refeicoes> refeicoes = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Long id = rs.getLong("idRefeicoes");
+                String nomeRefeicao = rs.getString("nome");
+                Double carb = rs.getDouble("carb");
+                Double prot = rs.getDouble("prot");
+                Double gord = rs.getDouble("gord");
+                Double cal = rs.getDouble("cal");
+                //TipoDieta td = rs.getTd(TipoDieta_idTipoDieta);
+
+                Refeicoes a = new Refeicoes();
+                a.setId(id);
+                a.setNomeRefeicao(nomeRefeicao);
+                a.setCarb(carb);
+                a.setProt(prot);
+                a.setGord(gord);
+                refeicoes.add(a);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return refeicoes;
+    }
+
+    public void removeRfsById(Refeicoes a){
+        String sql = "delete from refeicoes where id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, a.getId());
+            
+            stmt.execute();
+            
+            System.out.println("Refeicao excluída com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Refeicoes buscaPorId(long id1) {
+        String sql = "select * from refeicoes where id = ?";
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, id1);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                Long id = rs.getLong("idRefeicoes");
+                String nomeRefeicao = rs.getString("nome");
+                Double carb = rs.getDouble("carb");
+                Double prot = rs.getDouble("prot");
+                Double gord = rs.getDouble("gord");
+                Double cal = rs.getDouble("cal");
+                //TipoDieta td = rs.getTd(TipoDieta_idTipoDieta);
+
+                Refeicoes a = new Refeicoes();
+                a.setId(id);
+                a.setNomeRefeicao(nomeRefeicao);
+                a.setCarb(carb);
+                a.setProt(prot);
+                a.setGord(gord);
+                return a;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
-
-    public boolean alteraNomeRfs(long id, String novoNome){
-        for (int i = 0; i < rfs.length; i++) {
-            if(rfs[i].getId() == id){
-                rfs[i].setNomeRefeicao(novoNome);
-                rfs[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
+       
     
-    public boolean alteraCarbRfs(long id, double novoCarb){
-        for (int i = 0; i < rfs.length; i++) {
-            if(rfs[i].getId() == id){
-                rfs[i].setCarb(novoCarb);
-                rfs[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean alteraProtRfs(long id, double novoProt){
-        for (int i = 0; i < rfs.length; i++) {
-            if(rfs[i].getId() == id){
-                rfs[i].setProt(novoProt);
-                rfs[i].setModifyDate();
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean alteraGordRfs(long id, double novoGord){
-        for (int i = 0; i < rfs.length; i++) {
-            if(rfs[i].getId() == id){
-                rfs[i].setGord(novoGord);
-                rfs[i].setModifyDate();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    boolean RfsVazio() {
-        for (int i = 0; i < rfs.length; i++) {
-            if (rfs[i] != null) {
-                return false;
-            }
-
-        }
-        return true;
-    }
 }

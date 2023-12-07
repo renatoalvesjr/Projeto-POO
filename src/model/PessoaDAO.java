@@ -177,7 +177,7 @@ public class PessoaDAO {
 
             stmt.execute();
             
-            System.out.println("Pessoa alterado com sucesso.");
+            System.out.println("Pessoa alterada com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -193,7 +193,7 @@ public class PessoaDAO {
             
             stmt.execute();
             
-            System.out.println("Pessoa excluído com sucesso.");
+            System.out.println("Pessoa excluída com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

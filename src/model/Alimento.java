@@ -13,7 +13,6 @@ public class Alimento {
     private String userType;
     private LocalDate createDate;
     private LocalDate modifyDate;
-    private static long serial;
 
     public Alimento() {
      createDate = LocalDate.now();

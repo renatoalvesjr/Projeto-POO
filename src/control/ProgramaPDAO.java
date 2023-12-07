@@ -353,7 +353,7 @@ public class ProgramaPDAO {
 
                     break;
                 case 4:
-                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+                    System.out.print("Insira o nome da refeicao para adicionar um alimento: ");
                     String nome4 = s.nextLine();
                     AlimentoRefeicao refeicao4 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome4);
                     alimentoDAO.mostraAlimentos();
@@ -362,7 +362,7 @@ public class ProgramaPDAO {
                     refeicao4.setAlimento((Alimento) alimentoDAO.buscaAlimento(id4));
                     break;
                 case 5:
-                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+                    System.out.print("Insira o nome da refeicao para adicionar um alimento: ");
                     String nome2 = s.nextLine();
                     AlimentoRefeicao refeicao2 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome2);
                     System.out.println("Adicionando alimento em: " + refeicao2.getRefeicao().getNomeRefeicao());
@@ -380,9 +380,9 @@ public class ProgramaPDAO {
                     System.out.print("Insira o id para remocao: ");
                     long idDel = Integer.parseInt(s.nextLine());
                     if (alimentorefeicaoDAO.removeAlimentoDaRefeicao(idDel, nomeRef)) {
-                        System.out.println("removido com sucesso");
+                        System.out.println("Removido com sucesso");
                     } else {
-                        System.out.println("nao encontrado");
+                        System.out.println("Nao encontrado");
                     }
                     break;
             }
