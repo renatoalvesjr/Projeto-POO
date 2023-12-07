@@ -5,17 +5,18 @@ public class AlimentoRefeicao {
     private long id;
     private Pessoa pessoa;
     private Refeicoes refeicao;
+//  private Refeicoes 
     private Alimento alimento;
     private double porcao;
     private String createDate;
     private String modifyDate;
     private static long serial;
 
-    public AlimentoRefeicao() {
-        this.id = ++AlimentoRefeicao.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
-    }
+//    public AlimentoRefeicao() {
+//        this.id = ++AlimentoRefeicao.serial;
+//        this.createDate = Utils.dataAgora();
+//        this.modifyDate = "";
+//    }
 
     public Pessoa getPessoa() {
         return pessoa;
