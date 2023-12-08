@@ -38,6 +38,7 @@ public class ProgramaPDAO {
     AvaliacaoDAO avalDAO = new AvaliacaoDAO();
     SeguindoDAO seguindoDAO = new SeguindoDAO();
     MensagemDAO mensagemDAO = new MensagemDAO();
+
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
     RefeicoesDAO refeicoesDAO = new RefeicoesDAO(tipodietaDAO);
 //    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
