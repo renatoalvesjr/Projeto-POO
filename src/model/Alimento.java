@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Alimento {
     private long id;
     private String nome;
-    private double carb;
+    double carb;
     private double prot;
     private double gord;
     private double cal;
