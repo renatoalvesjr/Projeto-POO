@@ -283,9 +283,9 @@ public class ProgramaPDAO {
             
             switch (opc3) {
                 case 1:
-                    RegistroDieta novoRD  = menu.menuCriarRD(tipodietaDAO, avalDAO, registrodietaDAO);
-                    novoRD.setPessoa(Utils.getPessoaLogada());
-                    registrodietaDAO.criaRD(novoRD);
+//                    RegistroDieta novoRD  = menu.criarRD(tipodietaDAO, avalDAO, registrodietaDAO);
+//                    novoRD.setPessoa(Utils.getPessoaLogada());
+//                    registrodietaDAO.criaRD(novoRD);
                     break;
                 case 2:
                     RegistroDieta rdDel = registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
@@ -293,7 +293,7 @@ public class ProgramaPDAO {
                     long idDel = Integer.parseInt(s.nextLine());
                     int x = 0;
                     for (int i = 0; i < rdDel.length; i++) {
-                        if (registrodietaDAO.removeRD(idDel)) {
+                        if (registrodietaDAO.removeRD(rdDel)) {
                             System.out.println("Dieta removida com sucesso");
                             x++;
                         }
