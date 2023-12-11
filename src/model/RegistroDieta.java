@@ -17,6 +17,10 @@ public class RegistroDieta {
     public RegistroDieta(){
         createDate = LocalDate.now();
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
     public long getId() {
         return id;
@@ -129,10 +133,5 @@ public class RegistroDieta {
         }          
         return id + " : " + "\nDieta de: " + p.getNome() + "\nTipo de dieta: " + td + "\nObjetivo da dieta: " + objetivo + "\nQuantidade de calorias: " + cal + "\nNumero de refeicoes: " + numRefeicao;
     }
-
-    void setId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
     
 }
