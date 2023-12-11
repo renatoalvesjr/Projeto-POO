@@ -64,12 +64,10 @@ public class AlimentoDAO {
             if(rs.next()){
                 retorno = rs.getInt(1);
             }
-                        
+            System.out.println("Alimento inserido com sucesso.");
+
             return retorno;
 
-            Alimento al = new Alimento();
-            double alsdl = al.carb;
-            System.out.println("Alimento inserido com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

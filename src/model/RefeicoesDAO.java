@@ -21,7 +21,9 @@ import java.util.List;
 public class RefeicoesDAO {
     Refeicoes rfs[] = new Refeicoes[10];
     
-    public RefeicoesDAO(TipoDietaDAO td){
+    public RefeicoesDAO(){
+        
+
     }
     
     public boolean criaRfs(Refeicoes a) {
