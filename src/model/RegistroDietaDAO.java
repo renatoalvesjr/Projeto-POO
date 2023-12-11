@@ -77,13 +77,13 @@ public class RegistroDietaDAO {
     }
     
 
-    public boolean removeRD(RegistroDieta reg){
-        String sql = "delete from registrodieta where id = ?";
+    public boolean removeRD(Pessoa p){
+        String sql = "delete from registrodieta where Pessoa_idPessoa = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, reg.getId());
+            stmt.setLong(1, p.getId());
             
             stmt.execute();
             

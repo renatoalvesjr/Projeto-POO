@@ -1,6 +1,9 @@
 package control;
 
 import java.util.List;
+
+import java.util.ListIterator;
+
 import java.util.Scanner;
 import model.Alimento;
 import model.AlimentoDAO;
@@ -39,7 +42,11 @@ public class ProgramaPDAO {
     MensagemDAO mensagemDAO = new MensagemDAO();
 
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
+
     RefeicoesDAO refeicoesDAO = new RefeicoesDAO(tipodietaDAO);
+
+    RefeicoesDAO refeicoesDAO = new RefeicoesDAO();
+
     AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
     RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
@@ -143,23 +150,35 @@ public class ProgramaPDAO {
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     break;
                 case 2:
-                    alimentoDAO.mostraAlimentos();
+                    List<Alimento> alimentos = alimentoDAO.mostraAlimentos();
+                    ListIterator<Alimento> li = alimentos.listIterator();
+                    while (li.hasNext()) {
+                        Alimento next = li.next();
+                        li.remove();
+                        System.out.println(next);
+                    }
                     System.out.print("\nSelecione um dos alimentos acima para adicionar pelo seu numero à esquerda: ");
-                    Preferencia prefAdd = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
                     long idAdd = Integer.parseInt(s.nextLine());
-                    prefAdd.setAlimento((Alimento) alimentoDAO.buscaAlimento(idAdd));
+                    Preferencia prefAdd = new Preferencia();
+                    prefAdd.setAlimento(alimentoDAO.buscaAlimento(idAdd));
+                    prefAdd.setPessoa(Utils.getPessoaLogada());
+                    
+                    preferenciaDAOO.criaPref(prefAdd);
                     break;
                 case 3:
-                    Preferencia prefNew = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
-                    Alimento ali = menu.addNovoAlimento();
-                    prefNew.setAlimento(ali);
+                    Preferencia prefAdd2 = new Preferencia();
+                    prefAdd2.setPessoa(Utils.getPessoaLogada());
+                    long ali = menu.addNovoAlimento();
+                    prefAdd2.setAlimento(alimentoDAO.buscaAlimento(ali));
+                    
+                    preferenciaDAOO.criaPref(prefAdd2);
+
                     break;
                 case 4:
                     menu.exibePreferenciasUsuario(preferenciaDAOO);
                     System.out.print("\nSelecione um dos alimentos acima para remover pelo seu numero à esquerda: ");
-                    Preferencia prefDel = preferenciaDAOO.buscaPref(Utils.getPessoaLogada());
                     long idDel = Integer.parseInt(s.nextLine());
-                    prefDel.setAlimento(idDel);
+                    preferenciaDAOO.removePrefPorId(idDel);
                     break;
                 case 0:
                     System.out.println("Voltando");
@@ -170,20 +189,49 @@ public class ProgramaPDAO {
     }
 
     void gerenciaSeguidores() {
-        pessoaDAO.lista();
-        System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
-        String nome = s.nextLine();
-        if(nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome()))
-        {
-            System.out.println("Nao e possivel seguir a si mesmo.");
-        }else if(pessoaDAO.buscaPorNome(nome) != null){
-            Seguindo s = new Seguindo();
-            s.setPessoa(Utils.getPessoaLogada());
-            s.setSeguidores(pessoaDAO.buscaPorNome(nome));
-            seguindoDAO.criarSeguidor(s);
-        }else{
-            System.out.println("Usuario nao encontrado.");
-        }
+        int opc;
+        do {
+            opc = menu.menuSeguidores();
+            
+            switch (opc) {
+                case 1:
+                    List<Pessoa> pessoas = new PessoaDAO().lista();
+                    ListIterator<Pessoa> li = pessoas.listIterator();
+                    while (li.hasNext()) {
+                        Pessoa next = li.next();
+                        li.remove();
+                        System.out.println(next);
+                    }
+                    System.out.print("\nDigite o nome da pessoa que deseja seguir: ");
+                    String nome = s.nextLine();
+                    if (nome.equalsIgnoreCase(Utils.getPessoaLogada().getNome())) {
+                        System.out.println("Nao e possivel seguir a si mesmo.");
+                    } else if (pessoaDAO.buscaPorNome(nome) != null) {
+                        Seguindo s = new Seguindo();
+                        s.setPessoa(Utils.getPessoaLogada());
+                        s.setSeguidores(pessoaDAO.buscaPorNome(nome));
+                        seguindoDAO.criarSeguidor(s);
+                    } else {
+                        System.out.println("Usuario nao encontrado.");
+                    }
+                    break;
+                case 2:
+                    List<Pessoa> seguidores = new SeguindoDAO().mostraSeguidoresPessoa(Utils.getPessoaLogada());
+                    ListIterator<Pessoa> li2 = seguidores.listIterator();
+                    while (li2.hasNext()) {
+                        Pessoa next = li2.next();
+                        li2.remove();
+                        System.out.println(next);
+                    }
+                    System.out.print("\nDigite o id da pessoa que deseja parar deseguir: ");
+                    long id = Integer.parseInt(s.nextLine());
+                    new SeguindoDAO().removeSeguidor(id);
+                    break;
+
+            }
+        } while (opc != 0);
+       
+        
     }
 
     void gerenciaMensagens() {
@@ -217,9 +265,7 @@ public class ProgramaPDAO {
 
     }
 
-    public static void main(String[] args) {
-        new ProgramaPDAO();
-    }
+    
 
     void gerenciaPost() {
         int opc = 0;
@@ -259,7 +305,7 @@ public class ProgramaPDAO {
                     break;
 
                 case 2:
-                    //menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
+                    menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
 
                 case 3:
@@ -284,30 +330,13 @@ public class ProgramaPDAO {
             
             switch (opc3) {
                 case 1:
-//                    RegistroDieta novoRD  = menu.criarRD(tipodietaDAO, avalDAO, registrodietaDAO);
-//                    novoRD.setPessoa(Utils.getPessoaLogada());
-//                    registrodietaDAO.criaRD(novoRD);
+                    menu.criarRD(tipodietaDAO, avalDAO, registrodietaDAO);
                     break;
                 case 2:
-                    RegistroDieta rdDel = registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
-                    System.out.print("Insira o id da dieta que sera removida: ");
-                    long idDel = Integer.parseInt(s.nextLine());
-                    int x = 0;
-                    for (int i = 0; i < rdDel.length; i++) {
-                        if (registrodietaDAO.removeRD(rdDel)) {
-                            System.out.println("Dieta removida com sucesso");
-                            x++;
-                        }
-                    }
-                    if (x > 0) {
-                        System.out.println("Dieta removida com sucesso");
-                    } else {
-                        System.out.println("Dieta nao encontrada");
-                    }
+                    registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
 
                     break;
 
-                    
                 case 0:
                     System.out.println("Voltando");
                     break;
@@ -363,7 +392,11 @@ public class ProgramaPDAO {
 //                    System.out.print("Escolha o id de um alimento acima para adicionar: ");
 //                    long id4 = Integer.parseInt(s.nextLine());
 //                    refeicao4.setAlimento((Alimento) alimentoDAO.buscaAlimento(id4));
+
 //                    break;
+
+////                    break;
+
 //                case 5:
 //                    System.out.print("Insira o nome da refeicao para adicionar um alimento: ");
 //                    String nome2 = s.nextLine();
@@ -389,6 +422,7 @@ public class ProgramaPDAO {
 //                    }
 //
 //                    System.out.print("Insira o nome da refeicoes para adicionar um alimento: ");
+
 //                    String nome5 = s.nextLine();
 //                    AlimentoRefeicao refeicao5 = alimentorefeicaoDAO.buscaAlimentosRefeicaoNome(Utils.getPessoaLogada(), nome5);
 //                    alimentoDAO.mostraAlimentos();
@@ -400,6 +434,12 @@ public class ProgramaPDAO {
 //            }
 //        } while (opc2 != 0);
 //    }
+
+               
+            }
+        } while (opc2 != 0);
+    }
+
 
     public void nutrientesRestantes(AlimentoRefeicao alrf[]) {
         Refeicoes rf = null;
@@ -467,5 +507,9 @@ public class ProgramaPDAO {
             }
         }
 
+    }
+    
+    public static void main(String[] args) {
+        new ProgramaPDAO();
     }
 }

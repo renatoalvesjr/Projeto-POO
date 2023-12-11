@@ -1,27 +1,38 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class AlimentoRefeicao {
 
-    private long id;
     private Pessoa pessoa;
     private Refeicoes refeicao;
     private Alimento alimento;
+    private TipoDieta tipodieta;
     private double porcao;
     private LocalDate createDate;
     private LocalDate modifyDate;
 
+    public AlimentoRefeicao() {
+        createDate = LocalDate.now();
+    }
+    
+    
+    
     public Pessoa getPessoa() {
         return pessoa;
     }
 
+    public TipoDieta getTipodieta() {
+        return tipodieta;
+    }
+
+    public void setTipodieta(TipoDieta tipodieta) {
+        this.tipodieta = tipodieta;
+    }
+
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
-    }
-    
-    public long getId() {
-        return id;
     }
 
     public Refeicoes getRefeicao() {
@@ -63,7 +74,9 @@ public class AlimentoRefeicao {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 71 * hash + Objects.hashCode(this.pessoa);
+        hash = 71 * hash + Objects.hashCode(this.refeicao);
+        hash = 71 * hash + Objects.hashCode(this.alimento);
         return hash;
     }
 
@@ -79,12 +92,20 @@ public class AlimentoRefeicao {
             return false;
         }
         final AlimentoRefeicao other = (AlimentoRefeicao) obj;
-        return this.id == other.id;
+        if (!Objects.equals(this.pessoa, other.pessoa)) {
+            return false;
+        }
+        if (!Objects.equals(this.refeicao, other.refeicao)) {
+            return false;
+        }
+        return Objects.equals(this.alimento, other.alimento);
     }
+
+    
 
     @Override
     public String toString() {
-        return "AlimentoRefeicao{" + "id=" + id + ", rf=" + refeicao + ", al=" + alimento + ", porcao=" + porcao + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return "Refeicao: " + refeicao + ", Alimento: " + alimento + ", Porcao: " + porcao;
     }
 
 }
