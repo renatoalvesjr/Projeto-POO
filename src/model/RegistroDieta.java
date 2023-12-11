@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class RegistroDieta {
     private long id;
     private Pessoa p;
@@ -8,17 +10,14 @@ public class RegistroDieta {
     private int objetivo;
     private double cal;
     private int numRefeicao;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
     public int length;
     
-    public RegistroDieta() {
-        this.id = ++RegistroDieta.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+    public RegistroDieta(){
+        createDate = LocalDate.now();
     }
-
+    
     public long getId() {
         return id;
     }
@@ -70,7 +69,7 @@ public class RegistroDieta {
         return cal;
     }
 
-    private void setCal(double cal) {
+    void setCal(double cal) {
         this.cal = cal;
     }
 
@@ -82,17 +81,17 @@ public class RegistroDieta {
         this.numRefeicao = numRefeicao;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+        this.modifyDate = LocalDate.now();
     }
 
     @Override
@@ -129,6 +128,10 @@ public class RegistroDieta {
                 objetivo = "Ganhar peso";
         }          
         return id + " : " + "\nDieta de: " + p.getNome() + "\nTipo de dieta: " + td + "\nObjetivo da dieta: " + objetivo + "\nQuantidade de calorias: " + cal + "\nNumero de refeicoes: " + numRefeicao;
+    }
+
+    void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

@@ -12,6 +12,10 @@ public class TipoDieta{
     private LocalDate modifyDate;
 
 
+    public TipoDieta(){
+        createDate = LocalDate.now();
+    }
+    
     public long getId() {
         return id;
     }

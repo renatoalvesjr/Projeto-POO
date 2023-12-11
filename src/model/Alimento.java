@@ -15,7 +15,6 @@ public class Alimento {
     private LocalDate modifyDate;
 
 
-    private static long serial;
     private int busca;
 
 
