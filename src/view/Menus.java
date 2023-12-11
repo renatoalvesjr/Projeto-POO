@@ -386,25 +386,12 @@ public class Menus {
         return refeicao;
     }
 
-    public void exibeRefeicoesCompleta(AlimentoRefeicao[] alrf) {
-        if (alrf.length != 0) {
-            long id = 1;
-
-            for (int i = 0; i < alrf.length; i++) {
-                if (alrf[i] != null) {
-                    if (alrf[i].getRefeicao().getId() == id) {
-                        System.out.println("\n" + alrf[i].getRefeicao());
-                        for (int j = 0; j < alrf.length; j++) {
-                            if (alrf[j] != null && alrf[j].getRefeicao().getId() == id) {
-                                System.out.println(alrf[j].getAlimento());
-                            }
-                        }
-                        id++;
-                    }
-                }
-            }
-        } else {
-            System.out.println("Nenhuma refeicao cadastrada");
+    public void exibeRefeicoesCompleta(List<AlimentoRefeicao> alrf) {
+        ListIterator<AlimentoRefeicao> li =  alrf.listIterator();
+        while (li.hasNext()) {
+            AlimentoRefeicao next = li.next();
+            li.remove();
+            System.out.println(next);            
         }
 
     }
@@ -438,5 +425,36 @@ public class Menus {
 //        regDieta.toString();
 //        return regDieta;
 //    }
+
+    public RegistroDieta criarRD(TipoDietaDAO tipodietaDAO, AvaliacaoDAO avalDAO, RegistroDietaDAO registrodietaDAO) {
+        RegistroDieta rd = new RegistroDieta();
+        
+        rd.setPessoa(Utils.getPessoaLogada()); 
+        rd.setAvaliacao(avalDAO.buscaAvalPessoa(Utils.getPessoaLogada()));
+        
+        List<TipoDieta> tipodieta = tipodietaDAO.mostraTDs();
+        ListIterator<TipoDieta> li =  tipodieta.listIterator();
+        while (li.hasNext()) {
+            TipoDieta next = li.next();
+            li.remove();
+            System.out.println(next);            
+        }
+        System.out.println("Insira o tipo de dieta que deseja criar pelo seu nome: ");
+        String nome = s.nextLine();
+        rd.setTipoDieta(tipodietaDAO.BuscaPorNome(nome));
+        System.out.print("""
+                           Escolha o objetivo da sua dieta
+                         1 - Perder peso
+                         2 - Manter o peso
+                         3 - Aumentar o peso
+                         ->""");
+        int objetivo = Integer.parseInt(s.nextLine());
+        rd.setObjetivo(objetivo);
+        System.out.println("Insira o numero de refeicoes da sua dieta: ");
+        int numrf = Integer.parseInt(s.nextLine());
+        rd.setNumRefeicao(numrf);
+        registrodietaDAO.criaRD(rd);
+        return rd;
+    }
     
 }

@@ -41,7 +41,7 @@ public class ProgramaPDAO {
 
     TipoDietaDAO tipodietaDAO = new TipoDietaDAO();
     RefeicoesDAO refeicoesDAO = new RefeicoesDAO();
-//    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
+    AlimentoRefeicaoDAO alimentorefeicaoDAO = new AlimentoRefeicaoDAO(refeicoesDAO, alimentoDAO, pessoaDAO);
     RegistroDietaDAO registrodietaDAO = new RegistroDietaDAO(pessoaDAO, tipodietaDAO, avalDAO);
     Scanner s = new Scanner(System.in);
 
@@ -259,9 +259,7 @@ public class ProgramaPDAO {
 
     }
 
-    public static void main(String[] args) {
-        new ProgramaPDAO();
-    }
+    
 
     void gerenciaPost() {
         int opc = 0;
@@ -301,7 +299,7 @@ public class ProgramaPDAO {
                     break;
 
                 case 2:
-                    //menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
+                    menu.exibeRefeicoesCompleta(alimentorefeicaoDAO.buscaTodosPorPessoa(Utils.getPessoaLogada()));
                     break;
 
                 case 3:
@@ -326,26 +324,10 @@ public class ProgramaPDAO {
             
             switch (opc3) {
                 case 1:
-//                    RegistroDieta novoRD  = menu.criarRD(tipodietaDAO, avalDAO, registrodietaDAO);
-//                    novoRD.setPessoa(Utils.getPessoaLogada());
-//                    registrodietaDAO.criaRD(novoRD);
+                    menu.criarRD(tipodietaDAO, avalDAO, registrodietaDAO);
                     break;
                 case 2:
-                    RegistroDieta rdDel = registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
-                    System.out.print("Insira o id da dieta que sera removida: ");
-                    long idDel = Integer.parseInt(s.nextLine());
-                    int x = 0;
-                    for (int i = 0; i < rdDel.length; i++) {
-                        if (registrodietaDAO.removeRD(rdDel)) {
-                            System.out.println("Dieta removida com sucesso");
-                            x++;
-                        }
-                    }
-                    if (x > 0) {
-                        System.out.println("Dieta removida com sucesso");
-                    } else {
-                        System.out.println("Dieta nao encontrada");
-                    }
+                    registrodietaDAO.buscaPorPessoa(Utils.getPessoaLogada());
 
                     break;
 
@@ -500,5 +482,9 @@ public class ProgramaPDAO {
             }
         }
 
+    }
+    
+    public static void main(String[] args) {
+        new ProgramaPDAO();
     }
 }

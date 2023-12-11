@@ -7,7 +7,10 @@ package model;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.RefeicoesDAO;
 
 
@@ -45,6 +48,24 @@ public class AlimentoRefeicaoDAO {
 
     
     public boolean removeAlimentoRefeicao(AlimentoRefeicao alrf){
+        String sql = "delete from alimentorefeicao where Pessoa_idPessoa = ? AND Refeicao_idRefeicao = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(2, alrf.getRefeicao().getId());
+            stmt.setLong(1, alrf.getPessoa().getId());
+            
+            stmt.execute();
+            
+            System.out.println("Alimento Refeicao excluído com sucesso.");
+             return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public boolean removeRefeicaoPorNome(AlimentoRefeicao alrf){
         String sql = "delete from alimentorefeicao where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
@@ -61,44 +82,8 @@ public class AlimentoRefeicaoDAO {
         }
     }
     
-//    public boolean removeRefeicaoPorNome(AlimentoRefeicao alrf){
-//        String sql = "delete from alimentorefeicao where id = ?";
-//
-//        try (Connection connection = new ConnectionFactory().getConnection();
-//                PreparedStatement stmt = connection.prepareStatement(sql)) {
-//
-//            stmt.setLong(1, alrf.getId());
-//            
-//            stmt.execute();
-//            
-//            System.out.println("Alimento Refeicao excluído com sucesso.");
-//             return true;
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-    
     //PAREI AQUI
-    
-    public boolean removeRefeicaoPorNome(String nome, Pessoa p){
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().equals(p) && alimentoRefeicao[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome)){
-                alimentoRefeicao[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public boolean removeAlimentoDaRefeicao(long id, String nome){
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if(alimentoRefeicao[i] != null && alimentoRefeicao[i].getRefeicao().getNomeRefeicao().equalsIgnoreCase(nome) && alimentoRefeicao[i].getAlimento().getId() == id){
-                alimentoRefeicao[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public AlimentoRefeicao buscaPorId(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {
@@ -118,19 +103,31 @@ public class AlimentoRefeicaoDAO {
         return null;
     }
 
-    public AlimentoRefeicao[] buscaTodosPorPessoa(Pessoa p) {
-        AlimentoRefeicao[] alrfs = new AlimentoRefeicao[10];
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if (alimentoRefeicao[i] != null && alimentoRefeicao[i].getPessoa().equals(p)) {
-                for (int j = 0; j < alrfs.length; j++) {
-                    if (alrfs[i] == null) {
-                        alrfs[i] = alimentoRefeicao[i];
-                    }
-                }
-            }
+    public List<AlimentoRefeicao> buscaTodosPorPessoa(Pessoa p) {
+        String sql = "select * from alimentorefeicao where Pessoa_idPessoa = ?";
 
+        List<AlimentoRefeicao> refeicoes = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery(sql)) {
+            stmt.setLong(1, p.getId());
+            while (rs.next()) {
+                Long idAlimento = rs.getLong("Alimento_idAlimento");
+                Long idRefeicao = rs.getLong("Alimento_idAlimento");
+                Long idTipoDieta = rs.getLong("Alimento_idAlimento");
+                int porcao = rs.getInt("Porcao");
+                
+                AlimentoRefeicao alrf = new AlimentoRefeicao();
+                alrf.setAlimento(new AlimentoDAO().buscaAlimento(idAlimento));
+                alrf.setRefeicao(new RefeicoesDAO().buscaPorId(idRefeicao));
+                alrf.setTipodieta(new TipoDietaDAO().buscaTDId(idTipoDieta));
+                refeicoes.add(alrf);
+            }
+            return refeicoes;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return alrfs;
+
+        // itera no ResultSet
     }
     
     public AlimentoRefeicao[] buscaTodosPorRefeicao(Pessoa p, String nome) {
