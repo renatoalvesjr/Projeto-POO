@@ -12,12 +12,12 @@ import java.util.List;
 public class TipoDietaDAO {
     TipoDieta TDs[] = new TipoDieta[10];
     public TipoDietaDAO(){
-        TipoDieta td1 = new TipoDieta();
-        td1.setNome("EQUILIBRADA");
-        td1.setCarb(40);
-        td1.setProt(30);
-        td1.setGord(30);
-        criaTDs(td1);
+//        TipoDieta td1 = new TipoDieta();
+//        td1.setNome("EQUILIBRADA");
+//        td1.setCarb(40);
+//        td1.setProt(30);
+//        td1.setGord(30);
+//        criaTDs(td1);
     }
 
     public boolean criaTDs(TipoDieta td) {
