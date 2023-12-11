@@ -94,6 +94,10 @@ public class Menus {
     public void feedPosts(PostDAO posts, SeguindoDAO seguidores) {
         System.out.println("\n\n====== BEM-VINDO " + Utils.getPessoaLogada().getNome().toUpperCase() + " ======");
         List<Seguindo> listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
+        if (listaSeguidores != null) {
+            for (Seguindo listaSeguidor : listaSeguidores) {
+                if(listaSeguidor!=null)
+                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
         List<Post> postlist = null;
         if (!listaSeguidores.isEmpty()) {
             for (Seguindo seguidor : listaSeguidores) {
@@ -350,7 +354,7 @@ public class Menus {
 
     public Refeicoes menuCriarRefeicao(TipoDietaDAO td, RefeicoesDAO refeicaoDAO) {
         Refeicoes refeicao = new Refeicoes();
-        TipoDieta[] tds = td.buscaTodosTipoDieta();
+        List<TipoDieta> tds = td.mostraTDs();
         System.out.print("Insira o nome da refeicao: ");
         String nome = s.nextLine();
         refeicao.setNomeRefeicao(nome);
@@ -361,7 +365,7 @@ public class Menus {
         }
         System.out.print("Selecione um tipo de dieta da sua refeicao pelo id: ");
         long tdid = Integer.parseInt(s.nextLine());
-        refeicao.setTd(td.BuscaPorId(tdid));
+        refeicao.setTd(td.buscaTDId(tdid));
         System.out.print("Insira a quantidade de carboidratos desejados na refeicao: ");
         double carb = Double.parseDouble(s.nextLine());
         refeicao.setCarb(carb);
@@ -410,7 +414,7 @@ public class Menus {
     
     public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
         RegistroDieta regDieta = new RegistroDieta();
-        TipoDieta[] tds = td.buscaTodosTipoDieta();
+        List<TipoDieta> tds = td.mostraTDs();
         System.out.print("""
                            Escolha seu objetivo pelo numero a esquerda:
                            1: Perder peso.

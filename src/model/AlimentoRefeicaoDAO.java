@@ -4,71 +4,99 @@
  */
 package model;
 
+import connection.ConnectionFactory;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class AlimentoRefeicaoDAO {
 
     AlimentoRefeicao[] alimentoRefeicao = new AlimentoRefeicao[20];
 
     public AlimentoRefeicaoDAO(RefeicoesDAO refeicaoDAO, AlimentoDAO alimentoDAO, PessoaDAO pessoaDAO) {
-        AlimentoRefeicao alrf1 = new AlimentoRefeicao();
-        alrf1.setPessoa(pessoaDAO.buscaPorNome("renato"));
-        alrf1.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf1.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
-        alrf1.setPorcao(1);
-        criaRefeicaoAlimento(alrf1);
-
-        AlimentoRefeicao alrf2 = new AlimentoRefeicao();
-        alrf2.setPessoa(pessoaDAO.buscaPorNome("renato"));
-        alrf2.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf2.setAlimento((Alimento) alimentoDAO.buscaAlimento(2));
-        alrf2.setPorcao(1);
-
-        criaRefeicaoAlimento(alrf2);
-
-        AlimentoRefeicao alrf3 = new AlimentoRefeicao();
-        alrf3.setPessoa(pessoaDAO.buscaPorNome("renato"));
-        alrf3.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf3.setAlimento((Alimento) alimentoDAO.buscaAlimento(3));
-        alrf3.setPorcao(1);
-        criaRefeicaoAlimento(alrf3);
-
-        AlimentoRefeicao alrf4 = new AlimentoRefeicao();
-        alrf4.setPessoa(pessoaDAO.buscaPorNome("renato"));
-        alrf4.setRefeicao(refeicaoDAO.buscaPorId(1));
-        alrf4.setAlimento((Alimento) alimentoDAO.buscaAlimento(4));
-        alrf4.setPorcao(1);
-        criaRefeicaoAlimento(alrf4);
-        
-        AlimentoRefeicao alrf5 = new AlimentoRefeicao();
-        alrf5.setPessoa(pessoaDAO.buscaPorNome("renato"));
-        alrf5.setRefeicao(refeicaoDAO.buscaPorId(2));
-        alrf5.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
-        alrf5.setPorcao(1);
-        criaRefeicaoAlimento(alrf5);
-
-
+//        AlimentoRefeicao alrf1 = new AlimentoRefeicao();
+//        alrf1.setPessoa(pessoaDAO.buscaPorNome("renato"));
+//        alrf1.setRefeicao(refeicaoDAO.buscaPorId(1));
+//        alrf1.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
+//        alrf1.setPorcao(1);
+//        criaRefeicaoAlimento(alrf1);
+//
+//        AlimentoRefeicao alrf2 = new AlimentoRefeicao();
+//        alrf2.setPessoa(pessoaDAO.buscaPorNome("renato"));
+//        alrf2.setRefeicao(refeicaoDAO.buscaPorId(1));
+//        alrf2.setAlimento((Alimento) alimentoDAO.buscaAlimento(2));
+//        alrf2.setPorcao(1);
+//
+//        criaRefeicaoAlimento(alrf2);
+//
+//        AlimentoRefeicao alrf3 = new AlimentoRefeicao();
+//        alrf3.setPessoa(pessoaDAO.buscaPorNome("renato"));
+//        alrf3.setRefeicao(refeicaoDAO.buscaPorId(1));
+//        alrf3.setAlimento((Alimento) alimentoDAO.buscaAlimento(3));
+//        alrf3.setPorcao(1);
+//        criaRefeicaoAlimento(alrf3);
+//
+//        AlimentoRefeicao alrf4 = new AlimentoRefeicao();
+//        alrf4.setPessoa(pessoaDAO.buscaPorNome("renato"));
+//        alrf4.setRefeicao(refeicaoDAO.buscaPorId(1));
+//        alrf4.setAlimento((Alimento) alimentoDAO.buscaAlimento(4));
+//        alrf4.setPorcao(1);
+//        criaRefeicaoAlimento(alrf4);
+//        
+//        AlimentoRefeicao alrf5 = new AlimentoRefeicao();
+//        alrf5.setPessoa(pessoaDAO.buscaPorNome("renato"));
+//        alrf5.setRefeicao(refeicaoDAO.buscaPorId(2));
+//        alrf5.setAlimento((Alimento) alimentoDAO.buscaAlimento(1));
+//        alrf5.setPorcao(1);
+//        criaRefeicaoAlimento(alrf5);
     }
 
-    public int proxLivre() {
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if (alimentoRefeicao[i] == null) {
-                return i;
-            }
-
-        }
-        return -1;
-    }
-
+//    public int proxLivre() {
+//        for (int i = 0; i < alimentoRefeicao.length; i++) {
+//            if (alimentoRefeicao[i] == null) {
+//                return i;
+//            }
+//
+//        }
+//        return -1;
+//    }
+    
     public boolean criaRefeicaoAlimento(AlimentoRefeicao alrf) {
-        int proxLivre = proxLivre();
-        for (int i = 0; i < alimentoRefeicao.length; i++) {
-            if (proxLivre != -1) {
-                alimentoRefeicao[proxLivre] = alrf;
-                return true;
-            }
+        String sql = "insert into alimento"
+                + "(Refeicoes_idRefeicoes,Refeicoes_TipoDieta_idTipoDieta,Alimento_idAlimento,Pessoa_idPessoa,porcao,createDate)" + " values (?,?,?,?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+            // seta os valores
+//            stmt.setString(1, alrf.getNome());
+//            stmt.setDouble(2, alimento.getCarb());
+//            stmt.setDouble(3, alimento.getProt());
+//            stmt.setDouble(4, alimento.getGord());
+//            stmt.setDouble(5, alimento.getCal());
+//            stmt.setDouble(6, alimento.getPorcao());
+//            stmt.setDate(7, java.sql.Date.valueOf(alimento.getCreateDate()));
+            
+            stmt.execute();
+            
+            System.out.println("Alimento inserido com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return false;
-    }
+        //na verdade deveria retornar o elemento que foi inserido agora
+        return true;
+    }    
+
+//    public boolean criaRefeicaoAlimento(AlimentoRefeicao alrf) {
+//        int proxLivre = proxLivre();
+//        for (int i = 0; i < alimentoRefeicao.length; i++) {
+//            if (proxLivre != -1) {
+//                alimentoRefeicao[proxLivre] = alrf;
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public boolean removeAlimentoRefeicao(long id) {
         for (int i = 0; i < alimentoRefeicao.length; i++) {

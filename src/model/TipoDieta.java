@@ -1,21 +1,16 @@
 package model;
 
+import java.time.LocalDate;
+
 public class TipoDieta{
     private long id;
     private String nome;
     private double carb;
     private double prot;
     private double gord;
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
 
-    public TipoDieta() {
-        this.id = ++TipoDieta.serial;
-        
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
-    }
 
     public long getId() {
         return id;
@@ -53,16 +48,12 @@ public class TipoDieta{
         this.gord = gord;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
-    }
-
-        public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
     }
 
     @Override
@@ -90,6 +81,10 @@ public class TipoDieta{
     @Override
     public String toString() {
         return "\n" + id +" - "+ nome + "\n% de carboidradtos: " + carb + "\n% de proteinas: " + prot + "\n% de gordudas: " + gord;
+    }
+
+    void setId(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     
