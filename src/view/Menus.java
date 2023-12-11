@@ -96,22 +96,26 @@ public class Menus {
         List<Seguindo> listaSeguidores = seguidores.buscaSeguidoresPessoa(Utils.getPessoaLogada());
         if (listaSeguidores != null) {
             for (Seguindo listaSeguidor : listaSeguidores) {
-                if(listaSeguidor!=null)
-                     posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
-        List<Post> postlist = null;
-        if (!listaSeguidores.isEmpty()) {
-            for (Seguindo seguidor : listaSeguidores) {
-                if(seguidor != null)
-                    postlist = posts.mostraTodosPostPessoa(seguidor.getSeguidores());
+                if (listaSeguidor != null) {
+                    posts.mostraTodosPostPessoa(listaSeguidor.getSeguidores());
+                }
+            }
+            List<Post> postlist = null;
+            if (!listaSeguidores.isEmpty()) {
+                for (Seguindo seguidor : listaSeguidores) {
+                    if (seguidor != null) {
+                        postlist = posts.mostraTodosPostPessoa(seguidor.getSeguidores());
+                    }
                     ListIterator<Post> li = postlist.listIterator();
                     while (li.hasNext()) {
                         Post next = li.next();
                         li.remove();
                         System.out.println(next);
+                    }
                 }
+            } else {
+                System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
             }
-        } else {
-            System.out.println("\n\n====== SEM POSTS DE SEGUIDORES ======");
         }
     }
 

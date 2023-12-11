@@ -349,7 +349,6 @@ public class ProgramaPDAO {
 
                     break;
 
-                    
                 case 0:
                     System.out.println("Voltando");
                     break;
