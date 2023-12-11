@@ -62,8 +62,10 @@ public class SeguindoDAO {
         String sql = "select * from seguindo where Pessoa_idPessoa = ?";
         List<Pessoa> seguidores = new ArrayList<>();
         try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setLong(1, p.getId());
             try (ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
+                    
                     Long id = rs.getLong("Pessoa_idPessoaSeguindo");
                 
                     Pessoa pessoa = new PessoaDAO().buscaPorId(id);

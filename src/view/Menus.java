@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 import model.Alimento;
+import model.AlimentoDAO;
 import model.AlimentoRefeicao;
 import model.Avaliacao;
 import model.AvaliacaoDAO;
@@ -79,7 +80,7 @@ public class Menus {
         menu.append("\n====== MENU PRINCIPAL ======");
         menu.append("\n1 - Minha Dieta");
         menu.append("\n2 - Preferencias Alimentares");
-        menu.append("\n3 - Seguir usuario pelo nome");
+        menu.append("\n3 - Seguidores");
         menu.append("\n4 - Gerenciar avaliacao fisica");
         menu.append("\n5 - Meus posts");
         menu.append("\n6 - Mensagens");
@@ -201,7 +202,7 @@ public class Menus {
         menu.append("\n====== PREFERENCIAS ======");
         menu.append("\n1 - Exibir alimentos preferidos");
         menu.append("\n2 - Adicionar alimento registrado");
-        menu.append("\n3 - Adicionar novo alimento");
+        menu.append("\n3 - Adicionar novo alimento preferido");
         menu.append("\n4 - Remover alimento preferencial");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
@@ -211,25 +212,26 @@ public class Menus {
     }
 
     public void exibePreferenciasUsuario(PreferenciaDAO preferenciasDAO) {
-        Preferencia preferencias = preferenciasDAO.buscaPref(Utils.getPessoaLogada());
-        Alimento[] alimentos = preferencias.getAlimento();
+        List<Preferencia> preferencias = preferenciasDAO.buscaPrefPorPessoa(Utils.getPessoaLogada());
 
-        for (Alimento al : alimentos) {
-            if (al != null) {
-                System.out.println(al.toString());
-            }
+        ListIterator<Preferencia> li =  preferencias.listIterator();
+        while (li.hasNext()) {
+            Preferencia next = li.next();
+            li.remove();
+            System.out.println(next);            
         }
     }
+    
 
     public int menuSeguidores() {
+        System.out.println("\n====== SEGUIDORES ======");
+       
         StringBuilder menu = new StringBuilder("");
 
         menu.append("\n\n");
-        menu.append("\n====== SEGUIDORES ======");
+
         menu.append("\n1 - Busca usuario para seguir");
-        menu.append("\n2 - Adicionar alimento registrado");
-        menu.append("\n3 - Adicionar novo alimento");
-        menu.append("\n4 - Remover alimento preferencial");
+        menu.append("\n2 - Deixar de seguir pessoa");
         menu.append("\n0 - Voltar");
         menu.append("\n-> ");
         System.out.print(menu);
@@ -237,7 +239,7 @@ public class Menus {
         return Integer.parseInt(s.nextLine());
     }
 
-    public Alimento addNovoAlimento() {
+    public long addNovoAlimento() {
         System.out.print("Nome do alimento: ");
         String nome = s.nextLine();
         System.out.print("Tamanho da porcao em gramas: ");
@@ -255,7 +257,8 @@ public class Menus {
         ali.setProt(prot);
         ali.setPorcao(porcao);
         ali.setCal();
-        return ali;
+        long id = new AlimentoDAO().adiciona(ali);
+        return id;
     }
 
     public int menuMensagens(MensagemDAO mensagens) {

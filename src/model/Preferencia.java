@@ -1,17 +1,20 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Preferencia {
     private long id;
     private Pessoa pessoa;
-    private Alimento alimento[] = new Alimento[10];
-    private String createDate;
-    private String modifyDate;
-    private static long serial;
+    private Alimento alimento;
+    private LocalDate createDate;
+    private LocalDate modifyDate;
 
     public Preferencia() {
-        this.id = ++Preferencia.serial;
-        this.createDate = Utils.dataAgora();
-        this.modifyDate = "";
+        this.createDate = LocalDate.now();
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId() {
@@ -26,41 +29,24 @@ public class Preferencia {
         this.pessoa = pessoa;
     }
 
-    public Alimento[] getAlimento() {
+    public Alimento getAlimento() {
         return alimento;
     }
 
-    public boolean setAlimento(Alimento alimento) {
-        for (int i = 0; i < this.alimento.length; i++) {
-            if(this.alimento[i] == null){
-                this.alimento[i] = alimento;
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    
-    public boolean setAlimento(long id){
-        for (int i = 0; i < alimento.length; i++) {
-            if(alimento[i].getId() == id){
-                alimento[i] = null;
-                return true;
-            }
-        }
-        return false;
+    public void setAlimento(Alimento alimento) {
+        this.alimento = alimento;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public String getModifyDate() {
+    public LocalDate getModifyDate() {
         return modifyDate;
     }
 
     public void setModifyDate() {
-        this.modifyDate = Utils.dataAgora();
+        this.modifyDate = LocalDate.now();
     }
 
     @Override
@@ -87,7 +73,7 @@ public class Preferencia {
 
     @Override
     public String toString() {
-        return "Preferencia{" + "id=" + id + ", pessoa=" + pessoa + ", alimento=" + alimento + ", createDate=" + createDate + ", modifyDate=" + modifyDate + '}';
+        return id + " - Alimento: " + alimento.getNome();
     }
     
     
