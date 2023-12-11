@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import model.TipoDietaDAO;
+import model.TipoDieta;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -21,6 +23,7 @@ public class RefeicoesDAO {
     
     public RefeicoesDAO(){
         
+
     }
     
     public boolean criaRfs(Refeicoes a) {
@@ -34,7 +37,7 @@ public class RefeicoesDAO {
             stmt.setDouble(3, a.getProt());
             stmt.setDouble(4, a.getGord());
             stmt.setDouble(5, a.getCal());
-            //stmt.setInt(6, a.getTd());
+            stmt.setLong(6, a.getTd().getId());
             stmt.setDate(7, java.sql.Date.valueOf(a.getCreateDate()));
 
             stmt.execute();
@@ -48,13 +51,13 @@ public class RefeicoesDAO {
     }
     
 
-    public List<Refeicoes> mostraRfs() {
-        String sql = "select * from refeicoes";
+    public List<Refeicoes> mostraRfs(Pessoa p) {
+        String sql = "select * from refeicoes where Pessoa_idPessoa = ?";
 
         List<Refeicoes> refeicoes = new ArrayList<>();
 
-        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery(sql)) {
-
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery(sql)) {
+            ps.setLong(1, p.getId());
             while (rs.next()) {
                 Long id = rs.getLong("idRefeicoes");
                 String nomeRefeicao = rs.getString("nome");
@@ -62,7 +65,7 @@ public class RefeicoesDAO {
                 Double prot = rs.getDouble("prot");
                 Double gord = rs.getDouble("gord");
                 Double cal = rs.getDouble("cal");
-                //TipoDieta td = rs.getTd(TipoDieta_idTipoDieta);
+                Long td = rs.getLong("TipoDieta_idTipoDieta");
 
                 Refeicoes a = new Refeicoes();
                 a.setId(id);
@@ -107,7 +110,7 @@ public class RefeicoesDAO {
                 Double prot = rs.getDouble("prot");
                 Double gord = rs.getDouble("gord");
                 Double cal = rs.getDouble("cal");
-                //TipoDieta td = rs.getTd(TipoDieta_idTipoDieta);
+                Long td = rs.getLong("TipoDieta_idTipoDieta");
 
                 Refeicoes a = new Refeicoes();
                 a.setId(id);

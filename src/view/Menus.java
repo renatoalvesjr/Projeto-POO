@@ -119,6 +119,7 @@ public class Menus {
         }
     }
 
+
     public Avaliacao realizarAval(AvaliacaoDAO avalDAO) {
         System.out.println("Insira sua idade: ");
         int idade = Integer.parseInt(s.nextLine());
@@ -416,26 +417,26 @@ public class Menus {
         }
     }
     
-    public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
-        RegistroDieta regDieta = new RegistroDieta();
-        List<TipoDieta> tds = td.mostraTDs();
-        System.out.print("""
-                           Escolha seu objetivo pelo numero a esquerda:
-                           1: Perder peso.
-                           2: Manter peso.
-                           3: Ganhar peso.
-                           => """);
-        int obj = Integer.parseInt(s.nextLine());
-        regDieta.toString();
-        for (TipoDieta td1 : tds) {
-            if (td1 != null) {
-                System.out.println(td1);
-            }
-        }
-        System.out.print("Informe a quantidade de refeições desejadas:  ");
-        int qtdRef = Integer.parseInt(s.nextLine());
-        regDieta.toString();
-        return regDieta;
-    }
+//    public RegistroDieta menuCriarRD(TipoDietaDAO td, AvaliacaoDAO avals, RegistroDietaDAO rd) {
+//        RegistroDieta regDieta = new RegistroDieta();
+//        List<TipoDieta> tds = td.mostraTDs();
+//        System.out.print("""
+//                           Escolha seu objetivo pelo numero a esquerda:
+//                           1: Perder peso.
+//                           2: Manter peso.
+//                           3: Ganhar peso.
+//                           => """);
+//        int obj = Integer.parseInt(s.nextLine());
+//        regDieta.toString();
+//        for (TipoDieta td1 : tds) {
+//            if (td1 != null) {
+//                System.out.println(td1);
+//            }
+//        }
+//        System.out.print("Informe a quantidade de refeições desejadas:  ");
+//        int qtdRef = Integer.parseInt(s.nextLine());
+//        regDieta.toString();
+//        return regDieta;
+//    }
     
 }

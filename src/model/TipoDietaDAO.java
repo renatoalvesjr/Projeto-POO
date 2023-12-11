@@ -35,11 +35,10 @@ public class TipoDietaDAO {
             stmt.execute();
 
             System.out.println("Tipo de dieta inserido com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        return true;
     }
 
     public List<TipoDieta> mostraTDs() {

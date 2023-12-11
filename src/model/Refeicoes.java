@@ -14,6 +14,10 @@ public class Refeicoes {
     private LocalDate modifyDate;
     
 
+    public Refeicoes(){
+        createDate = LocalDate.now();
+    }
+    
     public long getId() {
         return id;
     }
